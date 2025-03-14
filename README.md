@@ -2,9 +2,9 @@
 
 | Student's name | SCIPER |
 | -------------- | ------ |
-|Eltawil Sama Wael Abdelhai Abdelhadi | |
-|Schifferli Théo Edouard | |
-|Sipofo Kamegne Yann Eddy | |
+|Eltawil Sama Wael Abdelhai Abdelhadi |378051|
+|Schifferli Théo Edouard |326468|
+|Sipofo Kamegne Yann Eddy |32035|
 
 [Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
 
