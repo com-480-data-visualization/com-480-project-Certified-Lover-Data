@@ -2,9 +2,9 @@
 
 | Student's name | SCIPER |
 | -------------- | ------ |
-|Eltawil Sama Wael Abdelhai Abdelhadi | |
-|Schifferli Théo Edouard | |
-|Sipofo Kamegne Yann Eddy | |
+|Eltawil Sama Wael Abdelhai Abdelhadi |378051|
+|Schifferli Théo Edouard |326468|
+|Sipofo Kamegne Yann Eddy |327035|
 
 [Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
 
@@ -36,11 +36,23 @@ Please, fill the following sections about your project.
 
 ### Related work
 
+Several websites and research projects have analyzed trends in the **Billboard Hot 100** and song popularity. While **Billboard.com** provides weekly rankings, it lacks interactive exploration of historical data.
 
-> - What others have already done with the data?
-> - Why is your approach original?
-> - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
-> - In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
+Our main inspiration comes from **The Pudding**, particularly:
+- **[“A History of Music Genres”](https://pudding.cool/2017/03/music-history/)**, which visualizes how genres have evolved over time.
+- **[“Love Songs Through the Decades”](https://pudding.cool/2024/11/love-songs/)**, analyzing lyrical trends in hit songs.
+
+Other platforms like **Kaggle** and **FiveThirtyEight** have explored factors such as artist trends and the impact of streaming on rankings. However, these analyses are often static, lack interactivity, and do not incorporate **audio elements** or **geographic insights**.
+
+##### Our Project
+Our project expands on these ideas by offering a **more immersive experience**, allowing users to:
+
+- **Genre Distribution Over Time:** Stacked area charts illustrating the rise and decline of genre popularity over the years (Top 10).
+- **Audio Feature Correlations:** Heatmaps revealing correlations between audio features and average chart rankings.
+- **Artist Debut Analysis:** Line graphs tracking the debut and rise of new artists on the charts.
+- **Top Features of Hit Songs:** Radar charts highlighting the distinctive audio feature profiles of top hits.
+- **MoodMap: Hit Predictions:** A prediction of the top genre and track based on mood, followed by an analysis of where they would be most listened to today.
+
 
 ## Milestone 2 (18th April, 5pm)
 
