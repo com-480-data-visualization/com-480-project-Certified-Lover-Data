@@ -47,11 +47,11 @@ Other platforms like **Kaggle** and **FiveThirtyEight** have explored factors su
 ##### Our Project
 Our project expands on these ideas by offering a **more immersive experience**, allowing users to:
 
-- **Genre Distribution Over Time** Stacked area charts illustrating the rise and decline of genre popularity over the years (Top 10).
-- **Audio Feature Correlations** Heatmaps revealing correlations between audio features and average chart rankings.
-- **Artist Debut Analysis** Line graphs tracking the debut and rise of new artists on the charts.
-- **Top Features of Hit Songs** Radar charts highlighting the distinctive audio feature profiles of top hits.
-- **MoodMap: Hit Predictions** A prediction of the top genre and track based on mood, followed by an analysis of where they would be most listened to today.
+- **Genre Distribution Over Time:** Stacked area charts illustrating the rise and decline of genre popularity over the years (Top 10).
+- **Audio Feature Correlations:** Heatmaps revealing correlations between audio features and average chart rankings.
+- **Artist Debut Analysis:** Line graphs tracking the debut and rise of new artists on the charts.
+- **Top Features of Hit Songs:** Radar charts highlighting the distinctive audio feature profiles of top hits.
+- **MoodMap: Hit Predictions:** A prediction of the top genre and track based on mood, followed by an analysis of where they would be most listened to today.
 
 
 ## Milestone 2 (18th April, 5pm)
