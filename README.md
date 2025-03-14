@@ -47,12 +47,11 @@ Other platforms like **Kaggle** and **FiveThirtyEight** have explored factors su
 ##### Our Project
 Our project expands on these ideas by offering a **more immersive experience**, allowing users to:
 
-- 🎵 **Listen to audio samples** of Billboard songs while exploring trends interactively.
-- 📊 **Visualize genre dominance** over decades, tracking the evolution of different styles.
-- 🌍 **Analyze regional influences** on music trends using a world map showing the geographic distribution of genres.
-- 🗺️ **Explore a clustered map** of artists and genres, grouping similar genres (e.g., jazz, electro) to highlight their connections.
-- 🔥 **Create a density map** of genres, showing where specific styles (e.g., jazz, electronic) are most prevalent.
-- 🤖 **Leverage AI clustering** (Jukebox AI) to reveal hidden patterns in genre similarities and artist styles.
+- **Genre Distribution Over Time** Stacked area charts illustrating the rise and decline of genre popularity over the years (Top 10).
+- **Audio Feature Correlations** Heatmaps revealing correlations between audio features and average chart rankings.
+- **Artist Debut Analysis** Line graphs tracking the debut and rise of new artists on the charts.
+- **Top Features of Hit Songs** Radar charts highlighting the distinctive audio feature profiles of top hits.
+- **MoodMap: Hit Predictions** A prediction of the top genre and track based on mood, followed by an analysis of where they would be most listened to today.
 
 
 ## Milestone 2 (18th April, 5pm)
