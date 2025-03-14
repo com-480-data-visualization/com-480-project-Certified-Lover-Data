@@ -36,11 +36,24 @@ Please, fill the following sections about your project.
 
 ### Related work
 
+Several websites and research projects have analyzed trends in the **Billboard Hot 100** and song popularity. While **Billboard.com** provides weekly rankings, it lacks interactive exploration of historical data.
 
-> - What others have already done with the data?
-> - Why is your approach original?
-> - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
-> - In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
+Our main inspiration comes from **The Pudding**, particularly:
+- **[“A History of Music Genres”](https://pudding.cool/2017/03/music-history/)**, which visualizes how genres have evolved over time.
+- **[“Love Songs Through the Decades”](https://pudding.cool/2024/11/love-songs/)**, analyzing lyrical trends in hit songs.
+
+Other platforms like **Kaggle** and **FiveThirtyEight** have explored factors such as artist trends and the impact of streaming on rankings. However, these analyses are often static, lack interactivity, and do not incorporate **audio elements** or **geographic insights**.
+
+##### Our Project
+Our project expands on these ideas by offering a **more immersive experience**, allowing users to:
+
+- 🎵 **Listen to audio samples** of Billboard songs while exploring trends interactively.
+- 📊 **Visualize genre dominance** over decades, tracking the evolution of different styles.
+- 🌍 **Analyze regional influences** on music trends using a world map showing the geographic distribution of genres.
+- 🗺️ **Explore a clustered map** of artists and genres, grouping similar genres (e.g., jazz, electro) to highlight their connections.
+- 🔥 **Create a density map** of genres, showing where specific styles (e.g., jazz, electronic) are most prevalent.
+- 🤖 **Leverage AI clustering** (Jukebox AI) to reveal hidden patterns in genre similarities and artist styles.
+
 
 ## Milestone 2 (18th April, 5pm)
 
