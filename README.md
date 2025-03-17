@@ -6,7 +6,7 @@
 |Schifferli Théo Edouard |326468|
 |Sipofo Kamegne Yann Eddy |327035|
 
-[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
+# Spotify Billboard Hot 100 Analysis 📊🎶
 
 ## Milestone 1 (21st March, 5pm)
 
@@ -18,16 +18,25 @@ Please, fill the following sections about your project.
 *(max. 2000 characters per section)*
 
 ### Dataset
-
-> Find a dataset (or multiple) that you will explore. Assess the quality of the data it contains and how much preprocessing / data-cleaning it will require before tackling visualization. We recommend using a standard dataset as this course is not about scraping nor data processing.
->
-> Hint: some good pointers for finding quality publicly available datasets ([Google dataset search](https://datasetsearch.research.google.com/), [Kaggle](https://www.kaggle.com/datasets), [OpenSwissData](https://opendata.swiss/en/), [SNAP](https://snap.stanford.edu/data/) and [FiveThirtyEight](https://data.fivethirtyeight.com/)), you could use also the DataSets proposed by the ENAC (see the Announcements section on Zulip).
+Our chosen datasets, **"[Billboard Hot 100 Weekly Charts with Spotify Audio Features](https://www.kaggle.com/datasets/thedevastator/billboard-hot-100-audio-features)"** and **"[Top Spotify Songs in 73 Countries Daily Updated](https://www.kaggle.com/datasets/asaniczka/top-spotify-songs-in-73-countries-daily-updated)"**, encompass weekly Billboard Hot 100 charts enriched with Spotify's audio features and daily rankings of the most popular songs across 73 countries, providing valuable insights into global music trends, song popularity, and the relationship between audio features and chart performance.
 
 ### Problematic
+#### Motivation
+Should you really be writing **POP MUSIC** to make it to the Billboard Hot 100? Music is a universal language powerful enough to evoke emotions, represent cultures, and influence generations. It can uplift spirits, bring nostalgia, or set the perfect mood for any occasion. From high-energy dance tracks that fuel parties to soulful ballads that resonate deeply, music shapes how we feel and interact with the world around us.
 
-> Frame the general topic of your visualization and the main axis that you want to develop.
-> - What am I trying to show with my visualization?
-> - Think of an overview for the project, your motivation, and the target audience.
+But beyond personal experiences, what makes a song widely popular? Does the mood or genre of a song determine its success on the charts? Are certain musical styles more likely to dominate the Billboard Hot 100? By analyzing the ranking of songs alongside their audio features such as energy, tempo, and danceability, we can uncover patterns that explain what captures the attention of millions. 
+
+This project aims to explore whether specific genres or moods consistently achieve top positions and if emerging trends can predict the next big hit. Through data visualization, we seek to decode the relationship between sound, sentiment, and chart success, offering insights into the ever-evolving world of music.
+#### Research Questions
+- **Genre Influence on Chart Performance:** How do different genres correlate with chart positions? Do certain genres have a higher likelihood of reaching top spots?
+- **Temporal Genre Trends:** How has the popularity of different genres evolved over the years? Are there dominant genres that define specific eras, or do new styles emerge and reshape the musical landscape?
+- **Audio Features & Success Metrics:** What is the relationship between specific audio features (e.g., danceability, energy) and chart success? Are there recognizable patterns that contribute to higher rankings?
+- **Spotting Emerging Artists:** How do new artists enter the charts, and what characteristics define tracks that propel them to prominence?
+#### Target Audience
+- **Music Industry Professionals:** Record labels, producers, and talent scouts seeking data-driven insights.
+- **Music Enthusiasts:** Fans interested in the dynamics of music trends and chart movements.
+- **Artists & Musicians:** Individuals aiming to understand the elements that contribute to chart success.
+
 
 ### Exploratory Data Analysis
 
