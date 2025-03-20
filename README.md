@@ -85,13 +85,21 @@ This dataset provides daily rankings for the top songs across 73 countries and c
 - `popularity`: A measure of the song's current popularity on Spotify. (type: int)
 
 
-### Problematic
-#### Motivation
-Should you really be writing **POP MUSIC** to make it to the Billboard Hot 100? Music is a universal language powerful enough to evoke emotions, represent cultures, and influence generations. It can uplift spirits, bring nostalgia, or set the perfect mood for any occasion. From high-energy dance tracks that fuel parties to soulful ballads that resonate deeply, music shapes how we feel and interact with the world around us.
+### Problematic 
+#### Motivation - **What Makes a Song a Hit? Decoding the Billboard Hot 100**
+Should you really be writing only **POP MUSIC** to make it to the Billboard Hot 100? What if there was a formula for making a chart-topping hit? Have you ever wondered why some songs dominate the airwaves while others fade into obscurity? Is it the catchy melody, the infectious rhythm, or simply the genre that makes a track soar to the top of the Billboard Hot 100?  
 
-But beyond personal experiences, what makes a song widely popular? Does the mood or genre of a song determine its success on the charts? Are certain musical styles more likely to dominate the Billboard Hot 100? By analyzing the ranking of songs alongside their audio features such as energy, tempo, and danceability, we can uncover patterns that explain what captures the attention of millions. 
+Music is more than just sound—it's a universal language that influences culture, evokes emotions, and shapes generations. From high-energy dance tracks that fuel parties to soulful ballads that stir deep emotions, music plays a powerful role in our daily lives. But what truly determines a song’s success?  
 
-This project aims to explore whether specific genres or moods consistently achieve top positions and if emerging trends can predict the next big hit. Through data visualization, we seek to decode the relationship between sound, sentiment, and chart success, offering insights into the ever-evolving world of music.
+This project seeks to **uncover the hidden patterns behind chart-topping hits** by analyzing the impact of genre, mood, and key musical features—such as energy, tempo, and danceability—on a song’s popularity. Instead of the conventional approach of tracking individual artists over time, we will introduce a **genre race**, visualizing how different musical styles have risen and fallen in popularity over the decades trying to uncover hidden gems in less known genres. This approach will allow us to **map the evolution of listener preferences**, identifying whether certain genres dominate during specific periods and whether emerging trends can help predict the next big hit.
+
+Additionally, a **geographic visualization** will illustrate the **current daily distribution of top songs across different regions**, providing insights into how music tastes vary worldwide and how certain tracks gain global traction.
+
+Finally, on a fun interactive note, we will develop a **machine learning model** that predicts the song closest to a user’s taste based on the inputted musical features, allowing listeners to discover tracks that align most with their features preferences.
+
+Can we predict the future of music trends? Let’s dive in and find out.
+
+
 #### Research Questions
 - **Genre Influence on Chart Performance:** How do different genres correlate with chart positions? Do certain genres have a higher likelihood of reaching top spots?
 - **Temporal Genre Trends:** How has the popularity of different genres evolved over the years? Are there dominant genres that define specific eras, or do new styles emerge and reshape the musical landscape?
