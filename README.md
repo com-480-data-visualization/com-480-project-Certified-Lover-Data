@@ -97,9 +97,6 @@ Additionally, a **geographic visualization** will illustrate the **current daily
 
 Finally, on a fun and interactive note, we will develop a machine learning model trained to identify which specific feature values (danceability, acousticness, etc.) correspond to particular genres. This will enable real-time inference of the genre that best matches a user’s taste based on their selected musical features inputted through the website. Listeners can then discover tracks that align closely with their preferences via the predicted genre. A similarity measure will be calculated between the user’s input and the ground truth values of tracks to identify the closest match, accompanied by a similarity percentage (e.g., 93% similarity).
 
-Can we predict the future of music trends? Let’s dive in and find out.
-
-
 #### Research Questions
 - **Genre Influence on Chart Performance:** How do different genres correlate with chart positions? Do certain genres have a higher likelihood of reaching top spots?
 - **Temporal Genre Trends:** How has the popularity of different genres evolved over the years? Are there dominant genres that define specific eras, or do new styles emerge and reshape the musical landscape?
@@ -120,7 +117,7 @@ As mentionned above,  the datasets are relatively clean, requiring minimal prepr
 ![plot](./img/hotstuffnan.png)
 ![plot](./img/topspotifynan.png)
 
-From the first plot, we observe that a significant portion of the **Spotify track preview URLs** are missing. Since having a valid preview URL is essential for enabling track playback on our website, we will need to **remove all rows where this field is missing**. This ensures that every track included in our dataset is playable, maintaining a seamless user experience for discovering music through audio previews.
+From the first plot, we observe that a significant portion of the **Spotify track preview URLs** are missing. Since having a valid preview URL is essential for enabling track playback on our website, we will need to **remove all rows where this field is missing**. This ensures that every track included in our dataset is playable, maintaining a seamless user experience for discovering music through audio previews. (*If this filtering proves too strict, we will revisit and adjust our approach later in the project.*)
 
 For the **previous week position** column, missing values are expected for tracks that have just debuted on the **Billboard** chart. Since these entries represent new songs entering the rankings for the first time, there's no prior position available. Therefore, we will **keep these rows as they are**, as their absence does not indicate missing or faulty data but rather a natural aspect of the charting process.
 
