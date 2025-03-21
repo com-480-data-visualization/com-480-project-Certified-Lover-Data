@@ -18,7 +18,7 @@ Please, fill the following sections about your project.
 *(max. 2000 characters per section)*
 
 ### Dataset
-Our chosen datasets, **"[Billboard Hot 100 Weekly Charts with Spotify Audio Features](https://www.kaggle.com/datasets/thedevastator/billboard-hot-100-audio-features)"** and **"[Top Spotify Songs in 73 Countries Daily Updated](https://www.kaggle.com/datasets/asaniczka/top-spotify-songs-in-73-countries-daily-updated)"**, encompass weekly Billboard Hot 100 charts enriched with Spotify's audio features and daily rankings of the most popular songs across 73 countries, providing valuable insights into global music trends, song popularity, and the relationship between audio features and chart performance. 
+Our chosen datasets, **[Billboard Hot 100 Weekly Charts with Spotify Audio Features](https://www.kaggle.com/datasets/thedevastator/billboard-hot-100-audio-features)** and **[Top Spotify Songs in 73 Countries Daily Updated](https://www.kaggle.com/datasets/asaniczka/top-spotify-songs-in-73-countries-daily-updated)**, encompass weekly Billboard Hot 100 charts enriched with Spotify's audio features and daily rankings of the most popular songs across 73 countries, providing valuable insights into global music trends, song popularity, and the relationship between audio features and chart performance. 
 The datasets are quite clean and requires minimal preprocessing. The only necessary step is handling NaN values, particularly for missing Spotify track previews. Once those are addressed, the dataset should be ready for visualization with little additional effort.
 
 ### Dataset 1: Billboard Hot 100 Audio Features
