@@ -86,8 +86,8 @@ This dataset provides daily rankings for the top songs across 73 countries and c
 
 
 ### Problematic 
-#### Motivation - **What Makes a Song a Hit? Decoding the Billboard Hot 100**
-Should you really be writing only **POP MUSIC** to make it to the Billboard Hot 100? What if there was a formula for making a chart-topping hit? Have you ever wondered why some songs dominate the airwaves while others fade into obscurity? Is it the catchy melody, the infectious rhythm, or simply the genre that makes a track soar to the top of the Billboard Hot 100?  
+#### Motivation
+Should you really be writing only POP MUSIC to make it to the Billboard Hot 100?
 
 Music is more than just sound, it's a universal language that influences culture, evokes emotions, and shapes generations. From high-energy dance tracks that fuel parties to soulful ballads that stir deep emotions, music plays a powerful role in our daily lives. But what truly determines a song’s success?  
 
