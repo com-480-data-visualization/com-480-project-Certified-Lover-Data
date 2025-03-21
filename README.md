@@ -113,9 +113,20 @@ Can we predict the future of music trends? Let’s dive in and find out.
 
 
 ### Exploratory Data Analysis
+The complete notebook used for our exploratory data analysis can be found [here](./milestone1.ipynb)  
+As mentionned above,  the datasets are relatively clean, requiring minimal preprocessing. However, some columns contain NaN values, particularly in fields like Spotify track previews and previous week positions. The visualizations below illustrate the proportion of missing values across different features, helping us determine whether imputation or removal is necessary before moving forward with data exploration and visualization.
+![plot](./img/hot100nan.png)
+![plot](./img/hotstuffnan.png)
+![plot](./img/topspotifynan.png)
 
-> Pre-processing of the data set you chose
-> - Show some basic statistics and get insights about the data
+From the first plot, we observe that a significant portion of the **Spotify track preview URLs** are missing. Since having a valid preview URL is essential for enabling track playback on our website, we will need to **remove all rows where this field is missing**. This ensures that every track included in our dataset is playable, maintaining a seamless user experience for discovering music through audio previews.
+
+For the **previous week position** column, missing values are expected for tracks that have just debuted on the **Billboard** chart. Since these entries represent new songs entering the rankings for the first time, there's no prior position available. Therefore, we will **keep these rows as they are**, as their absence does not indicate missing or faulty data but rather a natural aspect of the charting process.
+
+For the **country** column in the **Top Spotify Tracks per Country** dataset, missing values are problematic since this column is central to our analysis. Since our focus is on track popularity across different countries, we will **remove all rows where the country value is missing** to ensure the dataset remains relevant and accurately represents regional trends in music consumption.
+
+
+
 
 ### Related work
 
