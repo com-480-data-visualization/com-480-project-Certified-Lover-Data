@@ -115,6 +115,7 @@ Can we predict the future of music trends? Let’s dive in and find out.
 ### Exploratory Data Analysis
 The complete notebook used for our exploratory data analysis can be found [here](./milestone1.ipynb)  
 As mentionned above,  the datasets are relatively clean, requiring minimal preprocessing. However, some columns contain NaN values, particularly in fields like Spotify track previews and previous week positions. The visualizations below illustrate the proportion of missing values across different features, helping us determine whether imputation or removal is necessary before moving forward with data exploration and visualization.
+
 ![plot](./img/hot100nan.png)
 ![plot](./img/hotstuffnan.png)
 ![plot](./img/topspotifynan.png)
@@ -126,6 +127,7 @@ For the **previous week position** column, missing values are expected for track
 For the **country** column in the **Top Spotify Tracks per Country** dataset, missing values are problematic since this column is central to our analysis. Since our focus is on track popularity across different countries, we will **remove all rows where the country value is missing** to ensure the dataset remains relevant and accurately represents regional trends in music consumption.
 
 After having merged the `hot stuff` dataset with the `hot 100 Audio Features` we'd like to see the all time top 20 genres in billboard100
+
 ![plot](./img/top20genre_list.png)
 
 In the original dataset, some tracks have an empty genre field ([]). These missing genre labels prevent us from accurately analyzing genre distribution and trends. Since genre information is crucial for our analysis, we removed all rows with empty genres to ensure that only tracks with valid classifications are included in the visualization. This allows us to gain a clearer understanding of the most popular genres without distortions caused by missing data.
