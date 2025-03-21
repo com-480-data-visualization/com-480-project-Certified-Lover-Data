@@ -126,6 +126,10 @@ For the **previous week position** column, missing values are expected for track
 
 For the **country** column in the **Top Spotify Tracks per Country** dataset, missing values are problematic since this column is central to our analysis. Since our focus is on track popularity across different countries, we will **remove all rows where the country value is missing** to ensure the dataset remains relevant and accurately represents regional trends in music consumption.
 
+To better understand the temporal distribution of tracks in our dataset, we examined the **number of unique tracks per year**. The bar chart above illustrates how the volume of charting tracks has fluctuated over time, with noticeable peaks and dips. Some years see a higher influx of unique tracks, while others are characterized by greater chart longevity for individual songs. This helps us contextualize how the **Billboard Hot 100** has evolved in terms of turnover and diversity over the decades.
+
+![plot](./img/unique_tracks_per_year.png)
+
 After having merged the `hot stuff` dataset with the `hot 100 Audio Features` we'd like to see the all time top 20 genres in billboard100
 
 ![plot](./img/top20genre_list.png)
@@ -140,6 +144,24 @@ To better analyze genre distributions, we need to split these genre strings into
 ![plot](./img/top20_indiv_genres.png)
 
 The updated genre distribution provides **a much clearer and more insightful** view of the data. By breaking down multi-genre entries into individual genres, we now have a **more accurate representation** of how often each genre appears in the Billboard charts. This refinement highlights the overwhelming presence of **pop-related genres**, reinforcing its dominance in mainstream music. Instead of treating multi-genre tracks as single unique categories, this approach allows us to see which genres truly shape the charts, offering **better insights into music trends**. This enhanced visualization ensures a more precise analysis of genre popularity while preventing any genre from being underrepresented due to formatting inconsistencies.
+
+![plot](./img/top_genres_by_mean_spotify_popularity.png)
+
+When comparing the **top 20 genres by mean Spotify popularity** to the **most frequent genres in the Billboard charts**, we see notable differences. While **pop and mainstream genres dominate the Billboard rankings**, the most **popular** genres on Spotify include **niche and regional styles** like **Dutch EDM, queer country, and Minnesota hip hop**. This suggests that while certain genres chart more frequently, others maintain **high engagement and popularity among listeners** despite having fewer total tracks.
+
+![plot](./img/top_20_genres_by_uart.png)
+
+As a final perspective, we examine genres based on the **number of unique artists** contributing to them. This visualization highlights the genres with the **widest artist diversity**, showing that **pop rap, dance pop, and rap** attract the largest variety of performers, reinforcing their dominant presence in the industry.
+
+#### Top Spotify Songs Across Countries Dataset
+Shifting to this dataset, which tracks Spotify's top songs across multiple countries, this plot highlights the **top 10 songs with the widest global reach**. It shows which tracks are charting in the most countries, offering insight into the most internationally popular songs.
+
+![plot](./img/top10_country_reach_spotify.png)
+
+Building on this, we now examine the **most dominant genre in each country** based on **Spotify’s Top 50 charts**. This visualization highlights how **pop and dance pop overwhelmingly lead** across multiple countries, while Latin and pop rap appear in a few regions, reflecting regional preferences in global music consumption.
+
+![plot](./img/top_genre_in_countries.png)
+
 
 
 
