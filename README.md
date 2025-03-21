@@ -93,9 +93,9 @@ Music is more than just sound, it's a universal language that influences culture
 
 This project seeks to **uncover the hidden patterns behind chart-topping hits** by analyzing the impact of genre, mood, and key musical features, such as energy, tempo, and danceability, on a song’s popularity. Instead of the conventional approach of tracking individual artists over time, we will introduce a **genre race**, visualizing how different musical styles have risen and fallen in popularity over the decades trying to uncover hidden gems in less known genres. This approach will allow us to **map the evolution of listener preferences**, identifying whether certain genres dominate during specific periods and whether emerging trends can help predict the next big hit.
 
-Additionally, a **geographic visualization** will illustrate the **current daily distribution of top songs across different regions**, providing insights into how music tastes vary worldwide and how certain tracks gain global traction.
+Additionally, a **geographic visualization** will illustrate the **current daily distribution of top genres across different regions**, providing insights into how music tastes vary worldwide and how certain tracks gain global traction.
 
-Finally, on a fun interactive note, we will develop a **machine learning model** that predicts the song closest to a user’s taste based on the inputted musical features, allowing listeners to discover tracks that align most with their features preferences.
+Finally, on a fun interactive note, we will develop a **machine learning model** that is trained to identify what particular features correspond to what genre permitting the realtime inference of the genre closest to a user’s taste based off his chosen musical features. This allows listeners to discover the tracks that align most with their preferences through sthe predicted genre.
 
 Can we predict the future of music trends? Let’s dive in and find out.
 
@@ -105,6 +105,7 @@ Can we predict the future of music trends? Let’s dive in and find out.
 - **Temporal Genre Trends:** How has the popularity of different genres evolved over the years? Are there dominant genres that define specific eras, or do new styles emerge and reshape the musical landscape?
 - **Audio Features & Success Metrics:** What is the relationship between specific audio features (e.g., danceability, energy) and chart success? Are there recognizable patterns that contribute to higher rankings?
 - **Spotting Emerging Artists:** How do new artists enter the charts, and what characteristics define tracks that propel them to prominence?
+
 #### Target Audience
 - **Music Industry Professionals:** Record labels, producers, and talent scouts seeking data-driven insights.
 - **Music Enthusiasts:** Fans interested in the dynamics of music trends and chart movements.
