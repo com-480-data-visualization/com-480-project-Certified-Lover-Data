@@ -155,8 +155,8 @@ Other platforms like **Kaggle** and **FiveThirtyEight** have explored factors su
 ##### Our Project
 Our project expands on these ideas by offering a **more immersive experience**, allowing users to visualize:
 
-- **And understand genre Distribution Over Time:** Race chronological charts illustrating the rise and decline of genre popularity over the years (Top 10).
 - **Genre dominance** over decades, tracking the evolution of different styles.
+- **And understand genre Distribution Over Time:** Race chronological charts illustrating the rise and decline of genre popularity over the years (Top 10).
 - **Audio Feature Correlations:** Heatmaps revealing correlations between audio features and average chart rankings.
 - **Artist and Genre Debut Analysis:** Line graphs tracking the debut and rise of new artists on the charts.
 - **Top Features of Hit Songs:** Radar charts highlighting the distinctive audio feature profiles of top hits.
