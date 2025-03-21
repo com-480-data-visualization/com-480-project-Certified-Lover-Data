@@ -87,7 +87,7 @@ This dataset provides daily rankings for the top songs across 73 countries and c
 
 ### Problematic 
 #### Motivation
-Should you really be writing only POP MUSIC to make it to the Billboard Hot 100?
+**Should you really be writing only *pop* music to make it to the Billboard Hot 100?**
 
 Music is more than just sound, it's a universal language that influences culture, evokes emotions, and shapes generations. From high-energy dance tracks that fuel parties to soulful ballads that stir deep emotions, music plays a powerful role in our daily lives. But what truly determines a song’s success?  
 
@@ -95,7 +95,7 @@ This project seeks to **uncover the hidden patterns behind chart-topping hits** 
 
 Additionally, a **geographic visualization** will illustrate the **current daily distribution of top genres across different regions**, providing insights into how music tastes vary worldwide and how certain genres gain global traction.
 
-Finally, on a fun interactive note, we will develop a **machine learning model** that is trained to identify what particular features correspond to what genre permitting the realtime inference of the genre closest to a user’s taste based off his chosen musical features inputted through the website. This allows listeners to discover the tracks that align most with their preferences through the predicted genre.
+Finally, on a fun and interactive note, we will develop a machine learning model trained to identify which specific feature values (danceability, acousticness, etc.) correspond to particular genres. This will enable real-time inference of the genre that best matches a user’s taste based on their selected musical features inputted through the website. Listeners can then discover tracks that align closely with their preferences via the predicted genre. A similarity measure will be calculated between the user’s input and the ground truth values of tracks to identify the closest match, accompanied by a similarity percentage (e.g., 93% similarity).
 
 Can we predict the future of music trends? Let’s dive in and find out.
 
