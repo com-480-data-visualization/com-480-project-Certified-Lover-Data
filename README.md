@@ -168,7 +168,7 @@ Building on this, we now examine the **most dominant genre in each country** bas
 Several websites and research projects have analyzed trends in the **Billboard Hot 100** and song popularity. While **Billboard.com** provides weekly rankings, it lacks interactive exploration of historical data.
 
 Our main inspiration comes from **The Pudding**, particularly:
-- **[“A History of Music Genres”](https://pudding.cool/2017/03/music-history/)**, which visualizes how genres have evolved over time.
+- **[“A History of How Music Taste Evolved ”](https://pudding.cool/2017/03/music-history/)**, which provides a neat visualisation of every top 5 song, from 1958 - 2016, so we can stop arguing about when music was still good.
 - **[“Love Songs Through the Decades”](https://pudding.cool/2024/11/love-songs/)**, analyzing lyrical trends in hit songs.
 
 Other platforms like **Kaggle** and **FiveThirtyEight** have explored factors such as artist trends and the impact of streaming on rankings. However, these analyses are often static, lack interactivity, and do not incorporate **audio elements** or **geographic insights**.
