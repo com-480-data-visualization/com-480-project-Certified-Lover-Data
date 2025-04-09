@@ -110,7 +110,7 @@ Finally, on a fun and interactive note, we will develop a machine learning model
 
 
 ### Exploratory Data Analysis
-The complete notebook used for our exploratory data analysis can be found [here](./milestone1.ipynb)  
+The complete notebook used for our exploratory data analysis can be found [here](./milestones/M1/milestone1.ipynb)  
 As mentionned above,  the datasets are relatively clean, requiring minimal preprocessing. However, some columns contain NaN values, particularly in fields like Spotify track previews and previous week positions. The visualizations below illustrate the proportion of missing values across different features, helping us determine whether imputation or removal is necessary before moving forward with data exploration and visualization.
 
 ![plot](./img/hot100nan.png)
