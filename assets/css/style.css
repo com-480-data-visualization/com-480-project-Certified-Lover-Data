@@ -1,0 +1,142 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    background: white;
+  }
+  
+  .slider-container {
+    display: flex;
+    width: 600vw;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .slide {
+    width: 100vw;
+    height: 100vh;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .nav-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    background: #fff;
+    border: 2px solid black;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+  .left {
+    left: 20px;
+  }
+  
+  .right {
+    right: 20px;
+  }
+  
+  .arrow-text {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  /* Slide background colors */
+#slide1 {
+    background-color: #ffffff; /* Light pink (Figma slide 1) */
+  }
+  
+  #slide2 {
+    background-color: #fff6ec; /* Peach/Orange (Figma slide 2) */
+  }
+  
+  #slide3 {
+    background-color: #fafae9; /* Yellow (Figma slide 3) */
+  }
+  
+  #slide4 {
+    background-color: #f0fbff; /* Light blue (Figma slide 4) */
+  }
+  
+  #slide5 {
+    background-color: #f9f3ff; /* Light purple (Figma slide 5) */
+  }
+  
+  #slide6 {
+    background-color: #f3fff4; /* Light green (Figma slide 6) */
+  }
+  
+  /* Logo image */
+.logo {
+    width: 500px;
+    max-width: 80%;
+    margin-bottom: 40px;
+  }
+  
+  /* GIF styling */
+  .party-gif {
+    width: 500px;
+    max-width: 80%;
+    margin: 40px 0;
+  }
+  
+  /* Click instruction image */
+  .click-img {
+    width: 200px;
+    max-width: 70%;
+    margin-top: 30px;
+  }
+  
+  /* Navigation arrows */
+  .nav-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 10px;
+  }
+  
+  .left { left: 20px; }
+  .right { right: 20px; }
+  
+  /* Arrow images */
+  .arrow-img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+  }
+  
+  /* Slide indicator bar */
+  .nav-indicator {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    pointer-events: none;
+    z-index: 999;
+  }
+  
+  .bar {
+    width: 60px;
+    height: 6px;
+    background-color: #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .bar.active {
+    background-color: black;
+  }

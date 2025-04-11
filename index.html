@@ -1,9 +1,84 @@
 ---
 layout: default
-title: Main Website
+title: Certified Lover Data
 ---
 
-<section class="hero">
-  <h1>Hello, world! 👋</h1>
-  <p>This is the start of my website built with Jekyll.</p>
-</section>
+<!-- Slide indicator bar -->
+<div class="nav-indicator">
+  <span class="bar" id="bar0"></span>
+  <span class="bar" id="bar1"></span>
+  <span class="bar" id="bar2"></span>
+  <span class="bar" id="bar3"></span>
+  <span class="bar" id="bar4"></span>
+  <span class="bar" id="bar5"></span>
+</div>
+
+<!-- Slide container -->
+<div class="slider-container">
+  <section class="slide" id="slide1">
+    <img src="{{ site.baseurl }}/assets/images/logo.png" alt="Certified Lover Data" class="logo" />
+    <img src="{{ site.baseurl }}/assets/images/party.gif" alt="Party GIF" class="party-gif" />
+    <img src="{{ site.baseurl }}/assets/images/click.png" alt="Click on the arrow" class="click-img" />
+  </section>
+
+  <section class="slide" id="slide2">
+  </section>
+
+  <section class="slide" id="slide3">
+  </section>
+
+  <section class="slide" id="slide4">
+  </section>
+
+  <section class="slide" id="slide5">
+  </section>
+
+  <section class="slide" id="slide6">
+  </section>
+</div>
+
+<!-- Navigation arrows using images -->
+<div class="nav-arrow left" id="leftArrow" onclick="prevSlide()">
+  <img src="{{ site.baseurl }}/assets/images/left.png" alt="Left arrow" class="arrow-img" />
+</div>
+
+<div class="nav-arrow right" id="rightArrow" onclick="nextSlide()">
+  <img src="{{ site.baseurl }}/assets/images/right.png" alt="Right arrow" class="arrow-img" />
+</div>
+
+<!-- JavaScript logic -->
+<script>
+  let currentSlide = 0;
+  const totalSlides = 6;
+
+  function updateSlide() {
+    const container = document.querySelector('.slider-container');
+    container.style.transform = `translateX(-${currentSlide * 100}vw)`;
+
+    // Arrows
+    document.getElementById('leftArrow').style.display = currentSlide === 0 ? 'none' : 'block';
+    document.getElementById('rightArrow').style.display = currentSlide === totalSlides - 1 ? 'none' : 'block';
+
+    // Navigation bar
+    const bars = document.querySelectorAll('.nav-indicator .bar');
+    bars.forEach((bar, index) => {
+      bar.classList.toggle('active', index === currentSlide);
+    });
+  }
+
+  function nextSlide() {
+    if (currentSlide < totalSlides - 1) {
+      currentSlide++;
+      updateSlide();
+    }
+  }
+
+  function prevSlide() {
+    if (currentSlide > 0) {
+      currentSlide--;
+      updateSlide();
+    }
+  }
+
+  window.onload = updateSlide;
+</script>
