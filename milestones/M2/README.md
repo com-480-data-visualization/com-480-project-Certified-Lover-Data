@@ -1,6 +1,6 @@
 # Milestone 2  
 ## Interactive Visualization  
-An interactive prototype of the planned visualization is available on [Figma](https://www.figma.com/design/PmqevOMaUVb9AOdze4bkiT/Main-Website?m=auto&t=SjOZteKIUb2haTPW-6).  
+An interactive prototype of the planned visualization is available on [Figma](https://www.figma.com/proto/CeD1PW0ibm8LAW7iij2vQq/Website-Interactive?t=bws5d7wWrNCVCb8T-1).  
 
 ## Full Report  
 The file `milestone2.pdf` contains a detailed project plan, including:  
