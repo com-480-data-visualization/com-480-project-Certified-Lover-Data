@@ -22,7 +22,7 @@ title: Certified Lover Data
   </section>
 
   <section class="slide" id="slide2">
-    <img src="{{ site.baseurl }}/assets/images/genre-race-title.png" alt="Genre Race title" class="genre-race-title" />
+    <img src="{{ site.baseurl }}/assets/images/genre-race-title.png" alt="Genre Race Chart" class="genre-race-title" />
   
     <div class="chart-container">
       <img src="{{ site.baseurl }}/assets/images/genre-race.png" alt="Genre Race Chart" class="chart-img" />
@@ -31,7 +31,12 @@ title: Certified Lover Data
   
 
   <section class="slide" id="slide3">
+    <img src="{{ site.baseurl }}/assets/images/Map.png" alt="Map" class="map" />
+    <div class="map-container">
+      <svg id="my_dataviz" width="1500" height="750"></svg>
+    </div>
   </section>
+  
 
   <section class="slide" id="slide4">
   </section>
@@ -57,20 +62,6 @@ title: Certified Lover Data
   let currentSlide = 0;
   const totalSlides = 6;
 
-  function updateSlide() {
-    const container = document.querySelector('.slider-container');
-    container.style.transform = `translateX(-${currentSlide * 100}vw)`;
-
-    // Arrows
-    document.getElementById('leftArrow').style.display = currentSlide === 0 ? 'none' : 'block';
-    document.getElementById('rightArrow').style.display = currentSlide === totalSlides - 1 ? 'none' : 'block';
-
-    // Navigation bar
-    const bars = document.querySelectorAll('.nav-indicator .bar');
-    bars.forEach((bar, index) => {
-      bar.classList.toggle('active', index === currentSlide);
-    });
-  }
 
   function nextSlide() {
     if (currentSlide < totalSlides - 1) {
@@ -87,4 +78,59 @@ title: Certified Lover Data
   }
 
   window.onload = updateSlide;
+</script>
+<script>
+function drawMap() {
+  var svg = d3.select("#my_dataviz"),
+      width = +svg.attr("width"),
+      height = +svg.attr("height");
+
+  var projection = d3.geoNaturalEarth1()
+      .scale(260)
+      .translate([width / 2, height / 2]);
+
+  var path = d3.geoPath().projection(projection);
+
+  d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data) {
+    svg.append("g")
+      .selectAll("path")
+      .data(data.features)
+      .enter().append("path")
+        .attr("fill", "#69b3a2")
+        .attr("d", path)
+        .style("stroke", "#fff")
+        .on("mouseover", function () {
+          d3.select(this)
+            .transition()
+            .duration(200)
+            .attr("fill", "#ff6f61"); // highlight color on hover
+    })
+      .on("mouseout", function () {
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .attr("fill", "#69b3a2"); // back to original
+      });
+
+  });
+}
+
+// Draw map when arriving at slide 3
+function updateSlide() {
+  const container = document.querySelector('.slider-container');
+  container.style.transform = `translateX(-${currentSlide * 100}vw)`;
+
+  document.getElementById('leftArrow').style.display = currentSlide === 0 ? 'none' : 'block';
+  document.getElementById('rightArrow').style.display = currentSlide === totalSlides - 1 ? 'none' : 'block';
+
+  const bars = document.querySelectorAll('.nav-indicator .bar');
+  bars.forEach((bar, index) => {
+    bar.classList.toggle('active', index === currentSlide);
+  });
+
+  if (currentSlide === 2 && !window.mapDrawn) {
+    drawMap();
+    window.mapDrawn = true;
+  }
+}
 </script>
