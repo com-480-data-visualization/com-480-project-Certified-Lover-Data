@@ -140,10 +140,18 @@ body, html {
   .bar.active {
     background-color: black;
   }
+  .chart-container {
+    display: flex;
+    justify-content: center; /* horizontal centering */
+    align-items: center;     /* vertical centering */
+    width: 100%;
+    margin: 0 auto;
+  }
+  
   .chart-img {
-    width: 80%;      /* 🔼 Agrandit l’image au-delà de son conteneur */
-    max-width: 1400px; /* 🔼 Agrandit la taille maximale possible */
-    transform: scale(1.1); /* optionnel : zoomer encore un peu */
-   
+    max-width: 1200px;
+    width: 100%;
+    height: auto;
+    display: block;
   }
   
