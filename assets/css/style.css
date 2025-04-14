@@ -142,8 +142,8 @@ body, html {
   }
   .chart-container {
     display: flex;
-    justify-content: center; /* horizontal centering */
-    align-items: center;     /* vertical centering */
+    justify-content: center; 
+    align-items: center;     
     width: 100%;
     margin: 0 auto;
   }
@@ -154,4 +154,10 @@ body, html {
     height: auto;
     display: block;
   }
-  
+  .genre-race-title {
+    max-width: 1100px;
+    width: 40%;
+    height: auto;
+    display: block;
+    margin-top: 40px;
+  }
