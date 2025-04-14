@@ -140,3 +140,10 @@ body, html {
   .bar.active {
     background-color: black;
   }
+  .chart-img {
+    width: 150%;      /* 🔼 Agrandit l’image au-delà de son conteneur */
+    max-width: 1400px; /* 🔼 Agrandit la taille maximale possible */
+    transform: scale(1.1); /* optionnel : zoomer encore un peu */
+   
+  }
+  
