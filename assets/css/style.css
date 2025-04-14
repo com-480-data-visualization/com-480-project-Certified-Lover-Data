@@ -224,4 +224,16 @@ body, html {
   #leftArrow {
     display: none;
   }
+  .click-prompt {
+    width: 100px;
+    margin-top: 8px;
+    display: none;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .visible-on-load {
+    display: block;
+  }
+  
   
