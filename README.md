@@ -18,7 +18,7 @@
 
 **10% of the final grade**
 
-
+[Milestone 2 Report](./milestones/M2/README.md)
 ## Milestone 3 (30th May, 5pm)
 
 **80% of the final grade**
