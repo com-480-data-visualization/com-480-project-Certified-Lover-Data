@@ -18,7 +18,11 @@
 
 **10% of the final grade**
 
-[Milestone 2 Report](./milestones/M2/README.md)
+[Milestone 2 Report](./milestones/M2/Milestone2_Certified_Lover_Data.pdf)
+
+[Website Skeleton](https://com-480-data-visualization.github.io/com-480-project-Certified-Lover-Data/)
+
+[Figma Interactive Design](https://www.figma.com/design/CeD1PW0ibm8LAW7iij2vQq/Website-Interactive?node-id=2059-450&t=zUp51V8Zcna9gLGq-1)
 ## Milestone 3 (30th May, 5pm)
 
 **80% of the final grade**
