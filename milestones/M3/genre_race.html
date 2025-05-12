@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Genre Race Chart</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body { font-family: sans-serif; background: #f4f4f4; margin: 0; }
+    svg { background: white; }
+    .line { fill: none; stroke-width: 2; }
+    .label { font-size: 14px; fill: #333; }
+    .title { font-size: 32px; font-weight: bold; fill: #444; }
+    .controls { margin: 20px; text-align: center; }
+    .dropdown { padding: 5px; font-size: 16px; }
+  </style>
+</head>
+
+<body>
+  <div id="chart"></div>
+  <div class="controls">
+    <label for="genreSelect">Select Genre: </label>
+    <select id="genreSelect" class="dropdown"></select>
+  </div>
+
+  <script>
+    const margin = {top: 50, right: 150, bottom: 50, left: 50};
+    const width = 1000 - margin.left - margin.right;
+    const height = 600 - margin.top - margin.bottom;
+
+    const svg = d3.select("#chart")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const top_n = 10;
+    let selectedGenre = "";
+    const color = d3.scaleOrdinal(d3.schemeTableau10);
+
+    // Load JSON data
+    const filePath = "genre_race_chart_data.json";  // Change to your JSON file path
+    d3.json(filePath).then(data => {
+      const allGenres = Object.keys(data[0]).filter(k => k !== "YearMonth");
+
+      // Populate genre selector
+      const genreSelect = d3.select("#genreSelect");
+      allGenres.forEach(genre => {
+        genreSelect.append("option").attr("value", genre).text(genre);
+      });
+
+      genreSelect.on("change", function () {
+        selectedGenre = this.value;
+      });
+
+      const dates = data.map(d => d.YearMonth);
+
+      function prepareData(month) {
+        const row = data.find(d => d.YearMonth === month);
+        let lineData = allGenres.map(genre => ({ name: genre, value: +row[genre] }))
+          .sort((a, b) => b.value - a.value)
+          .slice(0, top_n);
+        return lineData;
+      }
+
+      const x = d3.scaleLinear().range([0, width - margin.right]);
+      const y = d3.scaleLinear().range([height - margin.bottom, margin.top]);
+
+      // Create a line function
+      const line = d3.line()
+        .x((d, i) => x(i))
+        .y(d => y(d.value));
+
+      const g = svg.append("g");
+      let frameIndex = 0;
+
+      function drawFrame() {
+        const month = dates[frameIndex];
+        const lineData = prepareData(month);
+
+        x.domain([0, top_n - 1]);
+        y.domain([0, d3.max(lineData, d => d.value)]);
+
+        // Create the line path
+        const path = g.selectAll(".line").data([lineData]);
+
+        path.enter().append("path")
+          .attr("class", "line")
+          .attr("d", line)
+          .attr("stroke", d => color(d[0].name))
+          .merge(path)
+          .transition().duration(1000)
+          .attr("d", line);
+
+        path.exit().remove();
+
+        // Labels for the points
+        const label = g.selectAll(".label").data(lineData);
+        label.enter().append("text")
+          .attr("class", "label")
+          .attr("x", (d, i) => x(i))
+          .attr("y", d => y(d.value) - 10)
+          .text(d => `${d.name} (${d.value})`)
+          .merge(label)
+          .transition().duration(1000)
+          .attr("x", (d, i) => x(i))
+          .attr("y", d => y(d.value) - 10)
+          .text(d => `${d.name} (${d.value})`);
+
+        label.exit().remove();
+
+        // Title (timestamp)
+        svg.selectAll(".title").data([month])
+          .join("text")
+          .attr("class", "title")
+          .attr("x", width / 2)
+          .attr("y", 40)
+          .attr("text-anchor", "middle")
+          .text(month);
+
+        frameIndex = (frameIndex + 1) % dates.length;
+      }
+
+      // Start the animation interval
+      d3.interval(drawFrame, 1500);
+    });
+  </script>
+</body>
+</html>

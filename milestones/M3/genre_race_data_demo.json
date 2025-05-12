@@ -1,0 +1,21 @@
+[
+    {"date": "2022-01", "genre": "Pop", "rank": 1},
+    {"date": "2022-01", "genre": "Rock", "rank": 2},
+    {"date": "2022-01", "genre": "Hip-Hop", "rank": 3},
+    {"date": "2022-01", "genre": "Jazz", "rank": 4},
+  
+    {"date": "2022-02", "genre": "Pop", "rank": 2},
+    {"date": "2022-02", "genre": "Rock", "rank": 1},
+    {"date": "2022-02", "genre": "Hip-Hop", "rank": 3},
+    {"date": "2022-02", "genre": "Jazz", "rank": 5},
+  
+    {"date": "2022-03", "genre": "Pop", "rank": 1},
+    {"date": "2022-03", "genre": "Rock", "rank": 3},
+    {"date": "2022-03", "genre": "Hip-Hop", "rank": 2},
+    {"date": "2022-03", "genre": "Jazz", "rank": 4},
+  
+    {"date": "2022-04", "genre": "Pop", "rank": 1},
+    {"date": "2022-04", "genre": "Rock", "rank": 4},
+    {"date": "2022-04", "genre": "Hip-Hop", "rank": 2},
+    {"date": "2022-04", "genre": "Jazz", "rank": 3}
+  ]
