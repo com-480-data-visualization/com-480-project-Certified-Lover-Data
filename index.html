@@ -88,7 +88,17 @@ title: Certified Lover Data
     }
   }
 
-function drawMap() {
+  function drawMap() {
+  const genreColor = d3.scaleOrdinal()
+    .domain([
+      'pop', 'latin', 'adult standards', 'reggaeton', 'electropop',
+      'dance pop', 'rap', 'r&b', 'post-teen pop', 'urban contemporary'
+    ])
+    .range([
+      '#ff6b6b', '#ffa600', '#a0c4ff', '#ffbe0b', '#9b5de5',
+      '#00bbf9', '#ff006e', '#8338ec', '#3a86ff', '#80ed99'
+    ]);
+
   const svg = d3.select("#my_dataviz"),
         width = +svg.attr("width"),
         height = +svg.attr("height");
@@ -99,7 +109,6 @@ function drawMap() {
 
   const path = d3.geoPath().projection(projection);
 
-  // Tooltip
   const tooltip = d3.select("body")
     .append("div")
     .attr("class", "tooltip")
@@ -112,7 +121,6 @@ function drawMap() {
     .style("pointer-events", "none")
     .style("display", "none");
 
-  // Optional fixes (not required if names match exactly)
   const countryNameFixes = {
     "United States": "USA",
     "Russia": "Russian Federation",
@@ -122,23 +130,21 @@ function drawMap() {
     "Viet Nam": "Vietnam",
     "Venezuela, Bolivarian Republic of":"Venezuela",
     "Czechia": "Czech Republic",
-    "Taiwan, Province of China":"Taiwan" ,
-    "Bolivia, Plurinational State of":"Bolivia",
+    "Taiwan, Province of China": "Taiwan",
+    "Bolivia, Plurinational State of": "Bolivia",
     "United Kingdom": "England"
   };
 
   d3.queue()
     .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
     .defer(d3.csv, "{{ site.baseurl }}/assets/data/top_genre_and_audio_stats_per_country.csv")
-    .await(function(error, geoData, csvData) {
+    .await((error, geoData, csvData) => {
       if (error) throw error;
 
       const countryInfo = {};
-
       csvData.forEach(d => {
         const rawName = d.country_name ? d.country_name.trim() : "";
         const fixedName = (countryNameFixes[rawName] || rawName).trim();
-        console.log("✅ Loaded CSV country:", `"${fixedName}"`);
 
         countryInfo[fixedName] = {
           genre: d.spotify_genre,
@@ -155,47 +161,63 @@ function drawMap() {
         .data(geoData.features)
         .enter()
         .append("path")
-          .attr("d", path)
-          .attr("fill", d => countryInfo[d.properties.name] ? "#69b3a2" : "#e0e0e0")
-          .style("stroke", "#fff")
-          .on("mouseover", function(d) {
-            console.log("🌍 Hovered:", `"${d.properties.name}"`);
+        .attr("d", path)
+        .attr("fill", d => {
+          const info = countryInfo[d.properties.name];
+          return info ? genreColor(info.genre.toLowerCase()) : "#eee";
+        })
+        .attr("stroke", "#fff")
+        .attr("stroke-width", 0.5)
+        
+        .on("mouseover", function(d) {
+        const info = countryInfo[d.properties.name];
+        if (!info) {
+          tooltip.style("display", "none");
+          return;
+        }
 
-            const info = countryInfo[d.properties.name];
-            
-            if (!info) return;
+        d3.select(this)
+          .raise()
+          .transition()
+          .duration(200)
+          .attr("stroke", "#111")
+          .attr("stroke-width", 1.5);
 
-            d3.select(this)
-              .transition().duration(200)
-              .attr("fill", "#ff6f61");
+        tooltip
+          .style("display", "block")
+          .html(`
+            <strong>${d.properties.name}</strong><br>
+            🎧 Genre: ${info.genre}<br>
+            💃 Danceability: ${info.dance}<span style="color:#999;"> /0.99</span><br>
+            ⚡️ Energy: ${info.energy}<span style="color:#999;"> /1</span><br>
+            😊 Valence: ${info.valence}<span style="color:#999;"> /0.99</span><br>
+            🎵 Tempo: ${info.tempo} BPM<br>
+            🔥 Popularity: ${info.popularity}<span style="color:#999;"> /100</span><br><br>
+            <em style="display: block; font-size: 0.8rem; color: #888;">
+              All values are mean values from 2023-10-18 to 2025-05-11
+            </em>
+          `);
+      })
+      .on("mousemove", function() {
+        tooltip
+          .style("left", (d3.event.pageX + 10) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+      })
+      .on("mouseout", function(d) {
+        const info = countryInfo[d.properties.name];
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .attr("stroke", "#fff")
+          .attr("stroke-width", 0.5)
+          .attr("fill", info ? genreColor(info.genre.toLowerCase()) : "#eee");
 
-            tooltip
-              .style("display", "block")
-              .html(
-                `<strong>${d.properties.name}</strong><br>` +
-                `🎧 Genre: ${info.genre}<br>` +
-                `💃 Danceability: ${info.dance}<br>` +
-                `⚡️ Energy: ${info.energy}<br>` +
-                `😊 Valence: ${info.valence}<br>` +
-                `🎵 Tempo: ${info.tempo} BPM<br>` +
-                `🔥 Popularity: ${info.popularity}`
-              );
-          })
-          .on("mousemove", function() {
-            tooltip
-              .style("left", (d3.event.pageX + 10) + "px")
-              .style("top", (d3.event.pageY - 28) + "px");
-          })
-          .on("mouseout", function(d) {
-            const hasData = countryInfo[d.properties.name];
-            d3.select(this)
-              .transition().duration(200)
-              .attr("fill", hasData ? "#69b3a2" : "#e0e0e0");
+        tooltip.style("display", "none");
+      });
 
-            tooltip.style("display", "none");
-          });
     });
 }
+
 
 
   function updateSlide() {
