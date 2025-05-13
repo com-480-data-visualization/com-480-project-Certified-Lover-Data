@@ -187,7 +187,7 @@ title: Certified Lover Data
           .style("display", "block")
           .html(`
             <strong>${d.properties.name}</strong><br>
-            🎧 Genre: ${info.genre}<br>
+            🎧 Genre: <span style="color: ${genreColor(info.genre.toLowerCase())}; font-weight: bold;">${info.genre}</span><br>
             💃 Danceability: ${info.dance}<span style="color:#999;"> /0.99</span><br>
             ⚡️ Energy: ${info.energy}<span style="color:#999;"> /1</span><br>
             😊 Valence: ${info.valence}<span style="color:#999;"> /0.99</span><br>
