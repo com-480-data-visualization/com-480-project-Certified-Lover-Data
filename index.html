@@ -89,38 +89,104 @@ title: Certified Lover Data
   }
 
   function drawMap() {
-    var svg = d3.select("#my_dataviz"),
+  const svg = d3.select("#my_dataviz"),
         width = +svg.attr("width"),
         height = +svg.attr("height");
 
-    var projection = d3.geoNaturalEarth1()
-        .scale(260)
-        .translate([width / 2, height / 2]);
+  const projection = d3.geoNaturalEarth1()
+    .scale(260)
+    .translate([width / 2, height / 2]);
 
-    var path = d3.geoPath().projection(projection);
+  const path = d3.geoPath().projection(projection);
 
-    d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data) {
+  const tooltip = d3.select("body")
+    .append("div")
+    .attr("class", "tooltip")
+    .style("position", "absolute")
+    .style("padding", "8px")
+    .style("background", "white")
+    .style("border", "1px solid #ccc")
+    .style("border-radius", "5px")
+    .style("font-size", "14px")
+    .style("pointer-events", "none")
+    .style("display", "none");
+
+  const countryNameFixes = {
+    "USA": "United States",
+    "UK": "United Kingdom",
+    "Russia": "Russian Federation",
+    "South Korea": "Republic of Korea",
+    "North Korea": "Dem. Rep. Korea",
+    "Vietnam": "Viet Nam",
+    "Czechia": "Czech Republic",
+    "Ivory Coast": "Côte d'Ivoire",
+    "Venezuela": "Venezuela (Bolivarian Republic of)",
+    "Tanzania": "United Republic of Tanzania"
+  };
+
+  d3.queue()
+    .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
+    .defer(d3.csv, "{{ site.baseurl }}/assets/data/top_genre_and_audio_stats_per_country.csv")
+    .await(function(error, geoData, csvData) {
+      if (error) throw error;
+
+      const countryInfo = {};
+      csvData.forEach(d => {
+        const fixedName = countryNameFixes[d.country_name] || d.country_name;
+        countryInfo[fixedName] = {
+          genre: d.spotify_genre,
+          dance: (+d.avg_danceability).toFixed(2),
+          energy: (+d.avg_energy).toFixed(2),
+          valence: (+d.avg_valence).toFixed(2),
+          tempo: (+d.avg_tempo).toFixed(0),
+          popularity: (+d.avg_popularity).toFixed(0)
+        };
+      });
+
       svg.append("g")
         .selectAll("path")
-        .data(data.features)
-        .enter().append("path")
-          .attr("fill", "#69b3a2")
+        .data(geoData.features)
+        .enter()
+        .append("path")
           .attr("d", path)
+          .attr("fill", d => countryInfo[d.properties.name] ? "#69b3a2" : "#e0e0e0")
           .style("stroke", "#fff")
-          .on("mouseover", function () {
+          .on("mouseover", function(d) {
+            const info = countryInfo[d.properties.name];
+            if (!info) return;
+
             d3.select(this)
-              .transition()
-              .duration(200)
+              .transition().duration(200)
               .attr("fill", "#ff6f61");
+
+            tooltip
+              .style("display", "block")
+              .html(
+                `<strong>${d.properties.name}</strong><br>` +
+                `🎧 Genre: ${info.genre}<br>` +
+                `💃 Danceability: ${info.dance}<br>` +
+                `⚡️ Energy: ${info.energy}<br>` +
+                `😊 Valence: ${info.valence}<br>` +
+                `🎵 Tempo: ${info.tempo} BPM<br>` +
+                `🔥 Popularity: ${info.popularity}`
+              );
           })
-          .on("mouseout", function () {
+          .on("mousemove", function() {
+            tooltip
+              .style("left", (d3.event.pageX + 10) + "px")
+              .style("top", (d3.event.pageY - 28) + "px");
+          })
+          .on("mouseout", function(d) {
+            const hasData = countryInfo[d.properties.name];
             d3.select(this)
-              .transition()
-              .duration(200)
-              .attr("fill", "#69b3a2");
+              .transition().duration(200)
+              .attr("fill", hasData ? "#69b3a2" : "#e0e0e0");
+
+            tooltip.style("display", "none");
           });
     });
-  }
+}
+
 
   function updateSlide() {
     const container = document.querySelector('.slider-container');
