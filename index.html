@@ -88,7 +88,7 @@ title: Certified Lover Data
     }
   }
 
-  function drawMap() {
+function drawMap() {
   const svg = d3.select("#my_dataviz"),
         width = +svg.attr("width"),
         height = +svg.attr("height");
@@ -99,6 +99,7 @@ title: Certified Lover Data
 
   const path = d3.geoPath().projection(projection);
 
+  // Tooltip
   const tooltip = d3.select("body")
     .append("div")
     .attr("class", "tooltip")
@@ -111,17 +112,19 @@ title: Certified Lover Data
     .style("pointer-events", "none")
     .style("display", "none");
 
+  // Optional fixes (not required if names match exactly)
   const countryNameFixes = {
-    "USA": "United States",
-    "UK": "United Kingdom",
+    "United States": "USA",
     "Russia": "Russian Federation",
-    "South Korea": "Republic of Korea",
-    "North Korea": "Dem. Rep. Korea",
-    "Vietnam": "Viet Nam",
+    "Korea, Republic of":"South Korea",
+    "Korea, Democratic People's Republic of":"North Korea",
+    "South Korea": "Korea, Republic of",
+    "Viet Nam": "Vietnam",
+    "Venezuela, Bolivarian Republic of":"Venezuela",
     "Czechia": "Czech Republic",
-    "Ivory Coast": "Côte d'Ivoire",
-    "Venezuela": "Venezuela (Bolivarian Republic of)",
-    "Tanzania": "United Republic of Tanzania"
+    "Taiwan, Province of China":"Taiwan" ,
+    "Bolivia, Plurinational State of":"Bolivia",
+    "United Kingdom": "England"
   };
 
   d3.queue()
@@ -131,8 +134,12 @@ title: Certified Lover Data
       if (error) throw error;
 
       const countryInfo = {};
+
       csvData.forEach(d => {
-        const fixedName = countryNameFixes[d.country_name] || d.country_name;
+        const rawName = d.country_name ? d.country_name.trim() : "";
+        const fixedName = (countryNameFixes[rawName] || rawName).trim();
+        console.log("✅ Loaded CSV country:", `"${fixedName}"`);
+
         countryInfo[fixedName] = {
           genre: d.spotify_genre,
           dance: (+d.avg_danceability).toFixed(2),
@@ -152,7 +159,10 @@ title: Certified Lover Data
           .attr("fill", d => countryInfo[d.properties.name] ? "#69b3a2" : "#e0e0e0")
           .style("stroke", "#fff")
           .on("mouseover", function(d) {
+            console.log("🌍 Hovered:", `"${d.properties.name}"`);
+
             const info = countryInfo[d.properties.name];
+            
             if (!info) return;
 
             d3.select(this)
