@@ -89,14 +89,38 @@ title: Certified Lover Data
   }
 
   function drawMap() {
-  const genreColor = d3.scaleOrdinal()
+    const genreColor = d3.scaleOrdinal()
     .domain([
-      'pop', 'latin', 'adult standards', 'reggaeton', 'electropop',
-      'dance pop', 'rap', 'r&b', 'post-teen pop', 'urban contemporary'
+      'blues', 'classical', 'comedy', 'country', 'dance', 'easy listening',
+      'electronic', 'folk', 'funk', 'hip hop', 'holiday', 'indie',
+      'jazz', 'latin', 'metal', 'other', 'pop', 'r&b',
+      'reggae', 'regional mexican', 'rock', 'ska', 'soul', 'soundtrack'
     ])
     .range([
-      '#ff6b6b', '#ffa600', '#a0c4ff', '#ffbe0b', '#9b5de5',
-      '#00bbf9', '#ff006e', '#8338ec', '#3a86ff', '#80ed99'
+      '#1f77b4', // blues
+      '#aec7e8', // classical
+      '#ff7f0e', // comedy
+      '#ffbb78', // country
+      '#2ca02c', // dance
+      '#98df8a', // easy listening
+      '#d62728', // electronic
+      '#ff9896', // folk
+      '#9467bd', // funk
+      '#c5b0d5', // hip hop
+      '#8c564b', // holiday
+      '#c49c94', // indie
+      '#e377c2', // jazz
+      '#f7b6d2', // latin
+      '#7f7f7f', // metal
+      '#c7c7c7', // other
+      '#bcbd22', // pop
+      '#dbdb8d', // r&b
+      '#17becf', // reggae
+      '#9edae5', // regional mexican
+      '#393b79', // rock
+      '#6b6ecf', // ska
+      '#637939', // soul
+      '#8ca252'  // soundtrack
     ]);
 
   const svg = d3.select("#my_dataviz"),
@@ -133,11 +157,11 @@ title: Certified Lover Data
     "Taiwan, Province of China": "Taiwan",
     "Bolivia, Plurinational State of": "Bolivia",
     "United Kingdom": "England"
-  };
+  }
 
   d3.queue()
     .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-    .defer(d3.csv, "{{ site.baseurl }}/assets/data/top_genre_and_audio_stats_per_country.csv")
+    .defer(d3.csv, "{{ site.baseurl }}/assets/data/country_genre_data_viz.csv")
     .await((error, geoData, csvData) => {
       if (error) throw error;
 
@@ -147,7 +171,7 @@ title: Certified Lover Data
         const fixedName = (countryNameFixes[rawName] || rawName).trim();
 
         countryInfo[fixedName] = {
-          genre: d.spotify_genre,
+          genre: d.top_genre,
           dance: (+d.avg_danceability).toFixed(2),
           energy: (+d.avg_energy).toFixed(2),
           valence: (+d.avg_valence).toFixed(2),
