@@ -69,7 +69,33 @@ body, html {
 #slide1 { background-color: #ffffff; }
 #slide2 { background-color: #fff6ec; }
 #slide3 { background-color: #fafae9; }
-#slide4 { background-color: #f0fbff; }
+#slide4 { 
+  /* still a flex-column, but start at top instead of center */
+  justify-content: flex-start !important;
+  /* push everything down so it sits just under the nav-indicator */
+  padding-top: 60px; /* tweak this until your title is right below the dots */
+
+  position: relative;
+  overflow: auto;
+  padding: 20px 0; 
+  background-color: #f0fbff; }
+
+/* put a little gap under the title image */
+#slide4 .correlations {
+  margin-bottom: 30px; 
+}
+
+/* remove extra top-margin from the menu & heatmap if you set any before */
+/* make the “Choose a genre” container span full width and push its contents right */
+#slide4 #correlation-menu-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;  /* ← shift to the right edge */
+  padding-right: 40px;        /* ← optional gutter from the arrow */
+  margin-bottom: 20px;        /* ← small gap under the select */
+}#slide4 #correlation-heatmap {
+  margin-top: 0 !important;
+}
 #slide5 { background-color: #f9f3ff; }
 #slide6 { background-color: #f3fff4; }
 
@@ -218,4 +244,35 @@ body, html {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   line-height: 1.4;
 }
+/* also in style.css */
 
+#correlation-heatmap {
+  /* center and allow horizontal scroll if still too wide */
+  width: 100%;
+  overflow-x: auto;
+}
+
+#correlation-heatmap svg {
+  /* scale down to fit inside 90% of the viewport width */
+  max-width: 90vw;
+  /* and at most 80% of the viewport height */
+  max-height: 80vh;
+  width: auto !important;
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+}
+/* flex container for heatmap + legend */
+#heatmap-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;        /* space between map & legend */
+  margin-top: 10px; /* small gap under select bar */
+}
+
+/* legend container styling */
+#correlation-legend {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: #333;
+}
