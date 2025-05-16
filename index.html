@@ -33,6 +33,7 @@ title: Certified Lover Data
       <svg id="my_dataviz" width="1500" height="750"></svg>
     </div>
   </section>
+  
 
   <section class="slide" id="slide4">
     <img src="{{ site.baseurl }}/assets/images/correlations.png" alt="correlations" class="correlations" />
@@ -72,11 +73,31 @@ title: Certified Lover Data
     <div id="correlation-legend"></div>
   </section>
 
+
   <section class="slide" id="slide5">
     <img src="{{ site.baseurl }}/assets/images/genre-popularity.png" alt="popularity" class="popularity" />
-    <div class="chart-container">
-      <img src="{{ site.baseurl }}/assets/images/features.png" alt="popularity-map" class="popularity-map" />
-    </div>
+    <!-- feature selectors (position as you like in CSS) -->
+    <div class="scatter-controls">
+  <label for="feature-x">X axis:</label>
+  <select id="feature-x">
+    <option value="danceability" selected>Danceability</option>
+    <option value="energy">Energy</option>
+    <option value="valence">Valence</option>
+    <option value="tempo">Tempo</option>
+    <option value="popularity">Popularity</option>
+  </select>
+  <label for="feature-y">Y axis:</label>
+  <select id="feature-y">
+    <option value="danceability">Danceability</option>
+    <option value="energy">Energy</option>
+    <option value="valence" selected>Valence</option>
+    <option value="tempo">Tempo</option>
+    <option value="popularity">Popularity</option>
+  </select>
+</div>
+    <!-- container for the D3 scatterplot -->
+    <div id="scatter-container"></div>
+
   </section>
 
   <section class="slide" id="slide6">
@@ -364,6 +385,158 @@ function drawCorrelationHeatmap(file) {
   .catch(err => console.error("couldn't load", file, err));
 }
 
+function drawScatter() {
+  // 1) clear previous
+  d3.select("#scatter-container").html("");
+  d3.select("body").selectAll(".scatter-tooltip").remove();
+
+  // 2) genre → color scale (same as your map)
+  const genreColor = d3.scaleOrdinal()
+    .domain([
+      'blues','classical','comedy','country','dance','easy listening',
+      'electronic','folk','funk','hip hop','holiday','indie',
+      'jazz','latin','metal','other','pop','r&b',
+      'reggae','regional mexican','rock','ska','soul','soundtrack'
+    ])
+    .range([
+      '#1f77b4','#aec7e8','#ff7f0e','#ffbb78','#2ca02c','#98df8a',
+      '#d62728','#ff9896','#9467bd','#c5b0d5','#8c564b','#c49c94',
+      '#e377c2','#f7b6d2','#7f7f7f','#c7c7c7','#bcbd22','#dbdb8d',
+      '#17becf','#9edae5','#393b79','#6b6ecf','#637939','#8ca252'
+    ]);
+
+  // 3) feature → CSV column, emoji, label
+  const colMap = {
+    danceability: "avg_danceability_y",
+    energy:       "avg_energy_y",
+    valence:      "avg_valence_y",
+    tempo:        "avg_tempo_y",
+    popularity:   "avg_spotify_track_popularity"
+  };
+  const emojiMap = {
+    danceability: "💃",
+    energy:       "⚡️",
+    valence:      "😊",
+    tempo:        "🎵",
+    popularity:   "🔥"
+  };
+  const labelMap = {
+    danceability: "Danceability",
+    energy:       "Energy",
+    valence:      "Valence",
+    tempo:        "Tempo",
+    popularity:   "Popularity"
+  };
+
+  // 4) tooltip div
+  const tooltip = d3.select("body").append("div")
+    .attr("class", "scatter-tooltip")
+    .style("position", "absolute")
+    .style("padding", "8px")
+    .style("background", "white")
+    .style("border", "1px solid #ccc")
+    .style("border-radius", "5px")
+    .style("pointer-events", "none")
+    .style("font-family", "Poppins, sans-serif")
+    .style("font-size", "13px")
+    .style("display", "none");
+
+  // 5) load data
+  d3.csv("assets/data/broad_genre_correlation_summary.csv").then(data => {
+    // read dropdowns
+    const xKey = document.getElementById("feature-x").value;
+    const yKey = document.getElementById("feature-y").value;
+    const colX = colMap[xKey], colY = colMap[yKey];
+    const corrKey1 = `${xKey}_${yKey}_corr`;
+    const corrKey2 = `${yKey}_${xKey}_corr`;
+
+    // parse
+    data.forEach(d => {
+      d.x = +d[colX];
+      d.y = +d[colY];
+      if (d[corrKey1] !== undefined) d.corr = +d[corrKey1];
+      else if (d[corrKey2] !== undefined) d.corr = +d[corrKey2];
+      else d.corr = null;
+    });
+
+    // 6) sizing
+    const margin = { top: 40, right: 20, bottom: 60, left: 80 };
+    const container = d3.select("#scatter-container");
+    const fullW  = container.node().clientWidth;
+    const fullH  = container.node().clientHeight;
+    const width  = fullW  - margin.left - margin.right;
+    const height = fullH  - margin.top  - margin.bottom;
+
+    // 7) root SVG
+    const svg = container.append("svg")
+        .attr("width",  fullW)
+        .attr("height", fullH)
+      .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // 8) scales
+    const xScale = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.x)).nice()
+      .range([0, width]);
+    const yScale = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.y)).nice()
+      .range([height, 0]);
+
+    // 9) axes
+    svg.append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(xScale))
+      .append("text")
+        .attr("x", width/2).attr("y", 40)
+        .attr("fill", "#000").attr("text-anchor", "middle")
+        .style("font-family","Poppins, sans-serif").style("font-weight","600")
+        .text(labelMap[xKey]);
+
+    svg.append("g")
+      .call(d3.axisLeft(yScale))
+      .append("text")
+        .attr("transform","rotate(-90)")
+        .attr("x", -height/2).attr("y", -50)
+        .attr("fill", "#000").attr("text-anchor", "middle")
+        .style("font-family","Poppins, sans-serif").style("font-weight","600")
+        .text(labelMap[yKey]);
+
+    // 10) points + hover
+    svg.selectAll("circle")
+      .data(data)
+      .enter().append("circle")
+        .attr("cx", d => xScale(d.x))
+        .attr("cy", d => yScale(d.y))
+        .attr("r", 6)
+        .attr("fill", "#8338ec")
+      .on("mouseover", (event, d) => {
+        tooltip.html(`
+          <strong>
+            <span style="
+              color: ${genreColor(d.broad_genre.toLowerCase())};
+              font-weight: bold;
+            ">🎧 ${d.broad_genre}</span>
+          </strong><br>
+          ${emojiMap[xKey]} ${labelMap[xKey]}: ${d.x.toFixed(2)}<br>
+          ${emojiMap[yKey]} ${labelMap[yKey]}: ${d.y.toFixed(2)}<br>
+          🔗 Correlation: ${d.corr != null ? d.corr.toFixed(2) : "N/A"}
+        `).style("display", "block");
+      })
+      .on("mousemove", event => {
+        tooltip
+          .style("left", (event.pageX + 10) + "px")
+          .style("top",  (event.pageY - 28) + "px");
+      })
+      .on("mouseout", () => {
+        tooltip.style("display", "none");
+      });
+  })
+  .catch(err => console.error("couldn't load broad_genre data:", err));
+}
+
+
+
+
   
   // SLIDE UPDATE + HOOKUPS
   function updateSlide() {
@@ -394,14 +567,54 @@ function drawCorrelationHeatmap(file) {
       window.heatmapDrawn = true;
     }
   }
-  
-  // initial & dropdown change
+  if (currentSlide === 4 && !window.scatterDrawn) {
+    drawScatter();
+    window.scatterDrawn = true;
+  }
+
+
   document.addEventListener("DOMContentLoaded", () => {
-    updateSlide();
-    document.getElementById("correlation-select")
-      .addEventListener("change", e => {
-        drawCorrelationHeatmap(e.target.value);
-      });
+  // 1) initialize the slider
+  updateSlide();
+
+  // 2) wire up your correlation dropdown
+  document
+    .getElementById("correlation-select")
+    .addEventListener("change", e => drawCorrelationHeatmap(e.target.value));
+
+  // grab your two feature selects
+  const xSelect = document.getElementById("feature-x");
+  const ySelect = document.getElementById("feature-y");
+
+  // 3) set your defaults
+  xSelect.value = "danceability";
+  ySelect.value = "valence";
+
+  // 4) prevent the user from picking the same thing twice
+  function forbidDuplicates() {
+    Array.from(ySelect.options).forEach(opt => {
+      opt.disabled = (opt.value === xSelect.value);
+    });
+    Array.from(xSelect.options).forEach(opt => {
+      opt.disabled = (opt.value === ySelect.value);
+    });
+  }
+  forbidDuplicates();
+
+  // 5) wire up your feature dropdowns (with duplicate‐blocking + redraw)
+  xSelect.addEventListener("change", () => {
+    forbidDuplicates();
+    drawScatter();
   });
+  ySelect.addEventListener("change", () => {
+    forbidDuplicates();
+    drawScatter();
+  });
+
+  // 6) draw the very first scatter immediately
+  drawScatter();
+});
+
+  
   </script>
   

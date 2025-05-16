@@ -96,7 +96,9 @@ body, html {
 }#slide4 #correlation-heatmap {
   margin-top: 0 !important;
 }
-#slide5 { background-color: #f9f3ff; }
+#slide5 { background-color: #f9f3ff;
+}
+
 #slide6 { background-color: #f3fff4; }
 
 /* Logo image */
@@ -275,4 +277,11 @@ body, html {
   font-family: Arial, sans-serif;
   font-size: 12px;
   color: #333;
+}
+
+
+#scatter-container {
+  width: 80vw;
+  height: 70vh;
+  margin: 0 auto;
 }
