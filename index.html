@@ -519,7 +519,8 @@ function drawScatter() {
           </strong><br>
           ${emojiMap[xKey]} ${labelMap[xKey]}: ${d.x.toFixed(2)}<br>
           ${emojiMap[yKey]} ${labelMap[yKey]}: ${d.y.toFixed(2)}<br>
-          🔗 Correlation: ${d.corr != null ? d.corr.toFixed(2) : "N/A"}
+          🔗 Correlation: ${d.corr != null ? d.corr.toFixed(2) : "N/A"}<br>
+          <em style="font-size:0.8rem;color:#888">All values are means</em>
         `).style("display", "block");
       })
       .on("mousemove", event => {
