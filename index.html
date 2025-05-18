@@ -75,9 +75,7 @@ title: Certified Lover Data
 
 
   <section class="slide" id="slide5">
-    <img src="{{ site.baseurl }}/assets/images/genre-popularity.png" alt="popularity" class="popularity" />
-    <!-- feature selectors (position as you like in CSS) -->
-    <div class="scatter-controls">
+    <a href="https://www.fontspace.com/category/comic-book"><img src="https://see.fontimg.com/api/rf5/rg1lK/MDc3MGVhMWEwY2QwNDNlYjkyNWQxMzQ2ZDYyYWUwZWIudHRm/R2VucmUgVGhyb3VnaCBGaXZlIEtleSBGZWF0dXJlcw/komigo-3d-regular.png?r=fs&h=60&w=1500&fg=000000&bg=FFFFFF&tb=1&s=40" alt="Comic Book fonts"></a>    <div class="scatter-controls">
   <label for="feature-x">X axis:</label>
   <select id="feature-x">
     <option value="danceability" selected>Danceability</option>
@@ -384,7 +382,6 @@ function drawCorrelationHeatmap(file) {
   })
   .catch(err => console.error("couldn't load", file, err));
 }
-
 function drawScatter() {
   // 1) clear previous
   d3.select("#scatter-container").html("");
@@ -482,33 +479,58 @@ function drawScatter() {
       .domain(d3.extent(data, d => d.y)).nice()
       .range([height, 0]);
 
-    // 9) axes
-    svg.append("g")
-      .attr("transform", `translate(0,${height})`)
+    // 9) axes GROUPS (empty to animate into)
+    const xAxisG = svg.append("g")
+      .attr("transform", `translate(0,${height})`);
+    const yAxisG = svg.append("g");
+
+    // 10) AXIS ANIMATION
+    // — first set them up invisible at zero-length
+    xAxisG.call(d3.axisBottom(xScale).tickSize(0).tickFormat(() => ""))
+         .selectAll("path, .tick line").style("opacity", 0);
+    yAxisG.call(d3.axisLeft(yScale).tickSize(0).tickFormat(() => ""))
+         .selectAll("path, .tick line").style("opacity", 0);
+
+    // — then transition to full axis
+    xAxisG.transition().duration(1000)
       .call(d3.axisBottom(xScale))
-      .append("text")
+      .selectAll("path, .tick line").style("opacity", 1);
+    yAxisG.transition().duration(1000)
+      .call(d3.axisLeft(yScale))
+      .selectAll("path, .tick line").style("opacity", 1);
+
+    // — label the axes **after** transition (so they fade in)
+    xAxisG.transition().delay(1000).duration(500).on("end", () => {
+      xAxisG.append("text")
         .attr("x", width/2).attr("y", 40)
         .attr("fill", "#000").attr("text-anchor", "middle")
         .style("font-family","Poppins, sans-serif").style("font-weight","600")
         .text(labelMap[xKey]);
-
-    svg.append("g")
-      .call(d3.axisLeft(yScale))
-      .append("text")
+    });
+    yAxisG.transition().delay(1000).duration(500).on("end", () => {
+      yAxisG.append("text")
         .attr("transform","rotate(-90)")
         .attr("x", -height/2).attr("y", -50)
         .attr("fill", "#000").attr("text-anchor", "middle")
         .style("font-family","Poppins, sans-serif").style("font-weight","600")
         .text(labelMap[yKey]);
+    });
 
-    // 10) points + hover
+    // 11) points + hover
     svg.selectAll("circle")
       .data(data)
       .enter().append("circle")
         .attr("cx", d => xScale(d.x))
         .attr("cy", d => yScale(d.y))
-        .attr("r", 6)
-        .attr("fill", "#8338ec")
+        .attr("r", 0)                      // start at radius 0…
+        .attr("fill", d => genreColor(d.broad_genre.toLowerCase()))
+      .transition()                       // …and transition to r=6
+        .delay((d,i) => i * 30)           // staggered
+        .duration(500)
+        .attr("r", 6);
+
+    // 12) hover tooltips (unchanged)
+    svg.selectAll("circle")
       .on("mouseover", (event, d) => {
         tooltip.html(`
           <strong>
@@ -528,13 +550,11 @@ function drawScatter() {
           .style("left", (event.pageX + 10) + "px")
           .style("top",  (event.pageY - 28) + "px");
       })
-      .on("mouseout", () => {
-        tooltip.style("display", "none");
-      });
+      .on("mouseout", () => tooltip.style("display", "none"));
+
   })
   .catch(err => console.error("couldn't load broad_genre data:", err));
 }
-
 
 
 

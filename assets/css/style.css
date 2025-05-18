@@ -285,3 +285,46 @@ body, html {
   height: 70vh;
   margin: 0 auto;
 }
+/* Base styling for all your dropdowns */
+#correlation-select,
+#feature-x,
+#feature-y {
+  appearance: none;             /* remove default native arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;       /* white background */
+  border: 1px solid #888;       /* subtle gray border */
+  border-radius: 10px;           /* rounded corners */
+  padding: 8px 12px;            /* space inside */
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+}
+
+
+
+/* Change border‐color on focus */
+#correlation-select:focus,
+#feature-x:focus,
+#feature-y:focus {
+  outline: none;
+  border-color: #555;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+/* Optionally wrap each in a container to control width */
+.select-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+
+/* Hide native arrow on IE10/11 */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  #correlation-select::-ms-expand,
+  #feature-x::-ms-expand,
+  #feature-y::-ms-expand {
+    display: none;
+  }
+}
