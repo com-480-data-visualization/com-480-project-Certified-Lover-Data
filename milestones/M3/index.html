@@ -50,7 +50,7 @@
 
     let intervalId;
 
-    d3.json("genre_rank_data.json").then(data => {
+    d3.json("data/genre_rank_data.json").then(data => {
       const parseDate = d3.timeParse("%Y-%m");
       data.forEach(d => d.date = parseDate(d.date));
 

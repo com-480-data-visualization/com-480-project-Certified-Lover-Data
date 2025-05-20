@@ -39,7 +39,7 @@
     const color = d3.scaleOrdinal(d3.schemeTableau10);
 
     // Load JSON data
-    const filePath = "genre_race_chart_data.json";  // Change to your JSON file path
+    const filePath = "data/genre_rank_data.json";  // Change to your JSON file path
     d3.json(filePath).then(data => {
       const allGenres = Object.keys(data[0]).filter(k => k !== "YearMonth");
 
