@@ -1,29 +1,29 @@
-Year,Month,WeekIndex,Genre,genre_weekly_score,weekly_position
-2020,August,1,Pop,1.664966006380081,1
-2020,August,1,Hip Hop,1.256504868408368,2
-2020,August,1,Country,0.5257988425641204,3
-2020,August,1,Electronic,0.2,4
-2020,August,1,Rock,0.06346100759144238,5
-2020,August,1,R&B,0.03333333333333333,6
-2020,August,2,Pop,1.452214673076097,1
-2020,August,2,Hip Hop,0.8637246644788351,2
-2020,August,2,Country,0.4070123494705427,3
-2020,August,2,Electronic,0.125,4
-2020,August,2,Rock,0.055931278002842866,5
-2020,August,2,R&B,0.020833333333333332,6
-2020,August,3,Pop,4.218909316306471,1
-2020,August,3,Hip Hop,1.0138873657423797,2
-2020,August,3,Country,0.5567229623495669,3
-2020,August,3,Electronic,0.2,4
-2020,August,3,Rock,0.06947721521891853,5
-2020,August,3,R&B,0.020833333333333332,6
-2020,August,4,Pop,1.7710026468943139,1
-2020,August,4,Hip Hop,0.9078860226157561,2
-2020,August,4,Country,0.5439332508466517,3
-2020,August,4,Electronic,0.16666666666666666,4
-2020,August,4,Rock,0.06593457647312093,5
-2020,August,5,Pop,1.7067583690822472,1
-2020,August,5,Hip Hop,0.7529218902113584,2
-2020,August,5,Country,0.5286870797194902,3
-2020,August,5,Electronic,0.125,4
-2020,August,5,Rock,0.059596538726973514,5
+Year,Month,WeekIndex,Genre,genre_weekly_score,weekly_position,spotify_track_preview_url
+2020,August,1,Pop,1.664966006380081,1,https://p.scdn.co/mp3-preview/c81341822c7dee3b4ebed7d31e5b756b0822d3dc?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,1,Hip Hop,1.256504868408368,2,https://p.scdn.co/mp3-preview/c81341822c7dee3b4ebed7d31e5b756b0822d3dc?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,1,Country,0.5257988425641204,3,https://p.scdn.co/mp3-preview/9bb31d30820c83fe3a5138b3917f0c0fcc22a2ca?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,1,Electronic,0.2,4,https://p.scdn.co/mp3-preview/c81341822c7dee3b4ebed7d31e5b756b0822d3dc?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,1,Rock,0.06346100759144238,5,https://p.scdn.co/mp3-preview/23762c3857f6e3f64af559683a1a2a6baa6ba313?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,1,R&B,0.03333333333333333,6,https://p.scdn.co/mp3-preview/dac6a7bd1f1333d17afe8c12b71ee11e3c233efd?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,2,Pop,1.452214673076097,1,https://p.scdn.co/mp3-preview/0c51b5f7ed852504844feebfb4f4b7f099452662?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,2,Hip Hop,0.8637246644788351,2,https://p.scdn.co/mp3-preview/c81341822c7dee3b4ebed7d31e5b756b0822d3dc?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,2,Country,0.4070123494705427,3,https://p.scdn.co/mp3-preview/fc33627ba3c42dbabe573a25fdc467375df2d7f1?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,2,Electronic,0.125,4,https://p.scdn.co/mp3-preview/c81341822c7dee3b4ebed7d31e5b756b0822d3dc?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,2,Rock,0.055931278002842866,5,https://p.scdn.co/mp3-preview/23762c3857f6e3f64af559683a1a2a6baa6ba313?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,2,R&B,0.020833333333333332,6,https://p.scdn.co/mp3-preview/dac6a7bd1f1333d17afe8c12b71ee11e3c233efd?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,3,Pop,4.218909316306471,1,https://p.scdn.co/mp3-preview/0c51b5f7ed852504844feebfb4f4b7f099452662?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,3,Hip Hop,1.0138873657423797,2,https://p.scdn.co/mp3-preview/c81341822c7dee3b4ebed7d31e5b756b0822d3dc?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,3,Country,0.5567229623495669,3,https://p.scdn.co/mp3-preview/fc33627ba3c42dbabe573a25fdc467375df2d7f1?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,3,Electronic,0.2,4,https://p.scdn.co/mp3-preview/c81341822c7dee3b4ebed7d31e5b756b0822d3dc?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,3,Rock,0.06947721521891853,5,https://p.scdn.co/mp3-preview/6ccf67d8e34ef1c1a659704de844088541ba729e?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,3,R&B,0.020833333333333332,6,https://p.scdn.co/mp3-preview/dac6a7bd1f1333d17afe8c12b71ee11e3c233efd?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,4,Pop,1.7710026468943139,1,https://p.scdn.co/mp3-preview/0c51b5f7ed852504844feebfb4f4b7f099452662?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,4,Hip Hop,0.9078860226157561,2,https://p.scdn.co/mp3-preview/c81341822c7dee3b4ebed7d31e5b756b0822d3dc?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,4,Country,0.5439332508466517,3,https://p.scdn.co/mp3-preview/fc33627ba3c42dbabe573a25fdc467375df2d7f1?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,4,Electronic,0.16666666666666666,4,https://p.scdn.co/mp3-preview/c81341822c7dee3b4ebed7d31e5b756b0822d3dc?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,4,Rock,0.06593457647312093,5,https://p.scdn.co/mp3-preview/6ccf67d8e34ef1c1a659704de844088541ba729e?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,5,Pop,1.7067583690822472,1,https://p.scdn.co/mp3-preview/0c51b5f7ed852504844feebfb4f4b7f099452662?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,5,Hip Hop,0.7529218902113584,2,https://p.scdn.co/mp3-preview/c81341822c7dee3b4ebed7d31e5b756b0822d3dc?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,5,Country,0.5286870797194902,3,https://p.scdn.co/mp3-preview/fc33627ba3c42dbabe573a25fdc467375df2d7f1?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,5,Electronic,0.125,4,https://p.scdn.co/mp3-preview/c81341822c7dee3b4ebed7d31e5b756b0822d3dc?cid=b8d3901151d34489a160e3cf0ab1fa94
+2020,August,5,Rock,0.059596538726973514,5,https://p.scdn.co/mp3-preview/4a4493b2bcd139fd9515f19cad4c2398daeefb5d?cid=b8d3901151d34489a160e3cf0ab1fa94
