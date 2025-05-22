@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Genre Race Chart</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    .line {
+      fill: none;
+      stroke-width: 3px;
+    }
+    .genre-label {
+      font-size: 14px;
+      font-weight: bold;
+      pointer-events: none;
+    }
+    button {
+      margin: 10px;
+      padding: 5px 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <button id="play">Play</button>
+    <button id="stop">Stop</button>
+  </div>
+
+  <svg id="chart" width="1200" height="800"></svg>
+
+  <script>
+    const margin = {top: 80, right: 200, bottom: 80, left: 100};
+    const width = 1200 - margin.left - margin.right;
+    const height = 800 - margin.top - margin.bottom;
+
+    const svg = d3.select("#chart")
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    svg.append("defs").append("clipPath")
+      .attr("id", "clip")
+      .append("rect")
+      .attr("width", width)
+      .attr("height", height);
+
+    let intervalId;
+
+    d3.json("data/genre_rank_data.json").then(data => {
+      const parseDate = d3.timeParse("%Y-%m");
+      data.forEach(d => d.date = parseDate(d.date));
+
+      const genres = Array.from(new Set(data.map(d => d.genre)));
+      const allDates = Array.from(new Set(data.map(d => d.date))).sort(d3.ascending);
+
+      const genreData = genres.map(genre => ({
+        genre,
+        values: data.filter(d => d.genre === genre)
+      }));
+
+      const x = d3.scaleLinear().domain([0, 100]).range([0, width]);
+      const y = d3.scaleLinear().domain([0.5, 10.7]).range([0, height]);
+
+      const color = d3.scaleOrdinal(d3.schemeTableau10).domain(genres);
+
+      const line = d3.line()
+        .x(d => x(d.shift))
+        .y(d => y(d.rank))
+        .curve(d3.curveMonotoneX);
+
+      svg.append("g")
+        .attr("class", "x-axis")
+        .attr("transform", `translate(0,${height})`)
+        .call(d3.axisBottom(x).ticks(5));
+
+      svg.append("g")
+        .attr("class", "y-axis")
+        .call(d3.axisLeft(y).ticks(10));
+
+      const chartGroup = svg.append("g").attr("clip-path", "url(#clip)");
+
+      const genreLines = chartGroup.selectAll(".line")
+        .data(genreData)
+        .join("path")
+        .attr("class", "line")
+        .attr("stroke", d => color(d.genre))
+        .attr("fill", "none")
+        .attr("opacity", 0.8);
+
+      const labelsGroup = svg.append("g");
+
+      let currentStep = 0;
+      let shiftAmount = 0;
+
+      function updateChart() {
+        if (currentStep >= allDates.length) {
+          clearInterval(intervalId);
+          return;
+        }
+
+        const currentDate = allDates[currentStep];
+
+        let snapshot = [];
+        genreData.forEach(g => {
+          const point = g.values.find(v => v.date.getTime() === currentDate.getTime());
+          if (point) {
+            if (!g.history) g.history = [];
+            g.history.push({shift: shiftAmount, rank: point.rank});
+            snapshot.push({genre: g.genre, rank: point.rank});
+          }
+        });
+
+        snapshot.sort((a, b) => a.rank - b.rank);
+        snapshot = snapshot.slice(0, 10);
+        const activeGenres = new Set(snapshot.map(d => d.genre));
+
+        genreLines
+          .attr("d", d => {
+            if (!d.history) return null;
+            const filtered = d.history.filter(h => h.rank <= 10);
+            return filtered.length === 0 ? null : line(filtered);
+          })
+          .attr("opacity", d => activeGenres.has(d.genre) ? 0.8 : 0);
+
+        const topGenresData = genreData.filter(g => activeGenres.has(g.genre));
+
+        const labels = labelsGroup.selectAll(".genre-label")
+          .data(topGenresData, d => d.genre);
+
+        labels.join(
+          enter => enter.append("text")
+            .attr("class", "genre-label")
+            .style("fill", d => color(d.genre))
+            .attr("dy", "0.35em")
+            .text(d => d.genre)
+            .attr("x", d => {
+              const last = d.history[d.history.length - 1];
+              return margin.left + x(last.shift) + 8;
+            })
+            .attr("y", d => {
+              const last = d.history[d.history.length - 1];
+              return margin.top + y(last.rank);
+            }),
+          update => update
+            .text(d => d.genre)
+            .attr("x", d => {
+              const last = d.history[d.history.length - 1];
+              return Math.min(margin.left + x(last.shift) + 8, width + margin.left - 10);
+            })
+            .attr("y", d => {
+              const last = d.history[d.history.length - 1];
+              return margin.top + y(last.rank);
+            }),
+          exit => exit.remove()
+        );
+
+        shiftAmount += 1;
+        currentStep++;
+      }
+
+      d3.select("#play").on("click", () => {
+        clearInterval(intervalId);
+        currentStep = 0;
+        shiftAmount = 0;
+        genreData.forEach(g => g.history = []);
+        intervalId = setInterval(updateChart, 100);
+      });
+
+      d3.select("#stop").on("click", () => {
+        clearInterval(intervalId);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Genre Rank Flow Chart</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    .line {
+      fill: none;
+      stroke-width: 2px;
+    }
+    .genre-label {
+      font-size: 12px;
+      font-weight: bold;
+    }
+    button {
+      margin: 10px;
+      padding: 5px 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <button id="play">Play</button>
+    <button id="stop">Stop</button>
+  </div>
+  <svg id="chart" width="1000" height="600"></svg>
+
+  <script>
+    const margin = {top: 50, right: 150, bottom: 50, left: 50};
+    const width = 1000 - margin.left - margin.right;
+    const height = 600 - margin.top - margin.bottom;
+    
+    const svg = d3.select("#chart")
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    let intervalId; // for the play/stop control
+
+    d3.json("data/genre_rank_data.json").then(data => {
+      const parseDate = d3.timeParse("%Y-%m");
+      data.forEach(d => d.date = parseDate(d.date));
+    
+      const genres = Array.from(new Set(data.map(d => d.genre)));
+    
+      const genreData = genres.map(genre => ({
+        genre: genre,
+        values: data.filter(d => d.genre === genre)
+      }));
+    
+      const x = d3.scaleTime()
+        .domain(d3.extent(data, d => d.date))
+        .range([0, width]);
+    
+      const y = d3.scaleLinear()
+        .domain([1, 10])
+        .range([0, height]);
+    
+      const color = d3.scaleOrdinal(d3.schemeTableau10)
+        .domain(genres);
+    
+      const line = d3.line()
+        .x(d => x(d.date))
+        .y(d => y(d.rank));
+        // 👉 Notice: no .curve(d3.curveCatmullRom) => sharp lines now!
+
+      // Axes
+      const xAxis = d3.axisBottom(x)
+        .ticks(d3.timeMonth.every(1))
+        .tickFormat(d3.timeFormat("%b '%y"));
+    
+      const yAxis = d3.axisLeft(y)
+        .ticks(10)
+        .tickFormat(d => d);
+    
+      svg.append("g")
+        .attr("transform", `translate(0,${height})`)
+        .call(xAxis)
+        .selectAll("text")
+        .attr("transform", "rotate(-45)")
+        .style("text-anchor", "end");
+    
+      svg.append("g")
+        .call(yAxis);
+    
+      // Lines
+      const genreLines = svg.selectAll(".line")
+        .data(genreData)
+        .join("path")
+        .attr("class", "line")
+        .attr("stroke", d => color(d.genre))
+        .attr("fill", "none")
+        .attr("opacity", 0.8);
+
+      // Labels
+      const labels = svg.selectAll(".genre-label")
+        .data(genreData)
+        .join("text")
+        .attr("class", "genre-label")
+        .style("fill", d => color(d.genre))
+        .attr("dy", "0.35em");
+
+      // Timeline control
+      const allDates = Array.from(new Set(data.map(d => d.date))).sort(d3.ascending);
+      let currentStep = 0;
+    
+      function updateChart() {
+        if (currentStep >= allDates.length) {
+          clearInterval(intervalId);
+          return;
+        }
+    
+        const currentDate = allDates[currentStep];
+    
+        // Update lines
+        genreLines
+          .attr("d", d => line(d.values.filter(v => v.date <= currentDate)));
+    
+        // Update labels to follow the latest point
+        labels
+          .attr("x", d => {
+            const visible = d.values.filter(v => v.date <= currentDate);
+            if (visible.length === 0) return -100; // hide offscreen if not yet started
+            return x(visible[visible.length - 1].date) + 5;
+          })
+          .attr("y", d => {
+            const visible = d.values.filter(v => v.date <= currentDate);
+            if (visible.length === 0) return height;
+            return y(visible[visible.length - 1].rank);
+          })
+          .text(d => d.genre)
+          .style("opacity", d => {
+            const visible = d.values.filter(v => v.date <= currentDate);
+            return visible.length > 0 ? 1 : 0;
+          });
+    
+        currentStep++;
+      }
+
+      // Buttons
+      d3.select("#play").on("click", () => {
+        clearInterval(intervalId);
+        intervalId = setInterval(updateChart, 300); // play fast
+      });
+
+      d3.select("#stop").on("click", () => {
+        clearInterval(intervalId);
+      });
+
+    });
+  </script>
+</body>
+</html>
