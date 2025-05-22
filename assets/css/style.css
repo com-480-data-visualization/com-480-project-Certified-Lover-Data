@@ -331,16 +331,4 @@ body, html {
 
 
 /* Hide native arrow on IE10/11 */
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  #correlation-select::-ms-expand,
-  #feature-x::-ms-expand,
-  #feature-y::-ms-expand {
-    display: none;
-  }
-}
-.music-character {
-  display: block;
-  width: 100px;
-  height: 100px;
-  margin: 0 auto;
-}
+@media all and (-ms
