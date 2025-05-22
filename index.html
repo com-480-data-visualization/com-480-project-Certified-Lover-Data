@@ -1,0 +1,731 @@
+---
+layout: default
+title: Certified Lover Data
+---
+
+<!-- Slide indicator bar -->
+<div class="nav-indicator">
+  <span class="bar" id="bar0"></span>
+  <span class="bar" id="bar1"></span>
+  <span class="bar" id="bar2"></span>
+  <span class="bar" id="bar3"></span>
+  <span class="bar" id="bar4"></span>
+  <span class="bar" id="bar5"></span>
+  <span class="bar" id="bar6"></span>
+  <span class="bar" id="bar7"></span>
+  <span class="bar" id="bar8"></span>
+  <span class="bar" id="bar9"></span>
+
+</div>
+
+<!-- Slide container -->
+<div class="slider-container">
+  <section class="slide" id="slide1">
+    <img src="{{ site.baseurl }}/assets/images/logo.png" alt="Certified Lover Data" class="logo" />
+    <img src="{{ site.baseurl }}/assets/images/party2.gif" alt="Party GIF" class="party-gif" />
+  </section>
+  <section class="slide" id="slide1-2">
+    <div style="font-family: 'Poppins', sans-serif; font-weight: 900; font-style: italic; text-align: center; max-width: 800px; margin: 0 auto;">
+      <h1 style="margin-bottom: 1rem;">Certified Lover Data</h1>
+      <p style="font-weight: 400; font-style: normal; font-size: 1rem; line-height: 1.5;">
+        Certified Lover Data mixes Billboard’s Hot 100 history with Spotify audio features to uncover what makes a song a hit. You’ll explore:
+      </p>
+      <ul style="list-style: none; padding: 0; margin: 1rem 0; font-weight: 400;">
+        <li>👉 A “race” chart showing genres rising and falling over time</li>
+        <li>👉 An interactive world map of each country’s top style</li>
+        <li>👉 Heatmaps and scatter plots revealing how danceability, energy, valence, tempo, and popularity interact</li>
+        <li>👉 A “Genrify” tool predicting a track’s genre from its audio traits</li>
+      </ul>
+      <p style="font-weight: 400; font-style: normal; font-size: 0.9rem; color: #555;">
+        Perfect for curious fans and music pros alike, it shows how genre, emotion, and geography shape today’s biggest hits.
+      </p>
+<dotlottie-player src="https://lottie.host/16a94932-5d64-4b47-8853-38b6f364a323/hTJqfh95rR.lottie" background="transparent" speed="1" style="width: 300px; height: 300px"    class="music-character"
+loop autoplay>
+</dotlottie-player>
+    </div>
+    
+  </section>
+
+  <section class="slide" id="slide2">
+    <img src="{{ site.baseurl }}/assets/images/genre-race-title.png" alt="Genre Race Chart" class="genre-race-title" />
+    <div class="chart-container">
+      <img src="{{ site.baseurl }}/assets/images/genre-race.png" alt="Genre Race Chart" class="chart-img" />
+    </div>
+  </section>
+  <section class="slide" id="slide2-2">  </section>
+
+
+  <section class="slide" id="slide3">
+    <img src="{{ site.baseurl }}/assets/images/Map.png" alt="Map" class="map" />
+    <div class="map-container">
+      <svg id="my_dataviz" width="1500" height="750"></svg>
+    </div>
+  </section>
+  <section class="slide" id="slide3-2">  </section>
+
+
+  <section class="slide" id="slide4">
+    <img src="{{ site.baseurl }}/assets/images/correlations.png" alt="correlations" class="correlations" />
+    <div id="correlation-menu-container">
+      <label for="correlation-select">Choose a genre:</label>
+      <select id="correlation-select">
+        <option value="blues_correlation.csv">Blues</option>
+        <option value="classical_correlation.csv">Classical</option>
+        <option value="comedy_correlation.csv">Comedy</option>
+        <option value="country_correlation.csv">Country</option>
+        <option value="dance_correlation.csv">Dance</option>
+        <option value="easy_listening_correlation.csv">Easy Listening</option>
+        <option value="electronic_correlation.csv">Electronic</option>
+        <option value="folk_correlation.csv">Folk</option>
+        <option value="funk_correlation.csv">Funk</option>
+        <option value="hip_hop_correlation.csv">Hip Hop</option>
+        <option value="holiday_correlation.csv">Holiday</option>
+        <option value="indie_correlation.csv">Indie</option>
+        <option value="jazz_correlation.csv">Jazz</option>
+        <option value="latin_correlation.csv">Latin</option>
+        <option value="metal_correlation.csv">Metal</option>
+        <option value="other_correlation.csv">Other</option>
+        <option value="pop_correlation.csv">Pop</option>
+        <option value="r&b_correlation.csv">R&B</option>
+        <option value="reggae_correlation.csv">Reggae</option>
+        <option value="regional_mexican_correlation.csv">Regional Mexican</option>
+        <option value="rock_correlation.csv">Rock</option>
+        <option value="ska_correlation.csv">Ska</option>
+        <option value="soul_correlation.csv">Soul</option>
+        <option value="soundtrack_correlation.csv">Soundtrack</option>
+      </select>
+    </div>
+  
+    
+    <div id="heatmap-wrapper">
+    <div id="correlation-heatmap"></div>
+    <div id="correlation-legend"></div>
+  </section>
+
+
+  <section class="slide" id="slide5">
+   <img src="https://see.fontimg.com/api/rf5/rg1lK/MDc3MGVhMWEwY2QwNDNlYjkyNWQxMzQ2ZDYyYWUwZWIudHRm/R2VucmVzIFRocm91Z2ggRml2ZSBLZXkgRmVhdHVyZXM/komigo-3d-regular.png?r=fs&h=60&w=1500&fg=000000&bg=FFFFFF&tb=1&s=40" alt="Comic Book fonts">
+  <div class="scatter-controls">
+  <label for="feature-x">X axis:</label>
+  <select id="feature-x">
+    <option value="danceability" selected>Danceability</option>
+    <option value="energy">Energy</option>
+    <option value="valence">Valence</option>
+    <option value="tempo">Tempo</option>
+    <option value="popularity">Popularity</option>
+  </select>
+  <label for="feature-y">Y axis:</label>
+  <select id="feature-y">
+    <option value="danceability">Danceability</option>
+    <option value="energy">Energy</option>
+    <option value="valence" selected>Valence</option>
+    <option value="tempo">Tempo</option>
+    <option value="popularity">Popularity</option>
+  </select>
+</div>
+    <!-- container for the D3 scatterplot -->
+    <div id="scatter-container"></div>
+
+  </section>
+  <section class="slide" id="slide5-2">  </section>
+
+  <section class="slide" id="slide6">
+    <img src="{{ site.baseurl }}/assets/images/genrify-title.png" alt="genrify-title" class="genrify-title" />
+    <img src="{{ site.baseurl }}/assets/images/genrify-subtitle.png" alt="genrify-subtitle" class="genrify-subtitle" />
+    <div class="chart-container">
+      <img src="{{ site.baseurl }}/assets/images/genrify.png" alt="genrify-map" class="genrify-map" />
+    </div>
+  </section>
+</div>
+
+<!-- Navigation arrows using images -->
+<div class="nav-arrow left" id="leftArrow" onclick="prevSlide()">
+  <img src="{{ site.baseurl }}/assets/images/left.png" alt="Left arrow" class="arrow-img" />
+</div>
+
+<div class="nav-arrow right" id="rightArrow" onclick="nextSlide()">
+  <img src="{{ site.baseurl }}/assets/images/right.png" alt="Right arrow" class="arrow-img" />
+</div>
+
+<!-- Click prompt image (outside the arrow to avoid click propagation) -->
+<img src="{{ site.baseurl }}/assets/images/click.png" alt="Click prompt" class="click-prompt" id="clickPrompt" />
+
+<!-- JavaScript logic -->
+
+<script>
+  // keep your slide variables
+  let currentSlide = 0;
+  const totalSlides = 10;
+  
+  // slide navigation
+  function nextSlide() {
+    if (currentSlide < totalSlides - 1) {
+      currentSlide++;
+      updateSlide();
+    }
+  }
+  function prevSlide() {
+    if (currentSlide > 0) {
+      currentSlide--;
+      updateSlide();
+    }
+  }
+  
+  // DRAW WORLD MAP (slide 3)
+  function drawMap() {
+    const svg = d3.select("#my_dataviz"),
+          width = +svg.attr("width"),
+          height = +svg.attr("height");
+  
+    const projection = d3.geoNaturalEarth1()
+        .scale(260)
+        .translate([width/2, height/2]);
+  
+    const path = d3.geoPath(projection);
+  
+    // color‐by‐genre scale (lowercased keys)
+    const genreColor = d3.scaleOrdinal()
+      .domain([
+        'blues','classical','comedy','country','dance','easy listening',
+        'electronic','folk','funk','hip hop','holiday','indie',
+        'jazz','latin','metal','other','pop','r&b',
+        'reggae','regional mexican','rock','ska','soul','soundtrack'
+      ])
+      .range([
+        '#1f77b4','#aec7e8','#ff7f0e','#ffbb78','#2ca02c','#98df8a',
+        '#d62728','#ff9896','#9467bd','#c5b0d5','#8c564b','#c49c94',
+        '#e377c2','#f7b6d2','#7f7f7f','#c7c7c7','#bcbd22','#dbdb8d',
+        '#17becf','#9edae5','#393b79','#6b6ecf','#637939','#8ca252'
+      ]);
+  
+    // fixes for mismatched names
+    const nameFix = {
+      "United States":"USA","Russia":"Russian Federation",
+      "Korea, Republic of":"South Korea","Korea, Democratic People's Republic of":"North Korea",
+      "South Korea":"Korea, Republic of","Viet Nam":"Vietnam",
+      "Venezuela, Bolivarian Republic of":"Venezuela","Czechia":"Czech Republic",
+      "Taiwan, Province of China":"Taiwan","Bolivia, Plurinational State of":"Bolivia",
+      "United Kingdom":"England"
+    };
+  
+    // tooltip div
+    const tooltip = d3.select("body").append("div")
+      .attr("class","tooltip")
+      .style("position","absolute")
+      .style("padding","8px")
+      .style("background","white")
+      .style("border","1px solid #ccc")
+      .style("border-radius","5px")
+      .style("pointer-events","none")
+      .style("display","none");
+  
+    // load both JSON + CSV then draw
+    Promise.all([
+      d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"),
+      d3.csv("assets/data/country_genre_data_viz.csv")   // <— no leading slash
+    ]).then(([geoData, csvData]) => {
+      // build lookup
+      const info = {};
+      csvData.forEach(d => {
+        const cn = (d.country_name||"").trim();
+        const key = (nameFix[cn]||cn).trim();
+        info[key] = {
+          genre: d.top_genre,
+          dance: +d.avg_danceability,
+          energy: +d.avg_energy,
+          valence: +d.avg_valence,
+          tempo: +d.avg_tempo,
+          popularity: +d.avg_popularity
+        };
+      });
+  
+      // draw paths
+      svg.append("g")
+        .selectAll("path")
+        .data(geoData.features)
+        .join("path")
+          .attr("d", path)
+          .attr("fill", d => {
+            const v = info[d.properties.name];
+            return v ? genreColor(v.genre.toLowerCase()) : "#eee";
+          })
+          .attr("stroke","#fff").attr("stroke-width",0.5)
+        .on("mouseover", function(event,d){
+          const v = info[d.properties.name];
+          if(!v) return tooltip.style("display","none");
+          d3.select(this)
+            .raise()
+            .transition().duration(200)
+            .attr("stroke","#111").attr("stroke-width",1.5);
+          tooltip.html(`
+            <strong>${d.properties.name}</strong><br>
+            🎧 <span style="color:${genreColor(v.genre.toLowerCase())};font-weight:bold">${v.genre}</span><br>
+            💃 ${v.dance.toFixed(2)} /0.99<br>
+            ⚡️ ${v.energy.toFixed(2)} /1<br>
+            😊 ${v.valence.toFixed(2)} /0.99<br>
+            🎵 ${v.tempo.toFixed(0)} BPM<br>
+            🔥 ${v.popularity.toFixed(0)} /100<br>
+            <em style="font-size:0.8rem;color:#888">All values are means (2023-10-18→2025-05-11)</em>
+          `).style("display","block");
+        })
+        .on("mousemove", e => {
+          tooltip.style("left", (e.pageX+10)+"px").style("top", (e.pageY-28)+"px");
+        })
+        .on("mouseout", function(event,d){
+          const v = info[d.properties.name];
+          d3.select(this)
+            .transition().duration(200)
+            .attr("stroke","#fff").attr("stroke-width",0.5)
+            .attr("fill", v ? genreColor(v.genre.toLowerCase()) : "#eee");
+          tooltip.style("display","none");
+        });
+    });
+  }
+  
+  function drawCorrelationHeatmap(file) {
+  // 1) clear any old chart
+  d3.select("#correlation-heatmap").html("");
+
+  // 2) load CSV
+  d3.csv("{{ site.baseurl }}/assets/data/" + file).then(data => {
+    const rowKey    = Object.keys(data[0])[0];
+    const variables = data.columns.slice(1);
+
+    // friendly axis labels
+    const labelMap = {
+      danceability:             "Danceability",
+      energy:                   "Energy",
+      valence:                  "Valence",
+      tempo:                    "Tempo",
+      spotify_track_popularity: "Popularity"
+    };
+
+    // 3) flatten into matrix
+    const matrix = [];
+    data.forEach(row =>
+      variables.forEach(col =>
+        matrix.push({
+          x:     col,
+          y:     row[rowKey],
+          value: +row[col]
+        })
+      )
+    );
+
+    // 4) sizing
+    const cellH  = 100,
+          cellW  = cellH * 1.5,
+          margin = { top: 100, right: 400, bottom: 150, left: 150 },
+          width  = cellW * variables.length,
+          height = cellH * variables.length;
+
+    // 5) root SVG
+    const svg = d3.select("#correlation-heatmap")
+      .append("svg")
+        .attr("width",  width  + margin.left + margin.right)
+        .attr("height", height + margin.top  + margin.bottom);
+
+    // 6) legend gradient
+    const defs = svg.append("defs");
+    const grad = defs.append("linearGradient")
+      .attr("id","legendGrad")
+      .attr("x1","0%").attr("y1","0%")
+      .attr("x2","100%").attr("y2","0%");
+    grad.append("stop").attr("offset","0%").attr("stop-color","#d73027");
+    grad.append("stop").attr("offset","50%").attr("stop-color","#ffffbf");
+    grad.append("stop").attr("offset","100%").attr("stop-color","#1a9850");
+
+    const legendG = svg.append("g")
+      .attr("transform", `translate(${margin.left+width+20},${margin.top-40})`)
+      .attr("opacity", 0);
+    legendG.append("rect")
+      .attr("width",200).attr("height",10)
+      .style("fill","url(#legendGrad)");
+    const legendScale = d3.scaleLinear().domain([-1,1]).range([0,200]);
+    legendG.append("g")
+      .attr("transform","translate(0,10)")
+      .call(d3.axisBottom(legendScale)
+        .tickValues([-1,0,1]).tickFormat(d3.format("d"))
+      )
+      .select(".domain").remove();
+
+    // fade in legend
+    legendG.transition()
+      .delay(variables.length * variables.length * 5 + 800)
+      .duration(800)
+      .attr("opacity", 1);
+
+    // 7) main group
+    const g = svg.append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // 8) scales & color
+    const x = d3.scaleBand().domain(variables).range([0,width]).padding(0.01);
+    const y = d3.scaleBand().domain(variables).range([0,height]).padding(0.01);
+    const colorScale = d3.scaleLinear()
+      .domain([-1,0,1])
+      .range(["#d73027","#ffffbf","#1a9850"]);
+
+    // 9) draw cells with pop-in bounce
+    const cells = g.selectAll("rect.cell")
+      .data(matrix)
+      .enter().append("rect")
+        .attr("class","cell")
+        .attr("x",     d => x(d.x) + x.bandwidth()/2)
+        .attr("y",     d => y(d.y) + y.bandwidth()/2)
+        .attr("width", 0)
+        .attr("height", 0)
+        .style("fill", d => colorScale(d.value));
+
+    cells.transition()
+      .delay((d,i) => i * 8)
+      .duration(800)
+      .ease(d3.easeBounce)
+      .attr("x", d => x(d.x))
+      .attr("y", d => y(d.y))
+      .attr("width",  x.bandwidth())
+      .attr("height", y.bandwidth());
+
+    // 10) annotate with fade + float
+    const labels = g.selectAll("text.label")
+      .data(matrix)
+      .enter().append("text")
+        .attr("class","label")
+        .attr("x",           d => x(d.x)+x.bandwidth()/2)
+        .attr("y",           d => y(d.y)+y.bandwidth()/2 + 10)
+        .attr("text-anchor","middle")
+        .attr("dy",".35em")
+        .style("font-size","14px")
+        .style("fill","#000")
+        .attr("opacity", 0)
+        .text(d => d.value.toFixed(2));
+
+    labels.transition()
+      .delay((d,i) => i * 8 + 400)
+      .duration(600)
+      .attr("opacity", 1)
+      .attr("y", d => y(d.y)+y.bandwidth()/2)
+      .ease(d3.easeSinOut);
+
+    // 11) top axis (elastic slide-in)
+    const xAxisG = g.append("g")
+      .attr("transform", "translate(0,-30)")
+      .attr("opacity", 0)
+      .call(d3.axisTop(x)
+        .tickFormat(d => labelMap[d]||d)
+        .tickSize(0)
+      );
+
+    xAxisG.selectAll("text")
+      .attr("dy","-0.4em")
+      .style("text-anchor","middle")
+      .style("fill","#000")
+      .style("font-family","Poppins, sans-serif")
+      .style("font-weight","700");
+
+    xAxisG.transition()
+      .delay(variables.length * variables.length * 5 + 300)
+      .duration(1200)
+      .ease(d3.easeElasticOut.amplitude(1).period(0.4))
+      .attr("transform", "translate(0,0)")
+      .attr("opacity", 1);
+
+    // 12) left axis (elastic slide-in)
+    const yAxisG = g.append("g")
+      .attr("transform", "translate(-30,0)")
+      .attr("opacity", 0)
+      .call(d3.axisLeft(y)
+        .tickFormat(d => labelMap[d]||d)
+        .tickSize(0)
+      );
+
+    yAxisG.selectAll("text")
+      .attr("transform","rotate(-90)")
+      .attr("dy","-1.4em")
+      .style("text-anchor","middle")
+      .style("fill","#000")
+      .style("font-family","Poppins, sans-serif")
+      .style("font-weight","700");
+
+    yAxisG.transition()
+      .delay(variables.length * variables.length * 5 + 300)
+      .duration(1200)
+      .ease(d3.easeElasticOut.amplitude(1).period(0.4))
+      .attr("transform", "translate(0,0)")
+      .attr("opacity", 1);
+
+  })
+  .catch(err => console.error("couldn't load", file, err));
+}
+
+function drawScatter() {
+  // 1) clear previous
+  d3.select("#scatter-container").html("");
+  d3.select("body").selectAll(".scatter-tooltip").remove();
+
+  // 2) genre → color scale (same as your map)
+  const genreColor = d3.scaleOrdinal()
+    .domain([
+      'blues','classical','comedy','country','dance','easy listening',
+      'electronic','folk','funk','hip hop','holiday','indie',
+      'jazz','latin','metal','other','pop','r&b',
+      'reggae','regional mexican','rock','ska','soul','soundtrack'
+    ])
+    .range([
+      '#1f77b4','#aec7e8','#ff7f0e','#ffbb78','#2ca02c','#98df8a',
+      '#d62728','#ff9896','#9467bd','#c5b0d5','#8c564b','#c49c94',
+      '#e377c2','#f7b6d2','#7f7f7f','#c7c7c7','#bcbd22','#dbdb8d',
+      '#17becf','#9edae5','#393b79','#6b6ecf','#637939','#8ca252'
+    ]);
+
+  // 3) feature → CSV column, emoji, label
+  const colMap = {
+    danceability: "avg_danceability_y",
+    energy:       "avg_energy_y",
+    valence:      "avg_valence_y",
+    tempo:        "avg_tempo_y",
+    popularity:   "avg_spotify_track_popularity"
+  };
+  const emojiMap = {
+    danceability: "💃",
+    energy:       "⚡️",
+    valence:      "😊",
+    tempo:        "🎵",
+    popularity:   "🔥"
+  };
+  const labelMap = {
+    danceability: "Danceability",
+    energy:       "Energy",
+    valence:      "Valence",
+    tempo:        "Tempo",
+    popularity:   "Popularity"
+  };
+
+  // 4) tooltip div
+  const tooltip = d3.select("body").append("div")
+    .attr("class", "scatter-tooltip")
+    .style("position", "absolute")
+    .style("padding", "8px")
+    .style("background", "white")
+    .style("border", "1px solid #ccc")
+    .style("border-radius", "5px")
+    .style("pointer-events", "none")
+    .style("font-family", "Poppins, sans-serif")
+    .style("font-size", "13px")
+    .style("display", "none");
+
+  // 5) load data
+  d3.csv("assets/data/broad_genre_correlation_summary.csv").then(data => {
+    // read dropdowns
+    const xKey = document.getElementById("feature-x").value;
+    const yKey = document.getElementById("feature-y").value;
+    const colX = colMap[xKey], colY = colMap[yKey];
+    const corrKey1 = `${xKey}_${yKey}_corr`;
+    const corrKey2 = `${yKey}_${xKey}_corr`;
+
+    // parse
+    data.forEach(d => {
+      d.x = +d[colX];
+      d.y = +d[colY];
+      if (d[corrKey1] !== undefined) d.corr = +d[corrKey1];
+      else if (d[corrKey2] !== undefined) d.corr = +d[corrKey2];
+      else d.corr = null;
+    });
+
+    // 6) sizing
+    const margin = { top: 40, right: 20, bottom: 60, left: 80 };
+    const container = d3.select("#scatter-container");
+    const fullW  = container.node().clientWidth;
+    const fullH  = container.node().clientHeight;
+    const width  = fullW  - margin.left - margin.right;
+    const height = fullH  - margin.top  - margin.bottom;
+
+    // 7) root SVG
+    const svg = container.append("svg")
+        .attr("width",  fullW)
+        .attr("height", fullH)
+      .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // 8) scales
+    const xScale = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.x)).nice()
+      .range([0, width]);
+    const yScale = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.y)).nice()
+      .range([height, 0]);
+
+    // 9) axes GROUPS (empty to animate into)
+    const xAxisG = svg.append("g")
+      .attr("transform", `translate(0,${height})`);
+    const yAxisG = svg.append("g");
+
+    // 10) AXIS ANIMATION
+    // — first set them up invisible at zero-length
+    xAxisG.call(d3.axisBottom(xScale).tickSize(0).tickFormat(() => ""))
+         .selectAll("path, .tick line").style("opacity", 0);
+    yAxisG.call(d3.axisLeft(yScale).tickSize(0).tickFormat(() => ""))
+         .selectAll("path, .tick line").style("opacity", 0);
+
+    // — then transition to full axis
+    xAxisG.transition().duration(1000)
+      .call(d3.axisBottom(xScale))
+      .selectAll("path, .tick line").style("opacity", 1);
+    yAxisG.transition().duration(1000)
+      .call(d3.axisLeft(yScale))
+      .selectAll("path, .tick line").style("opacity", 1);
+
+    // — label the axes **after** transition (so they fade in)
+    xAxisG.transition().delay(1000).duration(500).on("end", () => {
+      xAxisG.append("text")
+        .attr("x", width/2).attr("y", 40)
+        .attr("fill", "#000").attr("text-anchor", "middle")
+        .style("font-family","Poppins, sans-serif").style("font-weight","600")
+        .text(labelMap[xKey]);
+    });
+    yAxisG.transition().delay(1000).duration(500).on("end", () => {
+      yAxisG.append("text")
+        .attr("transform","rotate(-90)")
+        .attr("x", -height/2).attr("y", -50)
+        .attr("fill", "#000").attr("text-anchor", "middle")
+        .style("font-family","Poppins, sans-serif").style("font-weight","600")
+        .text(labelMap[yKey]);
+    });
+
+    // 11) points + hover
+    svg.selectAll("circle")
+      .data(data)
+      .enter().append("circle")
+        .attr("cx", d => xScale(d.x))
+        .attr("cy", d => yScale(d.y))
+        .attr("r", 0)                      // start at radius 0…
+        .attr("fill", d => genreColor(d.broad_genre.toLowerCase()))
+      .transition()                       // …and transition to r=6
+        .delay((d,i) => i * 30)           // staggered
+        .duration(500)
+        .attr("r", 6);
+
+    // 12) hover tooltips (unchanged)
+    svg.selectAll("circle")
+      .on("mouseover", (event, d) => {
+        tooltip.html(`
+          <strong>
+            <span style="
+              color: ${genreColor(d.broad_genre.toLowerCase())};
+              font-weight: bold;
+            ">🎧 ${d.broad_genre}</span>
+          </strong><br>
+          ${emojiMap[xKey]} ${labelMap[xKey]}: ${d.x.toFixed(2)}<br>
+          ${emojiMap[yKey]} ${labelMap[yKey]}: ${d.y.toFixed(2)}<br>
+          🔗 Correlation: ${d.corr != null ? d.corr.toFixed(2) : "N/A"}<br>
+          <em style="font-size:0.8rem;color:#888">All values are means</em>
+        `).style("display", "block");
+      })
+      .on("mousemove", event => {
+        tooltip
+          .style("left", (event.pageX + 10) + "px")
+          .style("top",  (event.pageY - 28) + "px");
+      })
+      .on("mouseout", () => tooltip.style("display", "none"));
+
+  })
+  .catch(err => console.error("couldn't load broad_genre data:", err));
+}
+
+
+
+  
+  // SLIDE UPDATE + HOOKUPS
+  function updateSlide() {
+    const container = document.querySelector('.slider-container');
+    container.style.transform = `translateX(-${currentSlide * 100}vw)`;
+
+    document.getElementById('leftArrow').style.display  = currentSlide === 0             ? 'none' : 'block';
+    document.getElementById('rightArrow').style.display = currentSlide === totalSlides-1 ? 'none' : 'block';
+
+    document.querySelectorAll('.nav-indicator .bar')
+      .forEach((bar,i)=> bar.classList.toggle('active', i === currentSlide));
+
+    // click prompt only on first real slide
+    document.getElementById("clickPrompt").style.display = currentSlide === 0 ? "block":"none";
+
+    // you can hook your drawMap / drawHeatmap / drawScatter when hitting their new indices:
+    if (currentSlide === 2 && !window.mapDrawn) {
+      drawMap(); window.mapDrawn = true;
+    }
+    if (currentSlide === 4 && !window.scatterDrawn) {
+    drawScatter();
+    window.scatterDrawn = true;
+  }
+    if (currentSlide === 6 && !window.heatmapDrawn) {
+      drawCorrelationHeatmap(document.getElementById("correlation-select").value);
+      window.heatmapDrawn = true;
+    }
+    if (currentSlide === 8 && !window.scatterDrawn) {
+      drawScatter(); window.scatterDrawn = true;
+    }
+  }
+  
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+  // 1) initialize the slider
+  updateSlide();
+
+  // 2) wire up your correlation dropdown
+  document
+    .getElementById("correlation-select")
+    .addEventListener("change", e => drawCorrelationHeatmap(e.target.value));
+
+  // grab your two feature selects
+  const xSelect = document.getElementById("feature-x");
+  const ySelect = document.getElementById("feature-y");
+
+  // 3) set your defaults
+  xSelect.value = "danceability";
+  ySelect.value = "valence";
+
+  // 4) prevent the user from picking the same thing twice
+  function forbidDuplicates() {
+    Array.from(ySelect.options).forEach(opt => {
+      opt.disabled = (opt.value === xSelect.value);
+    });
+    Array.from(xSelect.options).forEach(opt => {
+      opt.disabled = (opt.value === ySelect.value);
+    });
+  }
+  forbidDuplicates();
+
+  // 5) wire up your feature dropdowns (with duplicate‐blocking + redraw)
+  xSelect.addEventListener("change", () => {
+    forbidDuplicates();
+    drawScatter();
+  });
+  ySelect.addEventListener("change", () => {
+    forbidDuplicates();
+    drawScatter();
+  });
+
+  // 6) draw the very first scatter immediately
+  drawScatter();
+
+  // ▶ keyboard nav: ←/PageUp go back, →/PageDown/space go forward
+document.addEventListener('keydown', function(e) {
+  switch (e.key) {
+    case 'ArrowRight':
+    case 'PageDown':
+    case ' ':
+      e.preventDefault(); // prevent page‐scroll on space
+      nextSlide();
+      break;
+    case 'ArrowLeft':
+    case 'PageUp':
+      prevSlide();
+      break;
+  }
+});
+});
+
+  
+  </script>
+  
