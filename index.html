@@ -11,23 +11,28 @@ title: Certified Lover Data
   <span class="bar" id="bar3"></span>
   <span class="bar" id="bar4"></span>
   <span class="bar" id="bar5"></span>
+  <span class="bar" id="bar6"></span>
+  <span class="bar" id="bar7"></span>
+  <span class="bar" id="bar8"></span>
+  <span class="bar" id="bar9"></span>
 </div>
-
 <!-- Slide container -->
 <div class="slider-container">
   <section class="slide" id="slide1">
     <img src="{{ site.baseurl }}/assets/images/logo.png" alt="Certified Lover Data" class="logo" />
     <img src="{{ site.baseurl }}/assets/images/party2.gif" alt="Party GIF" class="party-gif" />
   </section>
+  <section class="slide" id="slide1.2">  </section>
 
-  <section class="slide" id="slide2">
+    <section class="slide" id="slide2">
     <img src="{{ site.baseurl }}/assets/images/genre-race-title.png" alt="Genre Race Chart" class="genre-race-title" />
     <div class="chart-container">
       <img src="{{ site.baseurl }}/assets/images/genre-race.png" alt="Genre Race Chart" class="chart-img" />
     </div>
   </section>
+  <section class="slide" id="slide2.2">  </section>
 
-  <section class="slide" id="slide3">
+    <section class="slide" id="slide3">
     <img src="{{ site.baseurl }}/assets/images/Map.png" alt="Map" class="map" />
     <div class="map-container">
       <svg id="my_dataviz" width="1500" height="750"></svg>
@@ -98,7 +103,10 @@ title: Certified Lover Data
     <div id="scatter-container"></div>
 
   </section>
+  <section class="slide" id="slide5.2">  </section>
 
+
+  </section>
   <section class="slide" id="slide6">
     <img src="{{ site.baseurl }}/assets/images/genrify-title.png" alt="genrify-title" class="genrify-title" />
     <img src="{{ site.baseurl }}/assets/images/genrify-subtitle.png" alt="genrify-subtitle" class="genrify-subtitle" />
@@ -125,16 +133,16 @@ title: Certified Lover Data
 <script>
   // keep your slide variables
   let currentSlide = 0;
-  const totalSlides = 6;
+  const totalSlides = 10;
   
   // slide navigation
-  function nextSlide() {
+  function nextSlide(){
     if (currentSlide < totalSlides - 1) {
       currentSlide++;
       updateSlide();
     }
   }
-  function prevSlide() {
+  function prevSlide(){
     if (currentSlide > 0) {
       currentSlide--;
       updateSlide();
@@ -607,31 +615,28 @@ function drawScatter() {
   
   // SLIDE UPDATE + HOOKUPS
   function updateSlide() {
-    const c = document.querySelector('.slider-container');
-    c.style.transform = `translateX(-${currentSlide*100}vw)`;
-  
-    document.getElementById('leftArrow').style.display  = currentSlide===0 ? 'none':'block';
-    document.getElementById('rightArrow').style.display = currentSlide===totalSlides-1 ? 'none':'block';
-  
-    document.querySelectorAll('.nav-indicator .bar').forEach((b,i)=>{
-      b.classList.toggle('active', i===currentSlide);
-    });
-  
-    // click prompt only on slide 0
-    document.getElementById("clickPrompt").style.display =
-      currentSlide===0 ? "block":"none";
-  
-    // draw map once
-    if (currentSlide===2 && !window.mapDrawn) {
-      drawMap();
-      window.mapDrawn = true;
+    const container = document.querySelector('.slider-container');
+    container.style.transform = `translateX(-${currentSlide * 100}vw)`;
+
+    document.getElementById('leftArrow').style.display  = currentSlide === 0             ? 'none' : 'block';
+    document.getElementById('rightArrow').style.display = currentSlide === totalSlides-1 ? 'none' : 'block';
+
+    document.querySelectorAll('.nav-indicator .bar')
+      .forEach((bar,i)=> bar.classList.toggle('active', i === currentSlide));
+
+    // click prompt only on first real slide
+    document.getElementById("clickPrompt").style.display = currentSlide === 0 ? "block":"none";
+
+    // you can hook your drawMap / drawHeatmap / drawScatter when hitting their new indices:
+    if (currentSlide === 2 && !window.mapDrawn) {
+      drawMap(); window.mapDrawn = true;
     }
-  
-    // draw heatmap once
-    if (currentSlide===3 && !window.heatmapDrawn) {
-      const file = document.getElementById("correlation-select").value;
-      drawCorrelationHeatmap(file);
+    if (currentSlide === 6 && !window.heatmapDrawn) {
+      drawCorrelationHeatmap(document.getElementById("correlation-select").value);
       window.heatmapDrawn = true;
+    }
+    if (currentSlide === 8 && !window.scatterDrawn) {
+      drawScatter(); window.scatterDrawn = true;
     }
   }
   if (currentSlide === 4 && !window.scatterDrawn) {
