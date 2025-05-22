@@ -67,8 +67,15 @@ body, html {
 
 /* Slide background colors */
 #slide1 { background-color: #ffffff; }
+#slide1-2 { background-color: #f3ffff;
+}
 #slide2 { background-color: #fff6ec; }
+#slide2-2 { background-color: #f7fff3;
+}
+
 #slide3 { background-color: #fafae9; }
+#slide3-2 { background-color: #f6f3ff;
+}
 #slide4 { 
   /* still a flex-column, but start at top instead of center */
   justify-content: flex-start !important;
@@ -97,6 +104,9 @@ body, html {
   margin-top: 0 !important;
 }
 #slide5 { background-color: #f9f3ff;
+}
+
+#slide5-2 { background-color: #fff3f4;
 }
 
 #slide6 { background-color: #f3fff4; }
@@ -327,4 +337,10 @@ body, html {
   #feature-y::-ms-expand {
     display: none;
   }
+}
+.music-character {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
 }
