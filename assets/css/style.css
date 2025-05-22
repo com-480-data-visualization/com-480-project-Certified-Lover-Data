@@ -425,5 +425,24 @@ body, html {
   }
 }
 
+#slide2-2 {
+  /* stack top to bottom instead of centering */
+  justify-content: flex-start !important;
+  /* give some breathing room at top */
+  padding-top: 60px;
+  /* allow internal scrolling if it ever overflows */
+  overflow-y: auto;
+}
+
+#slide2-2 .genre-race-text {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: 1.2rem;
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto 40px;
+  color: #333;
+}
 
 
