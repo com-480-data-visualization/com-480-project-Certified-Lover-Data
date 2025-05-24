@@ -355,35 +355,42 @@ loop autoplay>
         .attr("width",  width  + margin.left + margin.right)
         .attr("height", height + margin.top  + margin.bottom);
 
-    // 6) legend gradient
+    // --- 6) vertical legend gradient ---
+    // a) defs
     const defs = svg.append("defs");
     const grad = defs.append("linearGradient")
       .attr("id","legendGrad")
-      .attr("x1","0%").attr("y1","0%")
-      .attr("x2","100%").attr("y2","0%");
+      // bottom→top
+      .attr("x1","0%").attr("y1","100%")
+      .attr("x2","0%").attr("y2","0%");
     grad.append("stop").attr("offset","0%").attr("stop-color","#d73027");
     grad.append("stop").attr("offset","50%").attr("stop-color","#ffffbf");
     grad.append("stop").attr("offset","100%").attr("stop-color","#1a9850");
 
+    // b) draw vertical bar + right-side axis
+    const legendHeight = 200,
+          legendWidth  = 10;
     const legendG = svg.append("g")
-      .attr("transform", `translate(${margin.left+width+20},${margin.top-40})`)
-      .attr("opacity", 0);
+      // place to the right of the heatmap
+      .attr("transform", `translate(${margin.left + width + 20},${margin.top})`);
     legendG.append("rect")
-      .attr("width",200).attr("height",10)
-      .style("fill","url(#legendGrad)");
-    const legendScale = d3.scaleLinear().domain([-1,1]).range([0,200]);
+      .attr("width",  legendWidth)
+      .attr("height", legendHeight)
+      .style("fill", "url(#legendGrad)");
+
+    // scale from +1 at top to –1 at bottom
+    const legendScale = d3.scaleLinear()
+      .domain([1, -1])
+      .range([0, legendHeight]);
+
     legendG.append("g")
-      .attr("transform","translate(0,10)")
-      .call(d3.axisBottom(legendScale)
-        .tickValues([-1,0,1]).tickFormat(d3.format("d"))
+      // move it just right of the color bar
+      .attr("transform", `translate(${legendWidth},0)`)
+      .call(d3.axisRight(legendScale)
+        .tickValues([-1, 0, 1])
+        .tickFormat(d3.format("d"))
       )
       .select(".domain").remove();
-
-    // fade in legend
-    legendG.transition()
-      .delay(variables.length * variables.length * 5 + 800)
-      .duration(800)
-      .attr("opacity", 1);
 
     // 7) main group
     const g = svg.append("g")
@@ -691,4 +698,109 @@ function drawScatter() {
       drawCorrelationHeatmap(document.getElementById("correlation-select").value);
       window.heatmapDrawn = true;
     }
-    if (currentSlide === 8 && !window.s
+    if (currentSlide === 8 && !window.scatterDrawn) {
+      drawScatter(); window.scatterDrawn = true;
+    }
+  }
+  
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+  // 1) initialize the slider
+  updateSlide();
+
+  // 2) wire up your correlation dropdown
+  document
+    .getElementById("correlation-select")
+    .addEventListener("change", e => drawCorrelationHeatmap(e.target.value));
+
+  // grab your two feature selects
+  const xSelect = document.getElementById("feature-x");
+  const ySelect = document.getElementById("feature-y");
+
+  // 3) set your defaults
+  xSelect.value = "danceability";
+  ySelect.value = "valence";
+
+  // 4) prevent the user from picking the same thing twice
+  function forbidDuplicates() {
+    Array.from(ySelect.options).forEach(opt => {
+      opt.disabled = (opt.value === xSelect.value);
+    });
+    Array.from(xSelect.options).forEach(opt => {
+      opt.disabled = (opt.value === ySelect.value);
+    });
+  }
+  forbidDuplicates();
+
+  // 5) wire up your feature dropdowns (with duplicate‐blocking + redraw)
+  xSelect.addEventListener("change", () => {
+    forbidDuplicates();
+    drawScatter();
+  });
+  ySelect.addEventListener("change", () => {
+    forbidDuplicates();
+    drawScatter();
+  });
+
+  // 6) draw the very first scatter immediately
+  drawScatter();
+
+  // ▶ keyboard nav: ←/PageUp go back, →/PageDown/space go forward
+document.addEventListener('keydown', function(e) {
+  switch (e.key) {
+    case 'ArrowRight':
+    case 'PageDown':
+    case ' ':
+      e.preventDefault(); // prevent page‐scroll on space
+      nextSlide();
+      break;
+    case 'ArrowLeft':
+    case 'PageUp':
+      prevSlide();
+      break;
+  }
+});
+});
+window.addEventListener("DOMContentLoaded", () => {
+  // no need to register InertiaPlugin
+
+  let oldX = 0, oldY = 0, deltaX = 0, deltaY = 0;
+  const root = document.querySelector('.mwg_effect000');
+  if (!root) return;
+
+  root.addEventListener("mousemove", e => {
+    deltaX = e.clientX - oldX;
+    deltaY = e.clientY - oldY;
+    oldX = e.clientX;
+    oldY = e.clientY;
+  });
+
+  root.querySelectorAll('.media').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      const tl = gsap.timeline({ onComplete: () => tl.kill() })
+                    .timeScale(1.2);
+
+      const img = el.querySelector('img');
+      // simple x/y tween rather than inertia
+      tl.to(img, {
+        x: deltaX * 0.5,
+        y: deltaY * 0.5,
+        duration: 0.6,
+        ease: "power3.out",
+        yoyo: true,
+        repeat: 1
+      });
+      tl.fromTo(img, { rotate: 0 }, {
+        duration: 0.4,
+        rotate: (Math.random() - 0.5) * 30,
+        yoyo: true,
+        repeat: 1,
+        ease: "power1.inOut"
+      }, "<");
+    });
+  });
+});
+
+  </script>
+  
