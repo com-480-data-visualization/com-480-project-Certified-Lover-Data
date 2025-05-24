@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<style>
+  body { font-family: Arial, sans-serif; }
+  svg { border: 1px solid #ccc; }
+  .line { fill: none; stroke-width: 2.5px; }
+  .axis path, .axis line { stroke: #000; }
+  .label { font-size: 13px; font-weight: bold; pointer-events: none; }
+  .timeline-year, .timeline-month {
+    font-size: 11px;
+    cursor: default;
+    user-select: none;
+  }
+  .highlight {
+    font-weight: bold;
+    fill: red;
+  }
+</style>
+<body>
+<h3>Genre Ranking Evolution</h3>
+<svg width="900" height="600"></svg>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+const margin = {top: 40, right: 150, bottom: 120, left: 60},
+      width = 900 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+
+const svg = d3.select("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom);
+
+const mainG = svg.append("g")
+  .attr("transform", `translate(${margin.left},${margin.top})`);
+
+// Setup scales and axes for main graph (same as your original)
+const x = d3.scaleLinear()
+    .domain([1, 4])
+    .range([0, width]);
+
+const y = d3.scaleLinear()
+    .domain([0.5, 10.5])
+    .range([0, height]);
+
+const xAxis = d3.axisBottom(x)
+    .ticks(7)
+    .tickFormat(d => (d % 1 === 0) ? `Week ${d}` : "");
+
+const yAxis = d3.axisLeft(y)
+    .ticks(10)
+    .tickFormat(d => (d >= 1 && d <= 10) ? d : "");
+
+mainG.append("g")
+    .attr("class", "x axis")
+    .attr("transform", `translate(0,${height})`)
+    .call(xAxis);
+
+mainG.append("g")
+    .attr("class", "y axis")
+    .call(yAxis);
+
+const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+const line = d3.line()
+    .x(d => x(d.WeekIndex))
+    .y(d => y(d.weekly_position))
+    .curve(d3.curveLinear);
+
+const months = [
+  "january", "february", "march", "april", "may", "june",
+  "july", "august", "september", "october", "november", "december"
+];
+const monthsShort = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+const startYear = 1959;
+const endYear = 2020;
+
+// Generate all files (year/month combos)
+const files = [];
+for(let year = startYear; year <= endYear; year++) {
+  for(const month of months) {
+    files.push(`data/billboard_${month}_${year}.csv`);
+  }
+}
+
+// Parse year and month for each file to keep track
+const yearMonthLabels = files.map(f => {
+  const m = f.match(/billboard_(\w+)_(\d{4})/);
+  return {
+    month: m[1],
+    year: +m[2],
+    monthIndex: months.indexOf(m[1])
+  };
+});
+
+// === Timeline layout params ===
+const timelineLeft = margin.left; // left margin align with main chart
+const timelineTop = height + margin.top + 50; // position below chart
+const timelineWidth = width;
+const timelineRowHeight = 20;
+const yearFontSize = 11;
+const monthFontSize = 11;
+
+const timelineG = svg.append("g")
+  .attr("transform", `translate(${timelineLeft}, ${timelineTop})`);
+
+// Years to show in groups for timeline (you wanted 1950,60,70 on row1, etc.)
+const yearGroups = [
+  [1950, 1960, 1970],
+  [1980, 1990, 2000],
+  [2010, 2020]
+];
+
+// Months layout in 4 columns, 3 rows
+const monthGridCols = 4;
+const monthGridRows = 3;
+
+// Compute horizontal spacing for years and months
+const yearSpacing = 60; // px between year labels
+const monthSpacing = 40; // px between month labels
+
+// Compute max row width for years (3 labels * spacing)
+const yearRowWidth = yearGroups[0].length * yearSpacing;
+const monthRowWidth = monthGridCols * monthSpacing;
+
+const timelineHeight = (yearGroups.length + monthGridRows) * timelineRowHeight + 10;
+
+// Draw years text grid
+const yearsG = timelineG.append("g").attr("class","timeline-years");
+yearGroups.forEach((row, rowIndex) => {
+  row.forEach((year, i) => {
+    yearsG.append("text")
+      .attr("class", "timeline-year")
+      .attr("x", i * yearSpacing)
+      .attr("y", rowIndex * timelineRowHeight)
+      .text(year);
+  });
+});
+
+// Draw months text grid - placed to the right of years
+const monthsG = timelineG.append("g")
+  .attr("class", "timeline-months")
+  .attr("transform", `translate(${yearRowWidth + 50}, 0)`);
+
+monthsShort.forEach((m, i) => {
+  const col = i % monthGridCols;
+  const row = Math.floor(i / monthGridCols);
+  monthsG.append("text")
+    .attr("class", "timeline-month")
+    .attr("x", col * monthSpacing)
+    .attr("y", row * timelineRowHeight)
+    .text(m);
+});
+
+// Function to highlight correct year and month for current file index
+function highlightYearMonth(fileIndex) {
+  // Remove all highlights
+  yearsG.selectAll("text").classed("highlight", false);
+  monthsG.selectAll("text").classed("highlight", false);
+
+  const current = yearMonthLabels[fileIndex];
+  if (!current) return;
+
+  const currentYear = current.year;
+  const currentMonthIndex = current.monthIndex;
+
+  // Highlight years: highlight if year label is within ±5 years of current year
+  yearsG.selectAll("text").each(function() {
+    const yText = +d3.select(this).text();
+    if(Math.abs(yText - currentYear) <= 5) {
+      d3.select(this).classed("highlight", true);
+    }
+  });
+
+  // Highlight current month only
+  monthsG.selectAll("text").filter((d,i) => i === currentMonthIndex)
+    .classed("highlight", true);
+}
+
+// ==== Main drawing and animation logic ====
+
+async function loadAndDraw(fileIndex) {
+  if(fileIndex >= files.length) {
+    console.log("All files processed.");
+    return;
+  }
+
+  const csvFile = files[fileIndex];
+  console.log("Loading:", csvFile);
+
+  try {
+    const data = await d3.csv(csvFile, d => ({
+      Year: +d.Year,
+      Month: d.Month,
+      WeekIndex: +d.WeekIndex,
+      Genre: d.Genre,
+      genre_weekly_score: +d.genre_weekly_score,
+      weekly_position: +d.weekly_position
+    }));
+
+    mainG.selectAll(".line").remove();
+    mainG.selectAll(".label").remove();
+
+    highlightYearMonth(fileIndex);
+
+    const genres = d3.groups(data, d => d.Genre);
+    color.domain(genres.map(d => d[0]));
+
+    const processedGenres = genres.map(([genre, values]) => {
+      values.sort((a,b) => a.WeekIndex - b.WeekIndex);
+      const fullPoints = [];
+      for(let i = 0; i < values.length; i++) {
+        fullPoints.push(values[i]);
+        if(i < values.length - 1) {
+          const currWeek = values[i].WeekIndex;
+          const nextWeek = values[i+1].WeekIndex;
+          if(nextWeek > currWeek + 1) {
+            fullPoints.push({
+              Year: values[i].Year,
+              Month: values[i].Month,
+              WeekIndex: currWeek + 0.5,
+              Genre: genre,
+              genre_weekly_score: 0,
+              weekly_position: 10.5
+            });
+            fullPoints.push({
+              Year: values[i].Year,
+              Month: values[i].Month,
+              WeekIndex: nextWeek - 0.5,
+              Genre: genre,
+              genre_weekly_score: 0,
+              weekly_position: 10.5
+            });
+          }
+        }
+      }
+      fullPoints.sort((a,b) => a.WeekIndex - b.WeekIndex);
+      return [genre, fullPoints];
+    });
+
+    const minWeek = 1;
+    const maxWeek = 4;
+    const animationDuration = 7000;
+
+    const pathsInfo = processedGenres.map(([genre, values]) => {
+      const path = mainG.append("path")
+        .datum(values)
+        .attr("class", "line")
+        .attr("stroke", color(genre))
+        .attr("d", line)
+        .attr("stroke-dasharray", function() { return this.getTotalLength(); })
+        .attr("stroke-dashoffset", function() { return this.getTotalLength(); });
+      const totalLength = path.node().getTotalLength();
+      const samples = 200;
+      const lengths = [], xs = [];
+      for(let i = 0; i <= samples; i++) {
+        const len = (totalLength * i) / samples;
+        const pt = path.node().getPointAtLength(len);
+        lengths.push(len);
+        xs.push(pt.x);
+      }
+      function lengthAtWeek(week) {
+        const targetX = x(week);
+        for(let i = 0; i < xs.length; i++) {
+          if(xs[i] > targetX) return lengths[i === 0 ? 0 : i - 1];
+        }
+        return totalLength;
+      }
+      return { genre, path, totalLength, lengthAtWeek, label: null };
+    });
+
+    pathsInfo.forEach(info => {
+      info.label = mainG.append("text")
+        .attr("class", "label")
+        .style("fill", color(info.genre))
+        .text(info.genre);
+    });
+
+    d3.transition()
+      .duration(animationDuration)
+      .ease(d3.easeLinear)
+      .tween("progress", () => {
+        return t => {
+          const currentWeek = minWeek + t * (maxWeek - minWeek);
+          pathsInfo.forEach(info => {
+            const drawLength = info.lengthAtWeek(currentWeek);
+            info.path.attr("stroke-dashoffset", info.totalLength - drawLength);
+            const p = info.path.node().getPointAtLength(drawLength);
+            info.label.attr("x", p.x + 10).attr("y", p.y + 4);
+          });
+        };
+      })
+      .on("end", () => {
+        loadAndDraw(fileIndex + 1);
+      });
+  } catch (error) {
+    console.error("Error loading or processing file:", csvFile, error);
+    loadAndDraw(fileIndex + 1);
+  }
+}
+
+loadAndDraw(0);
+</script>
+</body>
+</html>
