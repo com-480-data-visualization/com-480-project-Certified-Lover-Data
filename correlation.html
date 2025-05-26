@@ -1,0 +1,24 @@
+<!-- ========================================
+     SLIDE 4 — AUDIO-FEATURE CORRELATION HEAT-MAP
+======================================== -->
+<section class="slide" id="slide4">
+  <img src="{{ site.baseurl }}/assets/images/correlations.png" alt="Correlations title" class="correlations" />
+
+  <!-- ========= Genre selector ========= -->
+  <div id="correlation-menu-container">
+    <label for="correlation-select">Choose a genre:</label>
+    <select id="correlation-select">
+      {% assign genres = "Blues|Classical|Comedy|Country|Dance|Easy Listening|Electronic|Folk|Funk|Hip Hop|Holiday|Indie|Jazz|Latin|Metal|Other|Pop|R&B|Reggae|Regional Mexican|Rock|Ska|Soul|Soundtrack" | split: "|" %}
+      {% for g in genres %}
+        {% assign file = g | downcase | replace: " ", "_" | replace: "&", "&" | append: "_correlation.csv" %}
+        <option value="{{ file }}">{{ g }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- ========= Heat-map output ========= -->
+  <div id="heatmap-wrapper">
+    <div id="correlation-heatmap"></div>
+    <div id="correlation-legend"></div>
+  </div>
+</section>

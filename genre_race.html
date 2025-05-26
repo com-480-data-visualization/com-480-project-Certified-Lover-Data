@@ -1,0 +1,30 @@
+<!-- ========================================
+     SLIDE 2 — RACE CHART (TITLE + IMG)
+======================================== -->
+<section class="slide" id="slide2">
+  <img src="{{ site.baseurl }}/assets/images/genre-race-title.png" alt="Genre Race Chart" class="genre-race-title" />
+  <div class="chart-container">
+    <img src="{{ site.baseurl }}/assets/images/genre-race.png" alt="Genre Race Chart" class="chart-img" />
+  </div>
+</section>
+
+<!-- ========================================
+     SLIDE 2‑2 — RACE CHART EXPLANATION + MEDIA GRID
+======================================== -->
+<section class="slide" id="slide2-2">
+  <div class="genre-race-text">
+    <p>
+      🎶 The Genre Race is our way of watching music history come alive.<br>
+      Each curve shows how styles like Pop, Rock, Hip‑Hop, and Jazz have
+      surged or receded in popularity from year to year.
+    </p>
+  </div>
+  {% comment %} GSAP‑powered parallax grid handled by /scripts/mediaGrid.js {% endcomment %}
+  <div class="mwg_effect000">
+    <div class="medias">
+      {% for n in (1..12) %}
+      <div class="media"><img src="{{ site.baseurl }}/assets/medias/{{ '%02d' | format: n }}.png" alt=""></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
