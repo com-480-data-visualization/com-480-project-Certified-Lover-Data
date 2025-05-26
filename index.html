@@ -4,26 +4,28 @@ title: Certified Lover Data
 ---
 
 <!-- =========================================================
-     GLOBAL UI (indicator bar, arrows, click-prompt)
+     GLOBAL UI (indicator bar, arrows, click‑prompt)
 ========================================================= -->
 <div class="nav-indicator">
   {% for i in (0..9) %}<span class="bar" id="bar{{ i }}"></span>{% endfor %}
 </div>
 
 <!-- =========================================================
-     SLIDER CONTAINER — pulls in each slide set as a Jekyll
-     include so that index.html stays *tiny* & readable.
+     SLIDER CONTAINER — pulls in each slide fragment sitting
+     **right next to this file** via include_relative.
 ========================================================= -->
 <div class="slider-container">
-  {% include intro.html            %}
-  {% include genre_race.html       %}
-  {% include map.html              %}
-  {% include correlation.html      %}
-  {% include scatter.html          %}
-  {% include genrify.html          %}
+  {% include_relative intro.html %}
+  {% include_relative genre_race.html %}
+  {% include_relative map.html %}
+  {% include_relative correlation.html %}
+  {% include_relative scatter.html %}
+  {% include_relative genrify.html %}
 </div>
 
-<!-- arrows + click prompt live here so they don’t clutter the partials -->
+<!-- =========================================================
+     ARROWS & CLICK PROMPT
+========================================================= -->
 <div class="nav-arrow left"  id="leftArrow"  onclick="prevSlide()">
   <img src="{{ site.baseurl }}/assets/images/left.png"  alt="Left arrow"  class="arrow-img" />
 </div>
@@ -33,9 +35,7 @@ title: Certified Lover Data
 <img src="{{ site.baseurl }}/assets/images/click.png" alt="Click prompt" class="click-prompt" id="clickPrompt" />
 
 <!-- =========================================================
-     SCRIPT BUNDLE — each major visual lives in its own file
-     inside /scripts.  Load them *before* slider.js so that the
-     slider can invoke their draw*() functions lazily.
+     SCRIPT BUNDLE (root /scripts folder)
 ========================================================= -->
 <script src="{{ site.baseurl }}/scripts/map.js"></script>
 <script src="{{ site.baseurl }}/scripts/correlation.js"></script>
