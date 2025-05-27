@@ -41,7 +41,7 @@
     const ySel = document.getElementById('feature-y');
     forbidDuplicates(xSel, ySel);
 
-    d3.csv('assets/data/correlation/broad_genre_correlation_summary.csv').then(data => {
+    d3.csv('data/correlation/broad_genre_correlation_summary.csv').then(data => {
       const xKey = xSel.value;
       const yKey = ySel.value;
       const colX = colMap[xKey];
