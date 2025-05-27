@@ -37,8 +37,11 @@ markdown: kramdown
 highlighter: rouge
 kramdown:
   syntax_highlighter: rouge
-
-
+exclude:
+- _site
+- node_modules
+- data_preprocessing
+- milestones
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to

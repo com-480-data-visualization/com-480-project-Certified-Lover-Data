@@ -8,47 +8,141 @@
   </div>
 </section>
 <!-- ========================================
-     SLIDE 3-2 — BEST GENRE PRESENTATION & SPOTIFY WIDGET
+     SLIDE 3-2 — BEST GENRE PRESENTATION & SPOTIFY
 ======================================== -->
-<section class="slide" id="slide3-2">
-  <!-- 1) Genre summary -->
-  <div class="slide3-2-note" style="
+<section class="slide" id="slide3-2" style="background-color:#fafae9; padding:2rem 1rem; overflow:auto;">
+  <!-- 1) Headline -->
+  <div
+    style="
       font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      color: #333;
-      margin-bottom: 20px;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 1.4rem;
       text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
     ">
-    The most popular genre worldwide is <strong>Pop</strong>, followed by <strong>Hip Hop</strong> and <strong>Rock</strong>.
+    The most popular genre worldwide is Pop, followed by Hip Hop and Rock.
+  </div>
+  <div
+  style="
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-style: italic;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    color: #555;
+  ">
+  Use the Spotify preview below to listen to a 30-second snippet of your country’s #1 track.  
+</div>
+
+  <!-- 2) Country selector -->
+  <div style="text-align:center; margin-bottom:1.5rem; font-family:Poppins,sans-serif;">
+    <label for="country-select" style="font-weight:600; margin-right:.5rem;">
+      Choose a country:
+    </label>
+    <select id="country-select" style="padding:.3rem .6rem; font-size:1rem;">
+      <option value="Global">Global</option>
+      <option value="Netherlands">Netherlands</option>
+      <option value="Philippines">Philippines</option>
+      <option value="New Zealand">New Zealand</option>
+      <option value="Singapore">Singapore</option>
+      <option value="Peru">Peru</option>
+      <option value="India">India</option>
+      <option value="Denmark">Denmark</option>
+      <option value="Belarus">Belarus</option>
+      <option value="Italy">Italy</option>
+      <option value="Korea Republic of">Korea Republic of</option>
+      <option value="Türkiye">Türkiye</option>
+      <option value="Venezuela Bolivarian Republic of">Venezuela Bolivarian Republic of</option>
+      <option value="Romania">Romania</option>
+      <option value="Chile">Chile</option>
+      <option value="Lithuania">Lithuania</option>
+      <option value="Slovakia">Slovakia</option>
+      <option value="Indonesia">Indonesia</option>
+      <option value="Norway">Norway</option>
+      <option value="Mexico">Mexico</option>
+      <option value="Morocco">Morocco</option>
+      <option value="Japan">Japan</option>
+      <option value="Uruguay">Uruguay</option>
+      <option value="Ireland">Ireland</option>
+      <option value="Finland">Finland</option>
+      <option value="Egypt">Egypt</option>
+      <option value="United States">United States</option>
+      <option value="Dominican Republic">Dominican Republic</option>
+      <option value="Viet Nam">Viet Nam</option>
+      <option value="United Kingdom">United Kingdom</option>
+      <option value="Germany">Germany</option>
+      <option value="Pakistan">Pakistan</option>
+      <option value="Bulgaria">Bulgaria</option>
+      <option value="Canada">Canada</option>
+      <option value="United Arab Emirates">United Arab Emirates</option>
+      <option value="France">France</option>
+      <option value="South Africa">South Africa</option>
+      <option value="Thailand">Thailand</option>
+      <option value="Portugal">Portugal</option>
+      <option value="Spain">Spain</option>
+      <option value="Luxembourg">Luxembourg</option>
+      <option value="Paraguay">Paraguay</option>
+      <option value="Nicaragua">Nicaragua</option>
+      <option value="Costa Rica">Costa Rica</option>
+      <option value="Austria">Austria</option>
+      <option value="Latvia">Latvia</option>
+      <option value="Israel">Israel</option>
+      <option value="Brazil">Brazil</option>
+      <option value="Greece">Greece</option>
+      <option value="Sweden">Sweden</option>
+      <option value="Belgium">Belgium</option>
+      <option value="Czechia">Czechia</option>
+      <option value="Hong Kong">Hong Kong</option>
+      <option value="Australia">Australia</option>
+      <option value="Bolivia Plurinational State of">Bolivia Plurinational State of</option>
+      <option value="Nigeria">Nigeria</option>
+      <option value="Malaysia">Malaysia</option>
+      <option value="Switzerland">Switzerland</option>
+      <option value="Panama">Panama</option>
+      <option value="Taiwan Province of China">Taiwan Province of China</option>
+      <option value="Ecuador">Ecuador</option>
+      <option value="El Salvador">El Salvador</option>
+      <option value="Saudi Arabia">Saudi Arabia</option>
+      <option value="Iceland">Iceland</option>
+      <option value="Hungary">Hungary</option>
+      <option value="Argentina">Argentina</option>
+      <option value="Kazakhstan">Kazakhstan</option>
+      <option value="Poland">Poland</option>
+      <option value="Colombia">Colombia</option>
+      <option value="Guatemala">Guatemala</option>
+      <option value="Honduras">Honduras</option>
+      <option value="Estonia">Estonia</option>
+      <option value="Ukraine">Ukraine</option>    
+      <!-- …add one <option> per CSV in data/countries/… -->
+    </select>
   </div>
 
-  <!-- 2) Spotify embed player -->
-  <div class="spotify-widget-container" style="text-align:center; margin-bottom:20px;">
+  <!-- 3) Spotify player -->
+  <div style="display:flex; justify-content:center; margin-bottom:1.5rem;">
     <iframe
-      src="https://open.spotify.com/embed/track/5IXok36IYZjiev8wVW6bSw"
-      width="400"
-      height="80"
-      frameborder="0"
-      allowtransparency="true"
-      allow="encrypted-media">
+      id="player-iframe"
+      src="https://open.spotify.com/embed/track/7ouMYWpwJ422jRcDASZB7P"
+      width="400" height="80"
+      frameborder="0" allowtransparency="true" allow="encrypted-media">
     </iframe>
   </div>
 
-  <!-- 3) Mini-tutorial -->
-  <div class="slide3-2-tutorial" style="
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9rem;
-      color: #666;
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
+  <!-- 4) Mini tutorial -->
+  <div
+    style="
+      max-width:600px;
+      margin:0 auto;
+      font-family:Poppins,sans-serif;
+      font-size:0.9rem;
+      line-height:1.4;
+      text-align:center;
+      color:#555;
     ">
-    <p>
-      ▶️ Click the play button to start listening right here in the slide.<br>
-      ⏸ Click pause to stop the audio.<br>
-      📶 Drag the progress bar to jump ahead or replay any part of the song.<br>
-      ❤️ Tap the heart icon to save it to your Spotify library.
-    </p>
+    ▶ Click the play button to start listening right here in the slide.<br>
+    ⏸️ Click pause to stop the audio.<br>
+    ✚ Tap the icon to save it to your Spotify library.
   </div>
 </section>
