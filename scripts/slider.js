@@ -10,13 +10,13 @@
 let currentSlide = 0;
 const totalSlides = 10;
 
-function nextSlide () {
+export function nextSlide () {
   if (currentSlide < totalSlides - 1) {
     currentSlide++;
     updateSlide();
   }
 }
-function prevSlide () {
+export function prevSlide () {
   if (currentSlide > 0) {
     currentSlide--;
     updateSlide();
