@@ -23,6 +23,9 @@ export function prevSlide () {
   }
 }
 
+window.nextSlide = nextSlide;
+window.prevSlide = prevSlide;
+
 function updateSlide () {
   const container = document.querySelector('.slider-container');
   container.style.transform = `translateX(-${currentSlide * 100}vw)`;
