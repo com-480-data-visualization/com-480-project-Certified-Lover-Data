@@ -96,6 +96,7 @@
               `😊 ${v.valence.toFixed(2)} /0.99<br>`+
               `🎵 ${v.tempo.toFixed(0)} BPM<br>`+
               `🔥 ${v.popularity.toFixed(0)} /100`
+              <em style="font-size:0.8rem;color:#888">All values are means (2023-10-18→2025-05-11)</em>
             ).style('display', 'block');
           })
           .on('mousemove', e => tooltip.style('left', `${e.pageX+10}px`).style('top', `${e.pageY-28}px`))
