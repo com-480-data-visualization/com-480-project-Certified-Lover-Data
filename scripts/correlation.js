@@ -15,7 +15,7 @@
   window.drawCorrelationHeatmap = function drawCorrelationHeatmap (file) {
     d3.select('#correlation-heatmap').html('');
 
-    d3.csv("{{ site.baseurl }}/assets/data/" + file).then(data => {
+    d3.csv("{{ site.baseurl }}/assets/data/correlation/" + file).then(data => {
       const rowKey    = Object.keys(data[0])[0];
       const variables = data.columns.slice(1);
 
