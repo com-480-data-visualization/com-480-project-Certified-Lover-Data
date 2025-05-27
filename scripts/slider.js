@@ -75,4 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'PageUp':     prevSlide(); break;
     }
   });
+  document.getElementById('rightArrow')
+    .addEventListener('click', nextSlide);
+
+  document.getElementById('leftArrow')
+    .addEventListener('click', prevSlide);
 });
