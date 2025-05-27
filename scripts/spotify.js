@@ -11,7 +11,6 @@
     // 1) all 72 country names (must exactly match your
     //    filenames in data/countries/, minus “.csv”)
     const countries = [
-      "Global",
       "Netherlands","Philippines","New Zealand","Singapore","Peru","India",
       "Denmark","Belarus","Italy","Korea Republic of","Türkiye",
       "Venezuela Bolivarian Republic of","Romania","Chile","Lithuania",
