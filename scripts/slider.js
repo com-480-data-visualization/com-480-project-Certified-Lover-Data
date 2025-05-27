@@ -49,10 +49,16 @@ function updateSlide () {
     drawCorrelationHeatmap(file);
     window._heatmapDrawn = true;
   }
+  if (currentSlide === 5 && !window.playerDrawn) {
+    drawPlayer();
+    window.playerDrawn = true;
+  }
   if ((currentSlide === 4 || currentSlide === 8) && !window._scatterDrawn) {
     drawScatter();
     window._scatterDrawn = true;
   }
+  
+
 }
 
 // =========================================================
