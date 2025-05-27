@@ -3,7 +3,7 @@
 An interactive prototype of the planned visualization is available on [Figma](https://www.figma.com/proto/CeD1PW0ibm8LAW7iij2vQq/Website-Interactive?t=bws5d7wWrNCVCb8T-1).
 Please find our website skeleton available on  [Certified Lover Data](https://com-480-data-visualization.github.io/com-480-project-Certified-Lover-Data/).
 
-The code for our website skeleton is available on [this branch](https://github.com/com-480-data-visualization/com-480-project-Certified-Lover-Data/tree/main).
+The code for our website skeleton is available on [this branch](https://github.com/com-480-data-visualization/com-480-project-Certified-Lover-Data/tree/master).
 
 ## Full Report  
 The file `milestone2.pdf` contains a detailed project plan, including:  
