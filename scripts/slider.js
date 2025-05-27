@@ -25,38 +25,33 @@
   // ------------------------------------------------------------------
   //  main update routine – translates slider & toggles UI bits
   // ------------------------------------------------------------------
-  function updateSlide () {
+   function updateSlide() {
     const container = document.querySelector('.slider-container');
-    if (!container) return;
-
     container.style.transform = `translateX(-${currentSlide * 100}vw)`;
 
-    // arrows
     document.getElementById('leftArrow').style.display  = currentSlide === 0             ? 'none' : 'block';
     document.getElementById('rightArrow').style.display = currentSlide === totalSlides-1 ? 'none' : 'block';
 
-    // indicator bars
     document.querySelectorAll('.nav-indicator .bar')
-      .forEach((bar, i) => bar.classList.toggle('active', i === currentSlide));
+      .forEach((bar,i)=> bar.classList.toggle('active', i === currentSlide));
 
-    // click prompt only on first slide
-    document.getElementById('clickPrompt').style.display = currentSlide === 0 ? 'block' : 'none';
+    // click prompt only on first real slide
+    document.getElementById("clickPrompt").style.display = currentSlide === 0 ? "block":"none";
 
-    // --------------------------------------------
-    //  lazy‑load heavy charts only once each
-    // --------------------------------------------
-    if (currentSlide === 2 && !window._mapDrawn) {
-      drawMap();
-      window._mapDrawn = true;
+    // you can hook your drawMap / drawHeatmap / drawScatter when hitting their new indices:
+    if (currentSlide === 2 && !window.mapDrawn) {
+      drawMap(); window.mapDrawn = true;
     }
-    if (currentSlide === 4 && !window._heatmapDrawn) {
-      const file = document.getElementById('correlation-select').value;
-      drawCorrelationHeatmap(file);
-      window._heatmapDrawn = true;
+    if (currentSlide === 4 && !window.scatterDrawn) {
+    drawScatter();
+    window.scatterDrawn = true;
+  }
+    if (currentSlide === 6 && !window.heatmapDrawn) {
+      drawCorrelationHeatmap(document.getElementById("correlation-select").value);
+      window.heatmapDrawn = true;
     }
-    if ((currentSlide === 4 || currentSlide === 8) && !window._scatterDrawn) {
-      drawScatter();
-      window._scatterDrawn = true;
+    if (currentSlide === 8 && !window.scatterDrawn) {
+      drawScatter(); window.scatterDrawn = true;
     }
   }
 
