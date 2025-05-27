@@ -16,7 +16,7 @@ function embedTrack(trackId) {
 
 function drawPlayer() {
   const countries = [
-    "Global","Netherlands","Philippines","New Zealand","Singapore","Peru","India",
+    "Netherlands","Philippines","New Zealand","Singapore","Peru","India",
     "Denmark","Belarus","Italy","Korea Republic of","Türkiye","Venezuela Bolivarian Republic of",
     "Romania","Chile","Lithuania","Slovakia","Indonesia","Norway","Mexico","Morocco",
     "Japan","Uruguay","Ireland","Finland","Egypt","United States","Dominican Republic",
