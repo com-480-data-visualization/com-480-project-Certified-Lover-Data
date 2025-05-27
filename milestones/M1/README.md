@@ -103,9 +103,9 @@ Finally, on a fun and interactive note, we will develop a machine learning model
 The complete notebook used for our exploratory data analysis can be found [here](./milestone1.ipynb)  
 As mentionned above,  the datasets are relatively clean, requiring minimal preprocessing. However, some columns contain NaN values, particularly in fields like Spotify track previews and previous week positions. The visualizations below illustrate the proportion of missing values across different features, helping us determine whether imputation or removal is necessary before moving forward with data exploration and visualization.
 
-![plot](../../img/hot100nan.png)
-![plot](../../img/hotstuffnan.png)
-![plot](../../img/topspotifynan.png)
+![plot](/img/hot100nan.png)
+![plot](/img/hotstuffnan.png)
+![plot](/img/topspotifynan.png)
 
 From the first plot, we observe that a significant portion of the **Spotify track preview URLs** are missing. Since having a valid preview URL is essential for enabling track playback on our website, we will need to **remove all rows where this field is missing**. This ensures that every track included in our dataset is playable, maintaining a seamless user experience for discovering music through audio previews. (*If this filtering proves too strict, we will revisit and adjust our approach later in the project.*)
 
