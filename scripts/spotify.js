@@ -1,18 +1,11 @@
-// ————————————————————————————————
-//   SLIDE “3-2”: per-country Spotify player
-// ————————————————————————————————
-function embedTrack(trackId) {
-  d3.select("#spotify-player").html(`
-    <iframe
-      style="border-radius:12px"
-      src="https://open.spotify.com/embed/track/${trackId}"
-      width="300" height="380"
-      frameborder="0"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-    </iframe>
-  `);
-}
+// ———————————————————————
+//   SLIDE “3-2”: per-country player
+// ———————————————————————
 
+function embedTrack(trackId) {
+  d3.select("#player-iframe")
+    .attr("src", `https://open.spotify.com/embed/track/${trackId}`);
+}
 
 function drawPlayer() {
   const countries = [
@@ -30,35 +23,37 @@ function drawPlayer() {
     "Colombia","Guatemala","Honduras","Estonia","Ukraine"
   ];
 
+  // populate <select>
   const select = d3.select("#country-select")
-    .html("")                     
+    .html("")
     .selectAll("option")
     .data(countries)
     .join("option")
       .attr("value", d => d)
       .text(d => d);
 
-  let lastEmbedded = null;
+  // avoid re-loading same track
+  let lastTrack = null;
 
   select.on("change", function() {
     const country  = this.value;
-    const safeName = encodeURIComponent(country); 
+    const safeName = encodeURIComponent(country);
 
-    d3.csv(`/data/countries/${safeName}.csv`)
+    d3.csv(`data/countries/${safeName}.csv`)
       .then(rows => {
         const top = rows.find(r => +r.daily_rank === 1);
-        if (top && top.spotify_id && top.spotify_id !== lastEmbedded) {
-          lastEmbedded = top.spotify_id;
+        if (top && top.spotify_id && top.spotify_id !== lastTrack) {
+          lastTrack = top.spotify_id;
           embedTrack(top.spotify_id);
         }
       })
       .catch(err => {
         console.error("Couldn't load", safeName, err);
-        d3.select("#spotify-player")
-          .html("<p>Error loading that country’s data.</p>");
+        d3.select("#player-iframe").attr("src", "");
       });
   });
 
+  // default to United States on first draw
   select.property("value", "United States").dispatch("change");
 }
 
