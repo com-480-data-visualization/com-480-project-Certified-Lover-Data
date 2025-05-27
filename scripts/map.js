@@ -54,7 +54,7 @@
 
     Promise.all([
       d3.json('https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson'),
-      d3.csv('data/correlation/country_genre_data_viz.csv') 
+      d3.csv('{ site.baseurl }}/data/correlation/country_genre_data_viz.csv') 
     ]).then(([geoData, csvData]) => {
       const info = {};
       csvData.forEach(d => {
