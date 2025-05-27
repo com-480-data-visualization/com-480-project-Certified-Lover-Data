@@ -103,9 +103,9 @@ Finally, on a fun and interactive note, we will develop a machine learning model
 The complete notebook used for our exploratory data analysis can be found [here](./milestone1.ipynb)  
 As mentionned above,  the datasets are relatively clean, requiring minimal preprocessing. However, some columns contain NaN values, particularly in fields like Spotify track previews and previous week positions. The visualizations below illustrate the proportion of missing values across different features, helping us determine whether imputation or removal is necessary before moving forward with data exploration and visualization.
 
-![plot](milestones/M1/img/hot100nan.png)
-![plot](milestones/M1/img/hotstuffnan.png)
-![plot](milestones/M1/img/topspotifynan.png)
+![plot](../../milestones/M1/img/hot100nan.png)
+![plot](../../milestones/M1/img/hotstuffnan.png)
+![plot](../../milestones/M1/img/topspotifynan.png)
 
 From the first plot, we observe that a significant portion of the **Spotify track preview URLs** are missing. Since having a valid preview URL is essential for enabling track playback on our website, we will need to **remove all rows where this field is missing**. This ensures that every track included in our dataset is playable, maintaining a seamless user experience for discovering music through audio previews. (*If this filtering proves too strict, we will revisit and adjust our approach later in the project.*)
 
@@ -115,11 +115,11 @@ For the **country** column in the **Top Spotify Tracks per Country** dataset, mi
 
 To better understand the temporal distribution of tracks in our dataset, we examined the **number of unique tracks per year**. The bar chart above illustrates how the volume of charting tracks has fluctuated over time, with noticeable peaks and dips. Some years see a higher influx of unique tracks, while others are characterized by greater chart longevity for individual songs. This helps us contextualize how the **Billboard Hot 100** has evolved in terms of turnover and diversity over the decades.
 
-![plot](../..milestones/M1/img/unique_tracks_per_year.png)
+![plot](../..../../milestones/M1/img/unique_tracks_per_year.png)
 
 After having merged the `hot stuff` dataset with the `hot 100 Audio Features` we'd like to see the all time top 20 genres in billboard100
 
-![plot](../..milestones/M1/img/top20genre_list.png)
+![plot](../..../../milestones/M1/img/top20genre_list.png)
 
 In the original dataset, some tracks have an empty genre field ([]). These missing genre labels prevent us from accurately analyzing genre distribution and trends. Since genre information is crucial for our analysis, we removed all rows with empty genres to ensure that only tracks with valid classifications are included in the visualization. This allows us to gain a clearer understanding of the most popular genres without distortions caused by missing data.
 
@@ -128,26 +128,26 @@ Uh oh, the genres are stored as strings that represent lists, meaning each track
 To better analyze genre distributions, we need to split these genre strings into individual genres and count them separately. This allows us to assess the true popularity of each genre across all tracks rather than treating multi-genre tracks as a single category.
 
 
-![plot](../..milestones/M1/img/top20_indiv_genres.png)
+![plot](../..../../milestones/M1/img/top20_indiv_genres.png)
 
 The updated genre distribution provides **a much clearer and more insightful** view of the data. By breaking down multi-genre entries into individual genres, we now have a **more accurate representation** of how often each genre appears in the Billboard charts. This refinement highlights the overwhelming presence of **pop-related genres**, reinforcing its dominance in mainstream music. Instead of treating multi-genre tracks as single unique categories, this approach allows us to see which genres truly shape the charts, offering **better insights into music trends**. This enhanced visualization ensures a more precise analysis of genre popularity while preventing any genre from being underrepresented due to formatting inconsistencies.
 
-![plot](../..milestones/M1/img/top_genres_by_mean_spotify_popularity.png)
+![plot](../..../../milestones/M1/img/top_genres_by_mean_spotify_popularity.png)
 
 When comparing the **top 20 genres by mean Spotify popularity** to the **most frequent genres in the Billboard charts**, we see notable differences. While **pop and mainstream genres dominate the Billboard rankings**, the most **popular** genres on Spotify include **niche and regional styles** like **Dutch EDM, queer country, and Minnesota hip hop**. This suggests that while certain genres chart more frequently, others maintain **high engagement and popularity among listeners** despite having fewer total tracks.
 
-![plot](../..milestones/M1/img/top_20_genres_by_uart.png)
+![plot](../..../../milestones/M1/img/top_20_genres_by_uart.png)
 
 As a final perspective, we examine genres based on the **number of unique artists** contributing to them. This visualization highlights the genres with the **widest artist diversity**, showing that **pop rap, dance pop, and rap** attract the largest variety of performers, reinforcing their dominant presence in the industry.
 
 #### Top Spotify Songs Across Countries Dataset
 Shifting to this dataset, which tracks Spotify's top songs across multiple countries, this plot highlights the **top 10 songs with the widest global reach**. It shows which tracks are charting in the most countries, offering insight into the most internationally popular songs.
 
-![plot](../..milestones/M1/img/top10_country_reach_spotify.png)
+![plot](../..../../milestones/M1/img/top10_country_reach_spotify.png)
 
 Building on this, we now examine the **most dominant genre in each country** based on **Spotify’s Top 50 charts**. This visualization highlights how **pop and dance pop overwhelmingly lead** across multiple countries, while Latin and pop rap appear in a few regions, reflecting regional preferences in global music consumption.
 
-![plot](../..milestones/M1/img/top_genre_in_countries.png)
+![plot](../..../../milestones/M1/img/top_genre_in_countries.png)
 
 
 
