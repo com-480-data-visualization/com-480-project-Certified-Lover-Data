@@ -7,6 +7,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="scripts/spotify.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js"></script>
+
+
+
+
+
   <style>
     body { font-family: 'Poppins', sans-serif; background: #f5f7fa; color: #2b3142; margin: 0; min-height: 100vh; }
     #slide6 { max-width: 950px; margin: 40px auto 0; background: #fff; border-radius: 28px; box-shadow: 0 10px 36px rgba(40,48,95,0.07); padding: 46px 38px 38px 38px;}
@@ -93,6 +99,7 @@
       </div>
       <div class="form-actions">
         <button type="button" class="btn" id="similar-btn">Predict Genre & Find Billboard Hit</button>
+        <button onclick="testPredict()">Test Predict</button>
       </div>
     </form>
     <div class="genre-card" id="genre-result" style="display:none;"></div>
@@ -151,73 +158,111 @@
 
     // ------------- MAIN BUTTON HANDLER -------------
     document.getElementById('similar-btn').addEventListener('click', async function(e) {
-      e.preventDefault();
+    e.preventDefault();
 
-      // Hide results, show loading...
-      d3.select("#genre-result").style("display", "none");
-      d3.select("#similar-result").style("display", "block");
-      d3.select("#similar-track").html('<span>Loading Billboard data...</span>');
-      d3.select("#spotify-iframe").attr("src", "");
+    d3.select("#genre-result").style("display", "none");
+    d3.select("#similar-result").style("display", "block");
+    d3.select("#similar-track").html('<span>Loading Billboard data...</span>');
+    d3.select("#spotify-iframe").attr("src", "");
 
-      // ----- 1. PREDICT GENRE -----
-      d3.select("#genre-result").style("display", "inline-block").html('<span>Predicting genre...</span>');
-      // If you have an API for genre, call it here, else show 'Not available'
-      setTimeout(() => {
-        d3.select("#genre-result")
-          .style("display", "inline-block")
-          .html('<span>🎼 Predicted genre: <b>Not available (model API not connected)</b></span>');
-      }, 900);
+    // ----------- 1. PREDICT GENRE USING GRADIO CLIENT -----------
+    const userInput = {};
+    features.forEach(f => userInput[f] = parseFloat(document.getElementById(f).value));
 
-      // ----- 2. FIND CLOSEST TRACK -----
-      const yrMin = parseInt(yearMin.value), yrMax = parseInt(yearMax.value);
-      const userVec = features.map(f => parseFloat(document.getElementById(f).value));
-      let allTracks = [];
-      let fetches = [];
-      for (let year = yrMin; year <= yrMax; year++) {
-        for (let m of months) {
-          let url = `data/billboard_${m}_${year}.csv`;
-          fetches.push(
-            d3.csv(url).then(data => {
-              allTracks.push(...data.filter(row =>
-                features.every(f => row[f] !== undefined && row[f] !== "")
-              ));
-            }).catch(()=>{})
-          );
-        }
+    d3.select("#genre-result").style("display", "inline-block").html('<span>Predicting genre...</span>');
+
+    let genre = "Unknown";
+    try {
+      // Connect to HuggingFace Space
+      const client = await window.gradio.Client.connect("schifferlearning/genre-classifier-api");
+      // Predict (API name: /predict)
+      const result = await client.predict("/predict", userInput);
+      if(result && result.data && result.data[0]) {
+        genre = result.data[0];
       }
-      await Promise.all(fetches);
+      d3.select("#genre-result")
+        .style("display", "inline-block")
+        .html('<span>🎼 Predicted genre: <b>' + genre + '</b></span>');
+    } catch (err) {
+      d3.select("#genre-result")
+        .style("display", "inline-block")
+        .html('<span>🎼 Predicted genre: <b>Unknown</b> (prediction error)</span>');
+    }
 
-      // Find most similar
-      let bestSim = -Infinity, bestTrack = null;
-      for (const track of allTracks) {
-        const trackVec = features.map(f => parseFloat(track[f]));
-        const sim = cosineSimilarity(userVec, trackVec);
-        if (sim > bestSim) {
-          bestSim = sim;
-          bestTrack = track;
-        }
+    // ----- 2. FIND CLOSEST TRACK -----
+    const yrMin = parseInt(yearMin.value), yrMax = parseInt(yearMax.value);
+    const userVec = features.map(f => parseFloat(document.getElementById(f).value));
+    let allTracks = [];
+    let fetches = [];
+    for (let year = yrMin; year <= yrMax; year++) {
+      for (let m of months) {
+        let url = `data/billboard_${m}_${year}.csv`;
+        fetches.push(
+          d3.csv(url).then(data => {
+            allTracks.push(...data.filter(row =>
+              features.every(f => row[f] !== undefined && row[f] !== "")
+            ));
+          }).catch(()=>{})
+        );
       }
+    }
+    await Promise.all(fetches);
 
-      // ------------- SHOW IN UI -------------
-      const container = d3.select("#similar-track");
-      container.html(""); // Clear old
-      if (bestTrack) {
-        container.append("div")
-          .html(`<b>${bestTrack.Song}</b> by <b>${bestTrack.Performer}</b><br>
-            <span style="font-size:0.97rem; color:#236d59;">(${bestTrack.Year}), Peak Billboard position: #${bestTrack.weekly_position}</span>`);
+    let bestSim = -Infinity, bestTrack = null;
+    for (const track of allTracks) {
+      const trackVec = features.map(f => parseFloat(track[f]));
+      const sim = cosineSimilarity(userVec, trackVec);
+      if (sim > bestSim) {
+        bestSim = sim;
+        bestTrack = track;
+      }
+    }
 
-        // ---- Use spotify.js to embed the player using the track ID ----
-        if (bestTrack.spotify_track_id) {
-          embedTrack(bestTrack.spotify_track_id, "#spotify-iframe");
-        } else {
-          d3.select("#spotify-iframe").attr("src", "");
-          container.append("div").text("No Spotify track available.");
-        }
+    const container = d3.select("#similar-track");
+    container.html("");
+    if (bestTrack) {
+      container.append("div")
+        .html(`<b>${bestTrack.Song}</b> by <b>${bestTrack.Performer}</b><br>
+          <span style="font-size:0.97rem; color:#236d59;">(${bestTrack.Year}), Peak Billboard position: #${bestTrack.weekly_position}</span>`);
+      if (bestTrack.spotify_track_id) {
+        embedTrack(bestTrack.spotify_track_id, "#spotify-iframe");
       } else {
         d3.select("#spotify-iframe").attr("src", "");
-        container.text("No similar track found.");
+        container.append("div").text("No Spotify track available.");
       }
-    });
+    } else {
+      d3.select("#spotify-iframe").attr("src", "");
+      container.text("No similar track found.");
+    }
+  });
   </script>
+
+  <script src="https://unpkg.com/@gradio/client/dist/index.min.js"></script>
+<script>
+async function testPredict() {
+  const userInput = {
+    danceability: 0.5,
+    energy: 0.5,
+    key: 5,
+    loudness: -8.4,
+    mode: 1,
+    speechiness: 0.07,
+    acousticness: 0.26,
+    instrumentalness: 0.02,
+    liveness: 0.19,
+    valence: 0.6,
+    tempo: 120,
+    time_signature: 4
+  };
+  try {
+    const client = await window.gradio.Client.connect("schifferlearning/genre-classifier-api");
+    const result = await client.predict("/predict", userInput);
+    alert(JSON.stringify(result));
+  } catch (err) {
+    alert("Error: " + err);
+  }
+}
+</script>
+
 </body>
 </html>
