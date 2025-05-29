@@ -29,6 +29,8 @@
 
 **80% of the final grade**
 
+[Website](https://com-480-data-visualization.github.io/com-480-project-Certified-Lover-Data/)
+
 [Process book](https://www.figma.com/deck/LpZxGX3HH5VB3I6Cts1b6M/COM-480-Process-Book?node-id=1-58&t=8E65Qo7Hk0PayK1V-1)
 
 ## Late policy
