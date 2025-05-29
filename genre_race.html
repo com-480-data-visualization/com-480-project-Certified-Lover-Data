@@ -2,11 +2,24 @@
      SLIDE 2 — RACE CHART (TITLE + IMG)
 ======================================== -->
 <section class="slide" id="slide2">
-  <img src="{{ site.baseurl }}/assets/images/genre-race-title.png" alt="Genre Race Chart" class="genre-race-title" />
-  <div class="chart-container">
-    <img src="{{ site.baseurl }}/assets/images/genre-race.png" alt="Genre Race Chart" class="chart-img" />
-  </div>
+  <div id="genre-race-vis" style="width: 100%; max-width: 960px; margin: auto;"></div>
+
+  <!-- Optional UI elements -->
+  <div id="legend" style="margin-top: 20px;"></div>
+  <div id="top-song-box" style="margin-top: 20px;"></div>
+  <audio id="preview-audio" style="display: none;"></audio>
+
+  <!-- Optional play button UI -->
+  <button id="togglePlay" style="margin-top: 20px;">
+    <span id="togglePlayIcon"></span>
+  </button>
 </section>
+
+<!-- ========================================
+     CHART SCRIPT
+======================================== -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="{{ site.baseurl }}/scripts/genre-race.js"></script>
 
 <!-- ========================================
      SLIDE 2‑2 — RACE CHART EXPLANATION + MEDIA GRID
