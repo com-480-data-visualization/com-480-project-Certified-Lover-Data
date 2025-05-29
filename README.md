@@ -7,7 +7,7 @@
 |Sipofo Kamegne Yann Eddy |327035|
 
 # Spotify Billboard Hot 100 Analysis 📊🎶
-[Milestone 1](./milestones/M1/)[Milestone 2](./milestones/M2/)[Milestone 3](./milestones/M3/)
+[Milestone 1](./milestones/M1/)  [Milestone 2](./milestones/M2/)  [Milestone 3](./milestones/M3/)
 
 
 ## Milestone 1 (21st March, 5pm)
