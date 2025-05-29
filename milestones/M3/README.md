@@ -52,6 +52,7 @@ We leverage interactive maps, correlation analysis, time-based genre evolution, 
 📄 [Process Book](https://www.figma.com/deck/LpZxGX3HH5VB3I6Cts1b6M/COM-480-Process-Book?node-id=1-58&t=8E65Qo7Hk0PayK1V-1)
 
 The process book outlines our goals, describes the dataset, presents our exploratory data analysis, explains the storytelling approach, details the visualizations, discusses the challenges faced, and concludes with next steps for future improvements.
+
 ---
 
 ## 🎥 Screencast
