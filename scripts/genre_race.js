@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   const svg = d3.select("#genre-race-vis").append("svg")
-    .attr("width", 981.2)
-    .attr("height", 851.2);
+    .attr("viewBox", "0 0 981.2 851.2")
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .style("width", "100%")
+    .style("height", "auto");
 
   // --- Play/Pause Button Centered SVG ---
 function setPlayPauseIcon(isPlaying) {
