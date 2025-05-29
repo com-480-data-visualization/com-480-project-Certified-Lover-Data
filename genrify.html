@@ -1,10 +1,194 @@
-<!-- ========================================
-     SLIDE 6 — GENRIFY MODEL TITLE / IMAGE
-======================================== -->
-<section class="slide" id="slide6">
-  <img src="{{ site.baseurl }}/assets/images/genrify-title.png"    alt="Genrify title"    class="genrify-title" />
-  <img src="{{ site.baseurl }}/assets/images/genrify-subtitle.png" alt="Genrify subtitle" class="genrify-subtitle" />
-  <div class="chart-container">
-    <img src="{{ site.baseurl }}/assets/images/genrify.png" alt="Genrify overview" class="genrify-map" />
-  </div>
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Genrify – Genre & Top Track Predictor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; background: #f5f7fa; color: #2b3142; margin: 0; min-height: 100vh; }
+    #slide6 { max-width: 950px; margin: 40px auto 0; background: #fff; border-radius: 28px; box-shadow: 0 10px 36px rgba(40,48,95,0.07); padding: 46px 38px 38px 38px;}
+    .title { font-size: 2.4rem; font-weight: 600; margin-bottom: 7px; color: #255fd7; letter-spacing: 0.5px;}
+    .subtitle { font-size: 1.15rem; font-weight: 400; margin-bottom: 32px; color: #535875; opacity: 0.94;}
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 26px 22px; margin-bottom: 32px;}
+    .slider-group { display: flex; flex-direction: column; gap: 7px;}
+    .slider-label { font-size: 1rem; color: #3b4877; font-weight: 500; margin-bottom: 2px; display: flex; align-items: center; justify-content: space-between;}
+    .slider-value { font-size: 0.96rem; color: #5289fa; margin-left: 6px; font-weight: 600;}
+    input[type="range"] { width: 100%; accent-color: #5289fa; background: transparent; height: 4px; margin: 0; cursor: pointer;}
+    input[type="range"]:focus { outline: none; accent-color: #255fd7;}
+    .form-actions { display: flex; gap: 16px; margin: 35px 0 0 0; align-items: center; flex-wrap: wrap;}
+    .btn { padding: 12px 32px; border-radius: 10px; background: linear-gradient(90deg, #5289fa 0%, #67e7a6 100%); color: #fff; font-weight: 600; border: none; font-size: 1.08rem; cursor: pointer; box-shadow: 0 2px 16px #5289fa23; transition: background 0.18s, transform 0.14s;}
+    .btn:hover { background: linear-gradient(90deg, #3260f5 0%, #33c87c 100%); transform: translateY(-2px) scale(1.032);}
+    .similar-track-card { margin-top: 37px; padding: 25px 29px; background: #edfbf7; border-radius: 13px; min-height: 54px; font-size: 1.19rem; color: #236d59; border: 1px solid #c8f6e4;}
+    .result-label { color: #255fd7; font-weight: 600; font-size: 1.08rem; margin-bottom: 4px; display: block;}
+    .spotify-link { color: #5289fa; text-decoration: underline; font-size: 1rem; margin-left: 7px;}
+    @media (max-width: 850px) { #slide6 { padding: 17px 3vw 21px 3vw;} .form-grid { grid-template-columns: 1fr 1fr;}}
+    @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr;} .title {font-size:1.34rem;}}
+  </style>
+</head>
+<body>
+  <section class="slide" id="slide6">
+    <div class="title">Genrify — Music Genre & Top Track Predictor</div>
+    <div class="subtitle">
+      Move the sliders to set track features. Find your closest classic Billboard hit!<br>
+      <span style="color:#3ec9a7;font-size:1rem;">AI-powered, music inspired.</span>
+    </div>
+    <form id="genrify-form" autocomplete="off">
+      <div class="form-grid">
+        <div class="slider-group"><label class="slider-label">Danceability <span class="slider-value" id="val-danceability">0.61</span></label>
+          <input type="range" id="danceability" min="0" max="1" step="0.001" value="0.61">
+        </div>
+        <div class="slider-group"><label class="slider-label">Energy <span class="slider-value" id="val-energy">0.63</span></label>
+          <input type="range" id="energy" min="0" max="1" step="0.001" value="0.63">
+        </div>
+        <div class="slider-group"><label class="slider-label">Key <span class="slider-value" id="val-key">5</span></label>
+          <input type="range" id="key" min="0" max="11" step="1" value="5">
+        </div>
+        <div class="slider-group"><label class="slider-label">Loudness (dB) <span class="slider-value" id="val-loudness">-8.4</span></label>
+          <input type="range" id="loudness" min="-28" max="2.3" step="0.01" value="-8.4">
+        </div>
+        <div class="slider-group"><label class="slider-label">Mode <span class="slider-value" id="val-mode">1</span></label>
+          <input type="range" id="mode" min="0" max="1" step="1" value="1">
+        </div>
+        <div class="slider-group"><label class="slider-label">Speechiness <span class="slider-value" id="val-speechiness">0.07</span></label>
+          <input type="range" id="speechiness" min="0" max="0.924" step="0.001" value="0.07">
+        </div>
+        <div class="slider-group"><label class="slider-label">Acousticness <span class="slider-value" id="val-acousticness">0.26</span></label>
+          <input type="range" id="acousticness" min="0" max="0.99" step="0.001" value="0.26">
+        </div>
+        <div class="slider-group"><label class="slider-label">Instrumentalness <span class="slider-value" id="val-instrumentalness">0.02</span></label>
+          <input type="range" id="instrumentalness" min="0" max="0.982" step="0.001" value="0.02">
+        </div>
+        <div class="slider-group"><label class="slider-label">Liveness <span class="slider-value" id="val-liveness">0.19</span></label>
+          <input type="range" id="liveness" min="0" max="0.999" step="0.001" value="0.19">
+        </div>
+        <div class="slider-group"><label class="slider-label">Valence <span class="slider-value" id="val-valence">0.60</span></label>
+          <input type="range" id="valence" min="0" max="0.991" step="0.001" value="0.60">
+        </div>
+        <div class="slider-group"><label class="slider-label">Tempo (BPM) <span class="slider-value" id="val-tempo">120</span></label>
+          <input type="range" id="tempo" min="0" max="233.429" step="0.01" value="120">
+        </div>
+        <div class="slider-group"><label class="slider-label">Time Signature <span class="slider-value" id="val-time_signature">4</span></label>
+          <input type="range" id="time_signature" min="1" max="5" step="1" value="4">
+        </div>
+      </div>
+      <!-- Year range slider -->
+      <div class="slider-group" style="grid-column: span 3;">
+        <label class="slider-label">
+          Year Range
+          <span>
+            <span class="slider-value" id="val-year-min">1958</span>
+            –
+            <span class="slider-value" id="val-year-max">2018</span>
+          </span>
+        </label>
+        <input type="range" id="year-min" min="1958" max="2018" step="1" value="1958" style="width:48%;display:inline-block;">
+        <input type="range" id="year-max" min="1958" max="2018" step="1" value="2018" style="width:48%;float:right;display:inline-block;">
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn" id="similar-btn">Find Most Similar Billboard Hit</button>
+      </div>
+    </form>
+
+    <div class="similar-track-card" id="similar-result" style="display:none;">
+      <span class="result-label">🎵 Closest Billboard Track:</span>
+      <div id="similar-track"></div>
+    </div>
+  </section>
+  <script>
+    // Slider label display
+    const features = [
+      "danceability", "energy", "key", "loudness", "mode",
+      "speechiness", "acousticness", "instrumentalness", "liveness",
+      "valence", "tempo", "time_signature"
+    ];
+    features.forEach(f => {
+      const slider = document.getElementById(f);
+      const valueSpan = document.getElementById('val-' + f);
+      slider.addEventListener('input', () => { valueSpan.textContent = slider.value; });
+    });
+
+    // Year range logic
+    const yearMin = document.getElementById('year-min');
+    const yearMax = document.getElementById('year-max');
+    const valYearMin = document.getElementById('val-year-min');
+    const valYearMax = document.getElementById('val-year-max');
+    function updateYearDisplay() {
+      if (parseInt(yearMin.value) > parseInt(yearMax.value)) yearMin.value = yearMax.value;
+      if (parseInt(yearMax.value) < parseInt(yearMin.value)) yearMax.value = yearMin.value;
+      valYearMin.textContent = yearMin.value;
+      valYearMax.textContent = yearMax.value;
+    }
+    yearMin.addEventListener('input', updateYearDisplay);
+    yearMax.addEventListener('input', updateYearDisplay);
+    updateYearDisplay();
+
+    // Cosine similarity
+    function cosineSimilarity(a, b) {
+      let dot = 0, a2 = 0, b2 = 0;
+      for (let i = 0; i < a.length; i++) {
+        dot += a[i] * b[i];
+        a2 += a[i] * a[i];
+        b2 += b[i] * b[i];
+      }
+      return dot / (Math.sqrt(a2) * Math.sqrt(b2));
+    }
+
+    // List of months for filename construction
+    const months = [
+      "january","february","march","april","may","june",
+      "july","august","september","october","november","december"
+    ];
+
+    // Main similarity function
+    document.getElementById('similar-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('similar-result').style.display = 'block';
+      document.getElementById('similar-track').textContent = 'Loading Billboard data...';
+
+      const yrMin = parseInt(yearMin.value), yrMax = parseInt(yearMax.value);
+      const userVec = features.map(f => parseFloat(document.getElementById(f).value));
+      let allTracks = [];
+      let fetches = [];
+      for (let year = yrMin; year <= yrMax; year++) {
+        for (let m of months) {
+          let url = `data/billboard_${m}_${year}.csv`;
+          fetches.push(
+            d3.csv(url).then(data => {
+              allTracks.push(...data.filter(row =>
+                features.every(f => row[f] !== undefined && row[f] !== "")
+              ));
+            }).catch(()=>{}) // ignore missing files
+          );
+        }
+      }
+      Promise.all(fetches).then(() => {
+        if (!allTracks.length) {
+          document.getElementById('similar-track').textContent = 'No tracks found for this year range.';
+          return;
+        }
+        let bestSim = -Infinity, bestTrack = null;
+        for (const track of allTracks) {
+          const trackVec = features.map(f => parseFloat(track[f]));
+          const sim = cosineSimilarity(userVec, trackVec);
+          if (sim > bestSim) {
+            bestSim = sim;
+            bestTrack = track;
+          }
+        }
+        if (bestTrack) {
+          let text = `${bestTrack.Song} by ${bestTrack.Performer} (${bestTrack.Year}), Peak Billboard position: #${bestTrack.weekly_position}`;
+          if (bestTrack.spotify_track_preview_url) {
+            text += ` <a href="${bestTrack.spotify_track_preview_url}" target="_blank" class="spotify-link">Preview</a>`;
+          }
+          document.getElementById('similar-track').innerHTML = text;
+        } else {
+          document.getElementById('similar-track').textContent = 'No similar track found.';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
