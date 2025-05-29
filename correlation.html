@@ -1,22 +1,32 @@
 <!-- ========================================
      SLIDE 4 — AUDIO-FEATURE CORRELATION HEAT-MAP
 ======================================== -->
-<section class="slide" id="slide4">
-
-  <!-- your existing title image -->
-  <img src="{{ site.baseurl }}/assets/images/correlations.png"
-       alt="Correlations title"
-       class="correlations" />
+<section
+  class="slide"
+  id="slide4"
+  style="
+    /* 1) make this slide a vertical flex container... */
+    display: flex;
+    flex-direction: column;
+    /* 2) ...and center everything horizontally */
+    align-items: center;
+  "
+>
+  <img
+    src="{{ site.baseurl }}/assets/images/correlations.png"
+    alt="Correlations title"
+    class="correlations"
+  />
 
   <!-- ========= Genre selector (centered + bold) ========= -->
   <div
     id="correlation-menu-container"
     style="
-      /* override your slide4 rule that forces flex-end */
-      display: block !important;
       text-align: center;
       margin: 1rem 0;
-    ">
+      width: auto;      /* let it shrink‐wrap */
+    "
+  >
     <label
       for="correlation-select"
       style="font-weight:700; margin-right:0.5rem;"
@@ -39,20 +49,19 @@
     </select>
   </div>
 
-  <!-- ========= Heat-map output (centered) ========= -->
+  <!-- ========= Heat-map output (now truly centered) ========= -->
   <div
     id="heatmap-wrapper"
     style="
-      /* force the wrapper itself to shrink-wrap its contents and center */
       display: flex;
       justify-content: center;
       align-items: flex-start;
       gap: 2rem;
-      width: auto !important;
-      margin: 0 auto;
-    ">
-    <div id="correlation-heatmap" style="flex: 0 0 auto;"></div>
-    <div id="correlation-legend"       style="flex: 0 0 auto;"></div>
+      /* no width:100% here—let it size to its contents */
+      width: auto;
+    "
+  >
+    <div id="correlation-heatmap"></div>
+    <div id="correlation-legend"></div>
   </div>
-
 </section>
