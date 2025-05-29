@@ -32,7 +32,7 @@ We leverage interactive maps, correlation analysis, time-based genre evolution, 
 ├── Gemfile / Gemfile.lock   # Jekyll dependencies
 └── .gitignore               # Files to ignore in version control
 
-
+```
 ---
 
 ## 📊 Key Visualizations
