@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="scripts/spotify.js"></script>
   <style>
     body { font-family: 'Poppins', sans-serif; background: #f5f7fa; color: #2b3142; margin: 0; min-height: 100vh; }
     #slide6 { max-width: 950px; margin: 40px auto 0; background: #fff; border-radius: 28px; box-shadow: 0 10px 36px rgba(40,48,95,0.07); padding: 46px 38px 38px 38px;}
@@ -22,9 +23,13 @@
     .btn:hover { background: linear-gradient(90deg, #3260f5 0%, #33c87c 100%); transform: translateY(-2px) scale(1.032);}
     .similar-track-card { margin-top: 37px; padding: 25px 29px; background: #edfbf7; border-radius: 13px; min-height: 54px; font-size: 1.19rem; color: #236d59; border: 1px solid #c8f6e4;}
     .result-label { color: #255fd7; font-weight: 600; font-size: 1.08rem; margin-bottom: 4px; display: block;}
-    .spotify-link { color: #5289fa; text-decoration: underline; font-size: 1rem; margin-left: 7px;}
-    @media (max-width: 850px) { #slide6 { padding: 17px 3vw 21px 3vw;} .form-grid { grid-template-columns: 1fr 1fr;}}
-    @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr;} .title {font-size:1.34rem;}}
+    .genre-card { margin-bottom: 18px; background: #eef3fe; color: #255fd7; font-size: 1.19rem; font-weight: 600; border-radius: 8px; display: inline-block; padding: 10px 24px;}
+    .spotify-player-wrap { margin-top:16px; display: flex; align-items: center;}
+    iframe.spotify-player { border-radius:12px; min-width:340px; width:350px; height:80px; border:0;}
+    @media (max-width: 600px) {
+      .spotify-player-wrap { flex-direction: column; align-items: flex-start;}
+      iframe.spotify-player { min-width: 220px; width: 99vw;}
+    }
   </style>
 </head>
 <body>
@@ -86,19 +91,21 @@
         <input type="range" id="year-min" min="1958" max="2018" step="1" value="1958" style="width:48%;display:inline-block;">
         <input type="range" id="year-max" min="1958" max="2018" step="1" value="2018" style="width:48%;float:right;display:inline-block;">
       </div>
-
       <div class="form-actions">
-        <button type="button" class="btn" id="similar-btn">Find Most Similar Billboard Hit</button>
+        <button type="button" class="btn" id="similar-btn">Predict Genre & Find Billboard Hit</button>
       </div>
     </form>
-
+    <div class="genre-card" id="genre-result" style="display:none;"></div>
     <div class="similar-track-card" id="similar-result" style="display:none;">
       <span class="result-label">🎵 Closest Billboard Track:</span>
       <div id="similar-track"></div>
+      <div class="spotify-player-wrap">
+        <iframe id="spotify-iframe" class="spotify-player" src="" allowtransparency="true" allow="encrypted-media"></iframe>
+      </div>
     </div>
   </section>
   <script>
-    // Slider label display
+    // ------------- Slider label display -------------
     const features = [
       "danceability", "energy", "key", "loudness", "mode",
       "speechiness", "acousticness", "instrumentalness", "liveness",
@@ -110,7 +117,7 @@
       slider.addEventListener('input', () => { valueSpan.textContent = slider.value; });
     });
 
-    // Year range logic
+    // ------------- Year range logic -------------
     const yearMin = document.getElementById('year-min');
     const yearMax = document.getElementById('year-max');
     const valYearMin = document.getElementById('val-year-min');
@@ -125,7 +132,7 @@
     yearMax.addEventListener('input', updateYearDisplay);
     updateYearDisplay();
 
-    // Cosine similarity
+    // ------------- Cosine similarity -------------
     function cosineSimilarity(a, b) {
       let dot = 0, a2 = 0, b2 = 0;
       for (let i = 0; i < a.length; i++) {
@@ -136,18 +143,32 @@
       return dot / (Math.sqrt(a2) * Math.sqrt(b2));
     }
 
-    // List of months for filename construction
+    // ------------- Months for data file names -------------
     const months = [
       "january","february","march","april","may","june",
       "july","august","september","october","november","december"
     ];
 
-    // Main similarity function
-    document.getElementById('similar-btn').addEventListener('click', function(e) {
+    // ------------- MAIN BUTTON HANDLER -------------
+    document.getElementById('similar-btn').addEventListener('click', async function(e) {
       e.preventDefault();
-      document.getElementById('similar-result').style.display = 'block';
-      document.getElementById('similar-track').textContent = 'Loading Billboard data...';
 
+      // Hide results, show loading...
+      d3.select("#genre-result").style("display", "none");
+      d3.select("#similar-result").style("display", "block");
+      d3.select("#similar-track").html('<span>Loading Billboard data...</span>');
+      d3.select("#spotify-iframe").attr("src", "");
+
+      // ----- 1. PREDICT GENRE -----
+      d3.select("#genre-result").style("display", "inline-block").html('<span>Predicting genre...</span>');
+      // If you have an API for genre, call it here, else show 'Not available'
+      setTimeout(() => {
+        d3.select("#genre-result")
+          .style("display", "inline-block")
+          .html('<span>🎼 Predicted genre: <b>Not available (model API not connected)</b></span>');
+      }, 900);
+
+      // ----- 2. FIND CLOSEST TRACK -----
       const yrMin = parseInt(yearMin.value), yrMax = parseInt(yearMax.value);
       const userVec = features.map(f => parseFloat(document.getElementById(f).value));
       let allTracks = [];
@@ -160,34 +181,42 @@
               allTracks.push(...data.filter(row =>
                 features.every(f => row[f] !== undefined && row[f] !== "")
               ));
-            }).catch(()=>{}) // ignore missing files
+            }).catch(()=>{})
           );
         }
       }
-      Promise.all(fetches).then(() => {
-        if (!allTracks.length) {
-          document.getElementById('similar-track').textContent = 'No tracks found for this year range.';
-          return;
+      await Promise.all(fetches);
+
+      // Find most similar
+      let bestSim = -Infinity, bestTrack = null;
+      for (const track of allTracks) {
+        const trackVec = features.map(f => parseFloat(track[f]));
+        const sim = cosineSimilarity(userVec, trackVec);
+        if (sim > bestSim) {
+          bestSim = sim;
+          bestTrack = track;
         }
-        let bestSim = -Infinity, bestTrack = null;
-        for (const track of allTracks) {
-          const trackVec = features.map(f => parseFloat(track[f]));
-          const sim = cosineSimilarity(userVec, trackVec);
-          if (sim > bestSim) {
-            bestSim = sim;
-            bestTrack = track;
-          }
-        }
-        if (bestTrack) {
-          let text = `${bestTrack.Song} by ${bestTrack.Performer} (${bestTrack.Year}), Peak Billboard position: #${bestTrack.weekly_position}`;
-          if (bestTrack.spotify_track_preview_url) {
-            text += ` <a href="${bestTrack.spotify_track_preview_url}" target="_blank" class="spotify-link">Preview</a>`;
-          }
-          document.getElementById('similar-track').innerHTML = text;
+      }
+
+      // ------------- SHOW IN UI -------------
+      const container = d3.select("#similar-track");
+      container.html(""); // Clear old
+      if (bestTrack) {
+        container.append("div")
+          .html(`<b>${bestTrack.Song}</b> by <b>${bestTrack.Performer}</b><br>
+            <span style="font-size:0.97rem; color:#236d59;">(${bestTrack.Year}), Peak Billboard position: #${bestTrack.weekly_position}</span>`);
+
+        // ---- Use spotify.js to embed the player using the track ID ----
+        if (bestTrack.spotify_track_id) {
+          embedTrack(bestTrack.spotify_track_id, "#spotify-iframe");
         } else {
-          document.getElementById('similar-track').textContent = 'No similar track found.';
+          d3.select("#spotify-iframe").attr("src", "");
+          container.append("div").text("No Spotify track available.");
         }
-      });
+      } else {
+        d3.select("#spotify-iframe").attr("src", "");
+        container.text("No similar track found.");
+      }
     });
   </script>
 </body>
