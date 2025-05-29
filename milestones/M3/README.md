@@ -43,7 +43,7 @@ We leverage interactive maps, correlation analysis, time-based genre evolution, 
 | `map.html`        | World map of dominant genres by country                      |
 | `correlation.html`| Correlation matrix of features across genres                 |
 | `scatter.html`    | Multi-feature scatterplot view of genres                     |
-| `genrify.html`    | Spotify-based genre + track exploration                      |
+| `genrify.html`    | Spotify-based genre prediction                               |
 
 ---
 
