@@ -51,29 +51,7 @@ We leverage interactive maps, correlation analysis, time-based genre evolution, 
 
 📄 [Process Book](https://www.figma.com/deck/LpZxGX3HH5VB3I6Cts1b6M/COM-480-Process-Book?node-id=1-58&t=8E65Qo7Hk0PayK1V-1)
 
-Our process book documents the entire journey of building **Genrify**, from idea to interactive implementation. It includes:
-
-1. **Goals**  
-   → What we aimed to achieve with this visualization project.
-
-2. **Dataset**  
-   → Description of the data sources used (Spotify, Billboard), including preprocessing steps.
-
-3. **Exploratory Data Analysis**  
-   → Initial findings, key distributions, feature correlations, and outliers.
-
-4. **Storytelling**  
-   → The narrative we constructed to guide the user through the data and insight discovery.
-
-5. **Visualisations**  
-   → Justification and explanation of each D3.js visualization developed.
-
-6. **Challenges**  
-   → Technical, design, and conceptual hurdles encountered during the project.
-
-7. **Next Steps**  
-   → How we would continue improving or extending this project.
-
+The process book outlines our goals, describes the dataset, presents our exploratory data analysis, explains the storytelling approach, details the visualizations, discusses the challenges faced, and concludes with next steps for future improvements.
 ---
 
 ## 🎥 Screencast
