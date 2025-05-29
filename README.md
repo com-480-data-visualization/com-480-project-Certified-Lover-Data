@@ -29,7 +29,7 @@
 
 **80% of the final grade**
 
-[Process book](https://www.figma.com/deck/LpZxGX3HH5VB3I6Cts1b6M/COM-480-Process-Book?node-id=125-15&t=8E65Qo7Hk0PayK1V-1)
+[Process book](https://www.figma.com/deck/LpZxGX3HH5VB3I6Cts1b6M/COM-480-Process-Book?node-id=1-58&t=8E65Qo7Hk0PayK1V-1)
 
 ## Late policy
 
