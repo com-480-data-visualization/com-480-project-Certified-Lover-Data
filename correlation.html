@@ -5,10 +5,8 @@
   class="slide"
   id="slide4"
   style="
-    /* 1) make this slide a vertical flex container... */
     display: flex;
     flex-direction: column;
-    /* 2) ...and center everything horizontally */
     align-items: center;
   "
 >
@@ -24,7 +22,7 @@
     style="
       text-align: center;
       margin: 1rem 0;
-      width: auto;      /* let it shrink‐wrap */
+      width: auto;
     "
   >
     <label
@@ -49,7 +47,7 @@
     </select>
   </div>
 
-  <!-- ========= Heat-map output (now truly centered) ========= -->
+  <!-- ========= Heat-map output (shifted slightly right) ========= -->
   <div
     id="heatmap-wrapper"
     style="
@@ -57,8 +55,8 @@
       justify-content: center;
       align-items: flex-start;
       gap: 2rem;
-      /* no width:100% here—let it size to its contents */
       width: auto;
+      margin-left: 5vw;      /* ← push it a bit to the right */
     "
   >
     <div id="correlation-heatmap"></div>
