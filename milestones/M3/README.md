@@ -59,7 +59,6 @@ The process book outlines our goals, describes the dataset, presents our explora
 ## 🎥 Screencast
 
 📹 [Watch the Demo Video (2 min)](assets/screencast.mp4)  
-*A fun and insightful walkthrough of our interactive visualization.*
 
 ---
 
