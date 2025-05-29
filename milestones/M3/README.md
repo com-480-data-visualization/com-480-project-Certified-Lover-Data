@@ -1,6 +1,6 @@
 # 🎧 Genrify: Exploring Global Music Trends Through Data
 
-Welcome to our Milestone 3 project for the Data Visualization course! This repository contains our interactive, narrative-driven D3.js-based exploration of music genre evolution across countries and platforms like Spotify and Billboard.
+Welcome to our Milestone 3 project for the Data Visualization course! This repository contains our interactive, narrative-driven D3.js-based [website](https://com-480-data-visualization.github.io/com-480-project-Certified-Lover-Data/) of music genre evolution across countries and platforms like Spotify and Billboard.
 
 ---
 
@@ -9,6 +9,7 @@ Welcome to our Milestone 3 project for the Data Visualization course! This repos
 **"Genrify"** tells the story of how musical genres have shifted over time and across the globe, blending insights from streaming platforms (Spotify) and traditional charts (Billboard). Our visualizations aim to engage an audience of music enthusiasts, cultural researchers, and data lovers.
 
 We leverage interactive maps, correlation analysis, time-based genre evolution, and Spotify previews to help users understand the dynamic evolution of music consumption and popularity worldwide.
+
 
 ---
 
