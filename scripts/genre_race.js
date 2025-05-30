@@ -506,6 +506,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
       requestAnimationFrame(animate);
     }
-    animate();
-  });
+    animate(); 
+  }); // ✅ END of Promise.all
+
+  // --- Pause animation & audio when slide #slide2-1 leaves viewport ---
+  const slide = document.querySelector('#slide2-1');
+  const audio = document.getElementById('preview-audio');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        isPlaying = false;
+        setPlayPauseIcon(isPlaying);
+        if (audio) audio.pause();
+      }
+    });
+  }, { threshold: 0.25 });
+
+  if (slide) observer.observe(slide);
+
 });
