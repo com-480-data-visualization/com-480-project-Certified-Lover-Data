@@ -452,8 +452,7 @@ body, html {
   font-size: 2.5rem;
   font-weight: 900;
   letter-spacing: 2px;
-  margin-top: 40px;
-  margin-bottom: 10px;
+  margin-top: 10rem;
   color: #222;
   width: 100vw;
 }
@@ -466,7 +465,6 @@ body, html {
   width: 100vw;
   max-width: 1800px;
   margin: 0 auto;
-  margin-top: 30px;
 }
 
 #slide2-1 #top-song-box {
@@ -482,9 +480,9 @@ body, html {
   color: #444;
   z-index: 20;
   transition: background 0.3s;
-  display: none;
+  display: flex;
   margin-right: 36px;
-  margin-top: 60px;
+  margin-top: 6rem; /* no top margin */
   align-self: flex-start;
 }
 #slide2-1 #top-song-box h4 {
@@ -574,7 +572,7 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  padding: 20px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
   transition: background 0.2s, box-shadow 0.2s;
   cursor: pointer;
@@ -603,7 +601,7 @@ body, html {
   font-size: 1.1rem;
   color: #444;
   margin-left: 0;
-  margin-top: 60px;
+  margin-top: 4.5rem;
   align-self: flex-start;
   height: fit-content;
   display: flex;
