@@ -674,6 +674,20 @@ body, html {
   }
 }
 
+@media (max-width: 1600px) {
+  #slide2-3 {
+    transform: scale(0.75);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 1200px) {
+  #slide2-3 {
+    transform: scale(0.65);
+    transform-origin: top center;
+  }
+}
+
 
 #slide6 {
   background: #fff;
