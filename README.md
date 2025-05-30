@@ -33,7 +33,7 @@
 
 [Process book](https://drive.google.com/file/d/1pWtF5C5ihNzOQzW1PDXWX5LzzdxBMSrc/view?usp=share_link)
 
-[Watch the Demo Video (2 min)](screencast.mp4)  
+[Watch the Demo Video (2 min)](https://drive.google.com/file/d/1m40Sbx5_WcZRE0KN1JnymPBIL17lkpjY/view?usp=share_link)  
 
 ## Late policy
 
