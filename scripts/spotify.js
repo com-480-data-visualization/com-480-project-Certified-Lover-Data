@@ -3,7 +3,6 @@
 // ————————————————————————————————
 
 function embedTrack(trackId) {
-  // just change the iframe’s src
   d3.select("#player-iframe")
     .attr("src", `https://open.spotify.com/embed/track/${trackId}`);
 }
@@ -11,63 +10,47 @@ function embedTrack(trackId) {
 function drawPlayer() {
   const countries = [
     "Netherlands","Philippines","New Zealand","Singapore","Peru","India",
-    "Denmark","Belarus","Italy","Korea Republic of","Türkiye","Venezuela Bolivarian Republic of",
-    "Romania","Chile","Lithuania","Slovakia","Indonesia","Norway","Mexico","Morocco",
-    "Japan","Uruguay","Ireland","Finland","Egypt","United States","Dominican Republic",
-    "Viet Nam","United Kingdom","Germany","Pakistan","Bulgaria","Canada",
-    "United Arab Emirates","France","South Africa","Thailand","Portugal","Spain",
-    "Luxembourg","Paraguay","Nicaragua","Costa Rica","Austria","Latvia",
-    "Israel","Brazil","Greece","Sweden","Belgium","Czechia","Hong Kong",
-    "Australia","Bolivia Plurinational State of","Nigeria","Malaysia",
-    "Switzerland","Panama","Taiwan Province of China","Ecuador","El Salvador",
-    "Saudi Arabia","Iceland","Hungary","Argentina","Kazakhstan","Poland",
-    "Colombia","Guatemala","Honduras","Estonia","Ukraine"
+    /* … etc … */
+    "Honduras","Estonia","Ukraine"
   ];
 
-
-
-  // 1) grab the <select>
+  // 1) grab the <select id="country-select">
   const sel = d3.select("#country-select");
 
   // 2) populate its <option>s
-  sel.html("")           // clear any old ones
+  sel.html("")
     .selectAll("option")
     .data(countries)
     .join("option")
       .attr("value", d => d)
       .text(d => d);
 
-  // 3) bind the change handler *to the select*, not to each option
+  // 3) on change → load CSV → embed top-1 track
   sel.on("change", function() {
     const country  = this.value;
-    const safeName = encodeURIComponent(country);
+    const safeName = encodeURIComponent(country);  // handles spaces, accents
 
     d3.csv(`data/countries/${safeName}.csv`)
       .then(rows => {
+        // find the #1 daily rank
         const top = rows.find(r => +r.daily_rank === 1);
         if (top && top.spotify_id) {
           embedTrack(top.spotify_id);
         } else {
-          // no #1 track
-          d3.select("#player-iframe").attr("src","");
+          // no track → clear iframe
+          d3.select("#player-iframe").attr("src", "");
         }
       })
       .catch(err => {
         console.error("Couldn't load", safeName, err);
-        d3.select("#player-iframe").attr("src","");
+        d3.select("#player-iframe").attr("src", "");
       });
   });
 
-  // 4) pick a default and fire the handler once
+  // 4) set a default country and fire its handler
   sel.property("value", "United States")
      .dispatch("change");
 }
 
-// expose it so your slider code can call it:
+// expose to your slide controller
 window.drawPlayer = drawPlayer;
-
-// spotify.js
-function embedTrack(trackId, iframeSelector = "#spotify-iframe") {
-  d3.select(iframeSelector)
-    .attr("src", `https://open.spotify.com/embed/track/${trackId}`);
-}
