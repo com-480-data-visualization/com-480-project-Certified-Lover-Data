@@ -147,20 +147,42 @@ function updateGenreRankings(userTracks) {
   }));
 }
 
-function animateGenreBillboard(results) {
+function animateGenreBillboard(results, userTracks) {
   const container = document.getElementById("genre-billboard-results");
   container.innerHTML = "";
-  results.forEach((row,idx) => {
-    const div = document.createElement("div");
-    div.className = "genre-board-row";
-    div.style.animationDelay = (0.2 + idx*0.11) + "s";
-    div.innerHTML = `<span class="genre-emoji">${row.emoji}</span>
-      <span class="genre-label">${row.genre}</span>
-      <span class="genre-score">Score: ${row.score.toFixed(2)}</span>`;
-    container.appendChild(div);
+
+  // Compute fractions per genre
+  const genreTracks = {};
+  userTracks.forEach((track, idx) => {
+    if (!track) return;
+    if (!genreTracks[track.genre]) genreTracks[track.genre] = [];
+    genreTracks[track.genre].push(idx+1);
   });
+
+  // Sort results by score descending (in case they're not sorted already)
+  results = results.slice().sort((a, b) => b.score - a.score);
+
+  results.forEach((row, idx) => {
+    const box = document.createElement("div");
+    box.className = "genre-board-row-inline";
+    box.style.animationDelay = (0.17 + idx*0.09) + "s";
+
+    // Inline fractions
+    const ranks = genreTracks[row.genre] || [];
+    const frac = ranks.map(r => `<span class="frac">1/<sub>${r}</sub></span>`).join(' + ');
+    box.innerHTML = `
+      <span class="genre-rank-circle">${idx+1}</span>
+      <span class="genre-emoji">${row.emoji}</span>
+      <span class="genre-label">${row.genre}</span>
+      <span class="genre-inline-formula">${frac} = <b>${row.score.toFixed(2)}</b></span>
+    `;
+    container.appendChild(box);
+  });
+
   container.style.display = "";
+  document.getElementById("genre-score-explanation").style.display = "";
 }
+
 
 let billboardWeekData = null, userTop10 = Array(10).fill(null);
 let dragSourceIdx = null;
@@ -249,7 +271,7 @@ function checkUserComplete() {
 document.getElementById("refresh-billboard-week").onclick = refreshRandomWeek;
 document.getElementById("see-genre-rankings").onclick = () => {
   const results = updateGenreRankings(userTop10);
-  animateGenreBillboard(results);
+  animateGenreBillboard(results, userTop10);
 };
 
 refreshRandomWeek();
