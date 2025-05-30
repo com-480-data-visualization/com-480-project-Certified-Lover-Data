@@ -115,9 +115,6 @@ function renderUserBillboard(userTracks) {
     const track = userTracks[i];
     html += `<tr class="user-row user-slot${track?" filled":""}" data-slot="${i}" ${track?'draggable="true"':""}>
       <td class="user-rank">${i+1}</td>
-      <td>${
-        track? `<img class="user-cover" src="${track.cover||'https://via.placeholder.com/54'}" alt="">` : ""
-      }</td>
       <td style="min-width:160px;">${
         track? `<div class="user-title">${track.song}</div>
           <div class="user-artist">${track.performer}</div>
@@ -272,11 +269,13 @@ document.getElementById("refresh-billboard-week").onclick = refreshRandomWeek;
 document.getElementById("see-genre-rankings").onclick = () => {
   const results = updateGenreRankings(userTop10);
   animateGenreBillboard(results, userTop10);
-  
+
   const resultsSection = document.getElementById("genre-billboard-results");
-  if (resultsSection) {
+  resultsSection.style.display = "block";  
+
+  setTimeout(() => {
     resultsSection.scrollIntoView({ behavior: "smooth" });
-  }
+  }, 100);  // Allow a short delay to make sure content is loaded
 };
 
 refreshRandomWeek();
