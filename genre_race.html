@@ -71,6 +71,7 @@
 <!-- ========================================
     SLIDE 2‑3 — WONDER HOW WE CALCULATED THE RANKINGS - TRY IT YOURSELF!
 ======================================== -->
+
 <section class="slide" id="slide2-3" style="font-family:'Poppins',Arial,sans-serif;">
   <div class="center-title" style="text-align:center;font-size:2.5rem;font-weight:900;letter-spacing:2px;margin-top:30px;">Try Ranking the Top 10—Your Way!</div>
   <div id="billboard-ranker-root" style="max-width:1200px;margin:40px auto 0 auto;display:flex;gap:48px;">
@@ -101,9 +102,15 @@
 
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
+
+<script>
+  window.BASE_URL = window.location.pathname.includes("com-480-project-Certified-Lover-Data")
+    ? "/com-480-project-Certified-Lover-Data"
+    : "";
+</script>
+
 <script src="scripts/genre_race.js"></script>
 <script src="scripts/scores.js"></script>
-
 
 </body>
 </html>

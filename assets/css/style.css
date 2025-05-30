@@ -452,7 +452,7 @@ body, html {
   font-size: 2.5rem;
   font-weight: 900;
   letter-spacing: 2px;
-  margin-top: 10rem;
+  margin-top: 20rem;
   color: #222;
   width: 100vw;
 }
@@ -595,7 +595,7 @@ body, html {
   max-width: 320px;
   background: #f8f8ff;
   border-radius: 14px;
-  padding: 18px 18px 14px 18px;
+  padding: 18px 35px 14px 18px;
   box-shadow: 0 2px 14px rgba(0,0,0,0.05);
   font-family: 'Poppins', Arial, sans-serif;
   font-size: 1.1rem;
@@ -658,6 +658,20 @@ body, html {
 @media (max-width: 850px) {
   #slide2-1 #top-song-box, #slide2-1 #legend-container { max-width: 95vw; }
   #slide2-1 #genre-race-vis { max-width: 98vw; }
+}
+
+@media (max-width: 1600px) {
+  #slide2-1 {
+    transform: scale(0.75);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 1200px) {
+  #slide2-1 {
+    transform: scale(0.65);
+    transform-origin: top center;
+  }
 }
 
 

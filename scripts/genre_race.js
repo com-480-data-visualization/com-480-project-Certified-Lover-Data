@@ -56,10 +56,14 @@ document.addEventListener("DOMContentLoaded", function () {
     .classed("decade-tick", true)
     .style("cursor", "pointer")
     .on("click", (event, d) => {
-      selectedYear = d;
+      if (d === 1950) {
+        selectedYear = 1959;
+      } else {
+        selectedYear = d;
+      }
       selectedMonth = "Jan";
       updateOffsetFromSelection();
-      updateDecadeTickHighlight(d);
+      updateDecadeTickHighlight(Math.floor(selectedYear / 10) * 10);
       showYearsMonths(selectedYear, selectedMonth);
     });
 
@@ -119,14 +123,17 @@ document.addEventListener("DOMContentLoaded", function () {
       .attr("x", (d,i) => (i % yearCols) * yearCellW)
       .attr("y", (d,i) => Math.floor(i / yearCols) * yearCellH)
       .attr("dy", "1em")
-      .attr("pointer-events", "all")
       .text(d => d)
       .classed("selected", d => d === year)
+      .style("fill", d => (d < 1959 || d > 2020) ? "#aaa" : "#444")
+      .style("pointer-events", d => (d < 1959 || d > 2020) ? "none" : "all")
       .on("click", (e, d) => {
-        selectedYear = d;
-        updateOffsetFromSelection();
-        updateDecadeTickHighlight(Math.floor(d / 10) * 10);
-        showYearsMonths(d, selectedMonth);
+        if (d >= 1959 && d <= 2020) {
+          selectedYear = d;
+          updateOffsetFromSelection();
+          updateDecadeTickHighlight(Math.floor(d / 10) * 10);
+          showYearsMonths(d, selectedMonth);
+        }
       });
 
     monthsGroup.attr("transform", `translate(${yearsGridW + gapBetween}, 0)`);
@@ -156,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const files = [];
   for (let year = 1959; year <= 2020; year++) {
     for (const month of months) {
-      files.push(`data/billboard_${month}_${year}.csv`);
+      files.push(`${window.BASE_URL}/data/billboard_${month.toLowerCase()}_${year}.csv`);
     }
   }
 
@@ -256,18 +263,25 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --- Main Data Loading and Drawing ---
-  Promise.all(files.map(f => d3.csv(f, d => ({
-    Year: +d.Year,
-    Month: d.Month,
-    WeekIndex: +d.WeekIndex,
-    Genre: d.Genre,
-    genre_weekly_score: +d.genre_weekly_score,
-    weekly_position: +d.weekly_position,
-    Performer: d.Performer || d.performer,
-    Song: d.Song || d.title,
-    spotify_track_id: d.spotify_track_id,
-    spotify_track_preview_url: d.spotify_track_preview_url
-  })))).then(allDataArrays => {
+  Promise.all(
+    files.map(f =>
+      d3.csv(f, d => ({
+        Year: +d.Year,
+        Month: d.Month,
+        WeekIndex: +d.WeekIndex,
+        Genre: d.Genre,
+        genre_weekly_score: +d.genre_weekly_score,
+        weekly_position: +d.weekly_position,
+        Performer: d.Performer || d.performer,
+        Song: d.Song || d.title,
+        spotify_track_id: d.spotify_track_id,
+        spotify_track_preview_url: d.spotify_track_preview_url
+      })).catch(error => {
+        console.warn(`❌ Failed to load file: ${f}`, error);
+        return [];
+      })
+    )
+  ).then(allDataArrays => {
     const rawData = allDataArrays.flat().filter(d => d.weekly_position >= 1 && d.weekly_position <= 10);
     minYear = d3.min(rawData, d => d.Year);
     minMonthIndex = d3.min(rawData.filter(d => d.Year === minYear), d => months.indexOf(d.Month));
@@ -276,6 +290,8 @@ document.addEventListener("DOMContentLoaded", function () {
       d.timeIndex = d.monthOffset + (d.WeekIndex - 1) / 4;
     });
     const genres = d3.group(rawData, d => d.Genre);
+    window.rawData = rawData;
+    window.genres = genres;
     const genreList = [...genres.keys()];
     // Use the same fixed color scale as your CSS for consistency
     const genreColor = d3.scaleOrdinal()
