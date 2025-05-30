@@ -49,9 +49,9 @@ function updateSlide () {
     drawCorrelationHeatmap(file);
     window._heatmapDrawn = true;
   }
-  if (currentSlide === 5 && !window.playerDrawn) {
+  if (currentSlide === 5 && !window._playerDrawn) {
     drawPlayer();
-    window.playerDrawn = true;
+    window._playerDrawn = true;
   }
   if ((currentSlide === 4 || currentSlide === 8) && !window._scatterDrawn) {
     drawScatter();
