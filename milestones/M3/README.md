@@ -63,3 +63,44 @@ The process book outlines our goals, describes the dataset, presents our explora
 ---
 
 ## ⚙️ Technical Setup
+
+This project uses [Jekyll](https://jekyllrb.com/), a static site generator, to build and serve the website. Follow the steps below to run the website locally and explore the visualizations.
+
+### 1. Clone the Repository
+
+First, clone the repository to your local machine and navigate into the project folder:
+
+```bash
+git clone https://github.com/com-480-data-visualization/com-480-project-Certified-Lover-Data.git
+cd com-480-project-Certified-Lover-Data
+```
+
+### 2. Install Ruby and Jekyll
+
+Make sure you have [Ruby](https://www.ruby-lang.org/en/documentation/installation/) installed. Then install Bundler and Jekyll:
+
+```bash
+gem install bundler jekyll
+```
+
+### 3. Install Project Dependencies
+
+Once inside the project folder, install the required Ruby gems (dependencies) using:
+
+```bash
+bundle install
+```
+
+### 4. Serve the Website Locally
+
+Start the local development server with:
+
+```bash
+bundle exec jekyll serve
+```
+
+Jekyll will build the site and serve it at a URL.  Open this URL in your browser to view the website.
+
+---
+
+🎧 You're all set! Fire up the local server, explore the visualizations, and get ready to dive into the world of Drake and data. Enjoy the journey!
