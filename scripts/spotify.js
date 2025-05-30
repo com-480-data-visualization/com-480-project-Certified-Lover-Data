@@ -25,10 +25,8 @@ function drawPlayer() {
     "Poland","Colombia","Guatemala","Honduras","Estonia","Ukraine"
   ];
 
-  // 1) grab the <select id="country-select">
   const sel = d3.select("#country-select");
 
-  // 2) populate its <option>s
   sel.html("")
     .selectAll("option")
     .data(countries)
@@ -36,7 +34,6 @@ function drawPlayer() {
       .attr("value", d => d)
       .text(d => d);
 
-  // 3) on change → load CSV → embed top-1 track
   sel.on("change", function() {
     const country  = this.value;
     const safeName = encodeURIComponent(country);  // handles spaces, accents
