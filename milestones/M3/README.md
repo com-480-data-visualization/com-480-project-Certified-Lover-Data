@@ -22,7 +22,7 @@ We leverage interactive maps, correlation analysis, time-based genre evolution, 
 ├── data/                    # Cleaned & structured datasets (Spotify, Billboard, etc.)
 ├── data_preprocessing/      # Jupyter Notebooks and Python scripts for data wrangling
 ├── milestones/              # Milestone documents including the process book PDF
-├── scripts/                 # Utility/debug scripts for preprocessing
+├── scripts/                 # scripts files for the website
 ├── correlation.html         # Correlation matrix of musical features
 ├── genre_race.html          # Animated genre race plot over time
 ├── genrify.html             # Spotify-based genre explorer with audio previews
