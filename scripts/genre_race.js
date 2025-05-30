@@ -119,14 +119,17 @@ document.addEventListener("DOMContentLoaded", function () {
       .attr("x", (d,i) => (i % yearCols) * yearCellW)
       .attr("y", (d,i) => Math.floor(i / yearCols) * yearCellH)
       .attr("dy", "1em")
-      .attr("pointer-events", "all")
       .text(d => d)
       .classed("selected", d => d === year)
+      .style("fill", d => (d < 1959 || d > 2020) ? "#aaa" : "#444")
+      .style("pointer-events", d => (d < 1959 || d > 2020) ? "none" : "all")
       .on("click", (e, d) => {
-        selectedYear = d;
-        updateOffsetFromSelection();
-        updateDecadeTickHighlight(Math.floor(d / 10) * 10);
-        showYearsMonths(d, selectedMonth);
+        if (d >= 1959 && d <= 2020) {
+          selectedYear = d;
+          updateOffsetFromSelection();
+          updateDecadeTickHighlight(Math.floor(d / 10) * 10);
+          showYearsMonths(d, selectedMonth);
+        }
       });
 
     monthsGroup.attr("transform", `translate(${yearsGridW + gapBetween}, 0)`);
