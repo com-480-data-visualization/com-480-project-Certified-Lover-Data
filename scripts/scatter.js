@@ -142,10 +142,10 @@
 
     // 11) pop-in animation
     circles.transition()
-      .delay((d,i) => i * 50)      // stagger
+      .delay((d,i) => i * 50)      
       .duration(600)
       .ease(d3.easeBackOut)
-      .attr('r', 6);               // grow to final radius
+      .attr('r', 6);              
   })
   .catch(err => console.error('couldn’t load broad‐genre data:', err));
 };
