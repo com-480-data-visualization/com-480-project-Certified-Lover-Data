@@ -4,16 +4,29 @@
   <meta charset="UTF-8">
   <title>Genrify – Genre & Top Track Predictor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Poppins font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="scripts/spotify.js"></script>
   <script type="module" src="scripts/genrify.js"></script>
-
-  
 </head>
+
 <body>
-  <section class="slide" id="slide6">
+  <!-- =========== SLIDE 6-1: Intro ============= -->
+  <section class="slide" id="slide6-1">
+    <div class="intro-card">
+      <div class="intro-big">Ever wondered how to <span class="highlight">find your genre</span> and the <span class="highlight">track that fits your vibe</span>?</div>
+      <div class="intro-small">
+        <span style="font-size:1.13em;">With <b>Genrify</b>, explore the Billboard universe by your musical fingerprint.<br>
+        Set your sound, predict your genre, and find the perfect classic hit. <span style="color:#3ec9a7;">✨</span></span>
+      </div>
+      <button id="to-predictor-btn" class="btn intro-btn">Start Predicting Your Genre</button>
+    </div>
+  </section>
+  
+  <!-- =========== SLIDE 6-2: Predictor ============= -->
+  <section class="slide" id="slide6-2">
     <div class="title">Music Genre & Top Track Predictor</div>
     <div class="subtitle">
       Move the sliders to set track features. Find your closest classic Billboard hit!<br>
@@ -75,8 +88,8 @@
         <button type="button" class="btn" id="similar-btn">Predict Genre & Find Billboard Hit</button>
       </div>
     </form>
-    <div class="genre-card" id="genre-result"></div>
-    <div class="similar-track-card" id="similar-result">
+    <div class="genre-card" id="genre-result" style="display:none"></div>
+    <div class="similar-track-card" id="similar-result" style="display:none">
       <span class="result-label">🎵 Closest Billboard Track:</span>
       <div id="similar-track"></div>
       <div class="spotify-player-wrap">
@@ -84,5 +97,17 @@
       </div>
     </div>
   </section>
+
+  <script>
+    // Simple JS for slide transition
+    document.getElementById("to-predictor-btn").onclick = () => {
+      document.getElementById("slide6-1").style.display = "none";
+      document.getElementById("slide6-2").style.display = "";
+    };
+    document.getElementById("back-to-intro-btn").onclick = () => {
+      document.getElementById("slide6-2").style.display = "none";
+      document.getElementById("slide6-1").style.display = "";
+    };
+  </script>
 </body>
 </html>
