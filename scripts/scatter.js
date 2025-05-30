@@ -94,7 +94,7 @@
           ).style('display','block');
         })
         .on('mousemove', e => tooltip.style('left',`${e.pageX+10}px`).style('top',`${e.pageY-28}px`))
-        .on('mouseout', () => tooltip.style('display','none'));More actions
+        .on('mouseout', () => tooltip.style('display','none'));
     });
   };
 
