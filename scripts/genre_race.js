@@ -267,7 +267,8 @@ document.addEventListener("DOMContentLoaded", function () {
     Song: d.Song || d.title,
     spotify_track_id: d.spotify_track_id,
     spotify_track_preview_url: d.spotify_track_preview_url
-  })))).then(allDataArrays => {
+  }))).catch(error => {console.warn(`❌ Failed to load file: ${f}`, error); return [];})
+  ).then(allDataArrays => {
     const rawData = allDataArrays.flat().filter(d => d.weekly_position >= 1 && d.weekly_position <= 10);
     minYear = d3.min(rawData, d => d.Year);
     minMonthIndex = d3.min(rawData.filter(d => d.Year === minYear), d => months.indexOf(d.Month));
