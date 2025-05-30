@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     const thisSongId = info.spotify_track_id || (info.Genre + info.Performer + info.Song);
 
-    // Only refresh for a new song
+    // --- Only refresh for a new song ---
     if (thisSongId === lastTopSongId) {
       const weekText = week || '';
       const monthText = month || '';
@@ -277,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function () {
         spotify_track_id: d.spotify_track_id,
         spotify_track_preview_url: d.spotify_track_preview_url
       })).catch(error => {
-        console.warn(`❌ Failed to load file: ${f}`, error);
+        console.warn(`Failed to load file: ${f}`, error);
         return [];
       })
     )
@@ -293,7 +293,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.rawData = rawData;
     window.genres = genres;
     const genreList = [...genres.keys()];
-    // Use the same fixed color scale as your CSS for consistency
+    // --- Using the same fixed color scale as the other Website Components for Consistency --- 
     const genreColor = d3.scaleOrdinal()
       .domain([
         'Blues','Classical','Comedy','Country','Dance','Easy Listening',
@@ -506,6 +506,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
       requestAnimationFrame(animate);
     }
-    animate();
+    animate(); 
   });
+
+  // --- Pause animation & audio when slide #slide2-1 leaves viewport ---
+  const slide = document.querySelector('#slide2-1');
+  const audio = document.getElementById('preview-audio');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        // --- Pause when the slide is not visible ---
+        isPlaying = false;
+        setPlayPauseIcon(isPlaying);
+        if (audio) audio.pause();
+      } else {
+        // --- Resume when the slide becomes visible again ---
+        isPlaying = true;
+        setPlayPauseIcon(isPlaying);
+        if (audio && audio.src) {
+          audio.play().catch(() => {});
+        }
+      }
+    });
+  }, { threshold: 0.25 });
+  
+  if (slide) observer.observe(slide);
+
 });
