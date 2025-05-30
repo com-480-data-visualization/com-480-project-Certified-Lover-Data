@@ -674,6 +674,19 @@ body, html {
   }
 }
 
+#slide2-3 .genre-board-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+#slide2-3 .genre-board-row-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 @media (max-width: 1600px) {
   #slide2-3 {
     transform: scale(0.75);

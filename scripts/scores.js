@@ -156,33 +156,37 @@ function animateGenreBillboard(results, userTracks) {
   userTracks.forEach((track, idx) => {
     if (!track) return;
     if (!genreTracks[track.genre]) genreTracks[track.genre] = [];
-    genreTracks[track.genre].push(idx+1);
+    genreTracks[track.genre].push(idx + 1);
   });
 
-  // Sort results by score descending (in case they're not sorted already)
+  // Sort results by score descending
   results = results.slice().sort((a, b) => b.score - a.score);
+
+  // Create grid container
+  const grid = document.createElement("div");
+  grid.className = "genre-board-grid";
 
   results.forEach((row, idx) => {
     const box = document.createElement("div");
     box.className = "genre-board-row-inline";
-    box.style.animationDelay = (0.17 + idx*0.09) + "s";
+    box.style.animationDelay = (0.17 + idx * 0.09) + "s";
 
-    // Inline fractions
     const ranks = genreTracks[row.genre] || [];
     const frac = ranks.map(r => `<span class="frac">1/<sub>${r}</sub></span>`).join(' + ');
+
     box.innerHTML = `
-      <span class="genre-rank-circle">${idx+1}</span>
+      <span class="genre-rank-circle">${idx + 1}</span>
       <span class="genre-emoji">${row.emoji}</span>
       <span class="genre-label">${row.genre}</span>
       <span class="genre-inline-formula">${frac} = <b>${row.score.toFixed(2)}</b></span>
     `;
-    container.appendChild(box);
+    grid.appendChild(box);
   });
 
+  container.appendChild(grid);
   container.style.display = "";
   document.getElementById("genre-score-explanation").style.display = "";
 }
-
 
 let billboardWeekData = null, userTop10 = Array(10).fill(null);
 let dragSourceIdx = null;
