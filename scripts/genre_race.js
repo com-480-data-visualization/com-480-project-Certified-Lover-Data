@@ -516,13 +516,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) {
+        // Pause when the slide is not visible
         isPlaying = false;
         setPlayPauseIcon(isPlaying);
         if (audio) audio.pause();
+      } else {
+        // Resume when the slide becomes visible again
+        isPlaying = true;
+        setPlayPauseIcon(isPlaying);
+        if (audio && audio.src) {
+          audio.play().catch(() => {});
+        }
       }
     });
   }, { threshold: 0.25 });
-
+  
   if (slide) observer.observe(slide);
 
 });
