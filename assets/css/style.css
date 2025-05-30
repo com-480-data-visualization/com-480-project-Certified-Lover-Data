@@ -450,6 +450,7 @@ body, html {
   border-radius: 36px;
   box-shadow: 0 12px 44px rgba(40,48,95,0.10);
   padding: 34px 48px 28px 48px;
+  justify-content: flex-start;
   background-color: #f3fff4;
   box-sizing: border-box;
 }
