@@ -33,6 +33,8 @@
 
 [Process book](https://drive.google.com/file/d/1pWtF5C5ihNzOQzW1PDXWX5LzzdxBMSrc/view?usp=share_link)
 
+[Watch the Demo Video (2 min)](screencast.mp4)  
+
 ## Late policy
 
 - < 24h: 80% of the grade for the milestone
