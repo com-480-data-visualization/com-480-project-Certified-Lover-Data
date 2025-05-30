@@ -674,6 +674,101 @@ body, html {
   }
 }
 
+#slide2-3 {
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+#slide2-3 .center-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-top: 275px;
+}
+
+#slide2-3 #billboard-ranker-root {
+  max-width: 1200px;
+  margin: 40px auto 0 auto;
+  display: flex;
+  gap: 48px;
+}
+
+#slide2-3 .original-grid,
+#slide2-3 .user-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+#slide2-3 .original-slot,
+#slide2-3 .user-slot {
+  border: 2px solid #eee;
+  padding: 10px;
+  border-radius: 10px;
+  background: #f5f5f5;
+  text-align: center;
+  cursor: grab;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+}
+
+#slide2-3 .original-slot.disabled,
+#slide2-3 .user-slot.disabled {
+  opacity: 0.43;
+  pointer-events: none;
+  cursor: default;
+}
+
+#slide2-3 .original-rank,
+#slide2-3 .user-rank {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+#slide2-3 .original-cover,
+#slide2-3 .user-cover {
+  width: 54px;
+  height: 54px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-bottom: 6px;
+}
+
+#slide2-3 .original-title,
+#slide2-3 .user-title {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+#slide2-3 .original-artist,
+#slide2-3 .user-artist {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+#slide2-3 .original-genre,
+#slide2-3 .user-genre {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+#slide2-3 .genre-board-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+#slide2-3 .genre-board-row-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 @media (max-width: 1600px) {
   #slide2-3 {
     transform: scale(0.75);
@@ -822,7 +917,7 @@ body, html {
   display: block;
 }
 
-#slide6-2 .genre-card {
+#slide6 .genre-card {
   margin: 32px auto 0 auto;
   background: #eef3fe;
   color: #255fd7;
@@ -834,7 +929,7 @@ body, html {
   text-align: center;
 }
 
-#slide6-2 .similar-track-card {
+#slide6 .similar-track-card {
   margin-top: 36px;
   padding: 24px 26px;
   background: #edfbf7;
@@ -1083,67 +1178,4 @@ body, html {
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px);}
   to   { opacity: 1; transform: translateY(0);}
-}
-
-
-
-/* ===============================
-   SLIDE 7 — Conclusion Styles
-=============================== */
-#slide7 {
-  min-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Poppins', Arial, sans-serif;
-  background: #f6f8fc;
-  padding: 0 2vw;
-}
-
-#slide7 .conclusion-message {
-  max-width: 680px;
-  font-size: 1.36rem;
-  color: #232f47;
-  text-align: center;
-  line-height: 1.6;
-  margin-bottom: 3.5rem;
-  margin-top: 4rem;
-  letter-spacing: 0.01em;
-  font-weight: 500;
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 18px #cbe2ff23;
-  padding: 38px 32px 26px 32px;
-}
-
-#slide7 .conclusion-footer {
-  font-size: 1.11rem;
-  color: #45537b;
-  background: #f2f5fb;
-  border-radius: 12px;
-  padding: 22px 18px 16px 18px;
-  box-shadow: 0 2px 12px #e0e8f933;
-  font-weight: 600;
-  margin-bottom: 3.7rem;
-  margin-top: -2rem;
-  display: inline-block;
-  text-align: center;
-  line-height: 1.4;
-}
-#slide7 .conclusion-footer strong {
-  font-weight: 900;
-  font-size: 1.28em;
-  color: #1849b5;
-  letter-spacing: 0.01em;
-}
-@media (max-width: 600px) {
-  #slide7 .conclusion-message {
-    font-size: 1.05rem;
-    padding: 16px 6vw;
-  }
-  #slide7 .conclusion-footer {
-    font-size: 0.99rem;
-    padding: 13px 4vw 10px 4vw;
-  }
 }

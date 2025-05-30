@@ -88,24 +88,28 @@ async function loadRandomTracksFromMonth() {
 }
 
 // --- Render Billboard Source Table ---
-function renderBillboardOriginal(tracks, container, draggable=true, usedIds=[]) {
-  let html = `<table class="billboard-table" style="width:100%;">`;
-  html += tracks.map((track,idx) => {
+function renderBillboardOriginal(tracks, container, draggable = true, usedIds = []) {
+  let html = `<div class="original-grid">`;
+
+  html += tracks.map((track, idx) => {
     const id = getTrackId(track);
     const used = usedIds.includes(id);
     return `
-      <tr class="billboard-row${used?" disabled":""}" draggable="${draggable && !used}" data-index="${idx}" data-id="${id}" style="${used?'opacity:0.43;pointer-events:none;':""}">
-        <td class="billboard-rank">${idx+1}</td>
-        <td><img class="billboard-cover" src="${track.cover||'https://via.placeholder.com/54'}" alt=""></td>
-        <td>
-          <div class="billboard-title">${track.song}</div>
-          <div class="billboard-artist">${track.performer}</div>
-          <div class="billboard-genre">${genreEmojis[track.genre]||""} ${track.genre}</div>
-        </td>
-      </tr>
+      <div class="original-slot${used ? " disabled" : ""}" 
+           draggable="${draggable && !used}" 
+           data-index="${idx}" 
+           data-id="${id}" 
+           style="${used ? 'opacity:0.43;pointer-events:none;' : ''}">
+        <div class="original-rank">${idx + 1}</div>
+        <img class="original-cover" src="${track.cover || 'https://via.placeholder.com/54'}" alt="">
+        <div class="original-title">${track.song}</div>
+        <div class="original-artist">${track.performer}</div>
+        <div class="original-genre">${genreEmojis[track.genre] || ""} ${track.genre}</div>
+      </div>
     `;
   }).join("");
-  html += `</table>`;
+
+  html += `</div>`;
   container.innerHTML = html;
 }
 
