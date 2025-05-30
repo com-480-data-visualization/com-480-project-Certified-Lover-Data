@@ -5,38 +5,11 @@
   <title>Genrify – Genre & Top Track Predictor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="scripts/spotify.js"></script>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js"></script>
 
-
-
-
-
-  <style>
-    body { font-family: 'Poppins', sans-serif; background: #f5f7fa; color: #2b3142; margin: 0; min-height: 100vh; }
-    #slide6 { max-width: 950px; margin: 40px auto 0; background: #fff; border-radius: 28px; box-shadow: 0 10px 36px rgba(40,48,95,0.07); padding: 46px 38px 38px 38px;}
-    .title { font-size: 2.4rem; font-weight: 600; margin-bottom: 7px; color: #255fd7; letter-spacing: 0.5px;}
-    .subtitle { font-size: 1.15rem; font-weight: 400; margin-bottom: 32px; color: #535875; opacity: 0.94;}
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 26px 22px; margin-bottom: 32px;}
-    .slider-group { display: flex; flex-direction: column; gap: 7px;}
-    .slider-label { font-size: 1rem; color: #3b4877; font-weight: 500; margin-bottom: 2px; display: flex; align-items: center; justify-content: space-between;}
-    .slider-value { font-size: 0.96rem; color: #5289fa; margin-left: 6px; font-weight: 600;}
-    input[type="range"] { width: 100%; accent-color: #5289fa; background: transparent; height: 4px; margin: 0; cursor: pointer;}
-    input[type="range"]:focus { outline: none; accent-color: #255fd7;}
-    .form-actions { display: flex; gap: 16px; margin: 35px 0 0 0; align-items: center; flex-wrap: wrap;}
-    .btn { padding: 12px 32px; border-radius: 10px; background: linear-gradient(90deg, #5289fa 0%, #67e7a6 100%); color: #fff; font-weight: 600; border: none; font-size: 1.08rem; cursor: pointer; box-shadow: 0 2px 16px #5289fa23; transition: background 0.18s, transform 0.14s;}
-    .btn:hover { background: linear-gradient(90deg, #3260f5 0%, #33c87c 100%); transform: translateY(-2px) scale(1.032);}
-    .similar-track-card { margin-top: 37px; padding: 25px 29px; background: #edfbf7; border-radius: 13px; min-height: 54px; font-size: 1.19rem; color: #236d59; border: 1px solid #c8f6e4;}
-    .result-label { color: #255fd7; font-weight: 600; font-size: 1.08rem; margin-bottom: 4px; display: block;}
-    .genre-card { margin-bottom: 18px; background: #eef3fe; color: #255fd7; font-size: 1.19rem; font-weight: 600; border-radius: 8px; display: inline-block; padding: 10px 24px;}
-    .spotify-player-wrap { margin-top:16px; display: flex; align-items: center;}
-    iframe.spotify-player { border-radius:12px; min-width:340px; width:350px; height:80px; border:0;}
-    @media (max-width: 600px) {
-      .spotify-player-wrap { flex-direction: column; align-items: flex-start;}
-      iframe.spotify-player { min-width: 220px; width: 99vw;}
-    }
-  </style>
+  
 </head>
 <body>
   <section class="slide" id="slide6">
@@ -99,7 +72,6 @@
       </div>
       <div class="form-actions">
         <button type="button" class="btn" id="similar-btn">Predict Genre & Find Billboard Hit</button>
-        <button onclick="testPredict()">Test Predict</button>
       </div>
     </form>
     <div class="genre-card" id="genre-result" style="display:none;"></div>
@@ -111,8 +83,10 @@
       </div>
     </div>
   </section>
-  <script>
-    // ------------- Slider label display -------------
+   <script type="module">
+    import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js";
+
+    // Slider label updates
     const features = [
       "danceability", "energy", "key", "loudness", "mode",
       "speechiness", "acousticness", "instrumentalness", "liveness",
@@ -124,7 +98,7 @@
       slider.addEventListener('input', () => { valueSpan.textContent = slider.value; });
     });
 
-    // ------------- Year range logic -------------
+    // Year slider logic
     const yearMin = document.getElementById('year-min');
     const yearMax = document.getElementById('year-max');
     const valYearMin = document.getElementById('val-year-min');
@@ -139,7 +113,7 @@
     yearMax.addEventListener('input', updateYearDisplay);
     updateYearDisplay();
 
-    // ------------- Cosine similarity -------------
+    // Cosine similarity function
     function cosineSimilarity(a, b) {
       let dot = 0, a2 = 0, b2 = 0;
       for (let i = 0; i < a.length; i++) {
@@ -150,119 +124,90 @@
       return dot / (Math.sqrt(a2) * Math.sqrt(b2));
     }
 
-    // ------------- Months for data file names -------------
+    // Months array
     const months = [
       "january","february","march","april","may","june",
       "july","august","september","october","november","december"
     ];
 
-    // ------------- MAIN BUTTON HANDLER -------------
+    // MAIN BUTTON HANDLER
     document.getElementById('similar-btn').addEventListener('click', async function(e) {
-    e.preventDefault();
+      e.preventDefault();
 
-    d3.select("#genre-result").style("display", "none");
-    d3.select("#similar-result").style("display", "block");
-    d3.select("#similar-track").html('<span>Loading Billboard data...</span>');
-    d3.select("#spotify-iframe").attr("src", "");
+      d3.select("#genre-result").style("display", "none");
+      d3.select("#similar-result").style("display", "block");
+      d3.select("#similar-track").html('<span>Loading Billboard data...</span>');
+      d3.select("#spotify-iframe").attr("src", "");
 
-    // ----------- 1. PREDICT GENRE USING GRADIO CLIENT -----------
-    const userInput = {};
-    features.forEach(f => userInput[f] = parseFloat(document.getElementById(f).value));
+      // ----------- 1. PREDICT GENRE USING GRADIO CLIENT -----------
+      const userInput = {};
+      features.forEach(f => userInput[f] = parseFloat(document.getElementById(f).value));
 
-    d3.select("#genre-result").style("display", "inline-block").html('<span>Predicting genre...</span>');
+      d3.select("#genre-result").style("display", "inline-block").html('<span>Predicting genre...</span>');
 
-    let genre = "Unknown";
-    try {
-      // Connect to HuggingFace Space
-      const client = await window.gradio.Client.connect("schifferlearning/genre-classifier-api");
-      // Predict (API name: /predict)
-      const result = await client.predict("/predict", userInput);
-      if(result && result.data && result.data[0]) {
-        genre = result.data[0];
+      let genre = "Unknown";
+      try {
+        const client = await Client.connect("schifferlearning/genre-classifier-api");
+        const result = await client.predict("/predict", userInput);
+        if(result && result.data && result.data[0]) {
+          genre = result.data[0];
+        }
+        d3.select("#genre-result")
+          .style("display", "inline-block")
+          .html('<span>🎼 Predicted genre: <b>' + genre + '</b></span>');
+      } catch (err) {
+        d3.select("#genre-result")
+          .style("display", "inline-block")
+          .html('<span>🎼 Predicted genre: <b>Unknown</b> (prediction error)</span>');
       }
-      d3.select("#genre-result")
-        .style("display", "inline-block")
-        .html('<span>🎼 Predicted genre: <b>' + genre + '</b></span>');
-    } catch (err) {
-      d3.select("#genre-result")
-        .style("display", "inline-block")
-        .html('<span>🎼 Predicted genre: <b>Unknown</b> (prediction error)</span>');
-    }
 
-    // ----- 2. FIND CLOSEST TRACK -----
-    const yrMin = parseInt(yearMin.value), yrMax = parseInt(yearMax.value);
-    const userVec = features.map(f => parseFloat(document.getElementById(f).value));
-    let allTracks = [];
-    let fetches = [];
-    for (let year = yrMin; year <= yrMax; year++) {
-      for (let m of months) {
-        let url = `data/billboard_${m}_${year}.csv`;
-        fetches.push(
-          d3.csv(url).then(data => {
-            allTracks.push(...data.filter(row =>
-              features.every(f => row[f] !== undefined && row[f] !== "")
-            ));
-          }).catch(()=>{})
-        );
+      // ----- 2. FIND CLOSEST TRACK -----
+      const yrMin = parseInt(yearMin.value), yrMax = parseInt(yearMax.value);
+      const userVec = features.map(f => parseFloat(document.getElementById(f).value));
+      let allTracks = [];
+      let fetches = [];
+      for (let year = yrMin; year <= yrMax; year++) {
+        for (let m of months) {
+          let url = `data/billboard_${m}_${year}.csv`;
+          fetches.push(
+            d3.csv(url).then(data => {
+              allTracks.push(...data.filter(row =>
+                features.every(f => row[f] !== undefined && row[f] !== "")
+              ));
+            }).catch(()=>{})
+          );
+        }
       }
-    }
-    await Promise.all(fetches);
+      await Promise.all(fetches);
 
-    let bestSim = -Infinity, bestTrack = null;
-    for (const track of allTracks) {
-      const trackVec = features.map(f => parseFloat(track[f]));
-      const sim = cosineSimilarity(userVec, trackVec);
-      if (sim > bestSim) {
-        bestSim = sim;
-        bestTrack = track;
+      let bestSim = -Infinity, bestTrack = null;
+      for (const track of allTracks) {
+        const trackVec = features.map(f => parseFloat(track[f]));
+        const sim = cosineSimilarity(userVec, trackVec);
+        if (sim > bestSim) {
+          bestSim = sim;
+          bestTrack = track;
+        }
       }
-    }
 
-    const container = d3.select("#similar-track");
-    container.html("");
-    if (bestTrack) {
-      container.append("div")
-        .html(`<b>${bestTrack.Song}</b> by <b>${bestTrack.Performer}</b><br>
-          <span style="font-size:0.97rem; color:#236d59;">(${bestTrack.Year}), Peak Billboard position: #${bestTrack.weekly_position}</span>`);
-      if (bestTrack.spotify_track_id) {
-        embedTrack(bestTrack.spotify_track_id, "#spotify-iframe");
+      const container = d3.select("#similar-track");
+      container.html("");
+      if (bestTrack) {
+        container.append("div")
+          .html(`<b>${bestTrack.Song}</b> by <b>${bestTrack.Performer}</b><br>
+            <span style="font-size:0.97rem; color:#236d59;">(${bestTrack.Year}), Peak Billboard position: #${bestTrack.weekly_position}</span>`);
+        if (bestTrack.spotify_track_id) {
+          // embedTrack function assumed to be in scripts/spotify.js
+          embedTrack(bestTrack.spotify_track_id, "#spotify-iframe");
+        } else {
+          d3.select("#spotify-iframe").attr("src", "");
+          container.append("div").text("No Spotify track available.");
+        }
       } else {
         d3.select("#spotify-iframe").attr("src", "");
-        container.append("div").text("No Spotify track available.");
+        container.text("No similar track found.");
       }
-    } else {
-      d3.select("#spotify-iframe").attr("src", "");
-      container.text("No similar track found.");
-    }
-  });
+    });
   </script>
-
-  <script src="https://unpkg.com/@gradio/client/dist/index.min.js"></script>
-<script>
-async function testPredict() {
-  const userInput = {
-    danceability: 0.5,
-    energy: 0.5,
-    key: 5,
-    loudness: -8.4,
-    mode: 1,
-    speechiness: 0.07,
-    acousticness: 0.26,
-    instrumentalness: 0.02,
-    liveness: 0.19,
-    valence: 0.6,
-    tempo: 120,
-    time_signature: 4
-  };
-  try {
-    const client = await window.gradio.Client.connect("schifferlearning/genre-classifier-api");
-    const result = await client.predict("/predict", userInput);
-    alert(JSON.stringify(result));
-  } catch (err) {
-    alert("Error: " + err);
-  }
-}
-</script>
-
 </body>
 </html>
