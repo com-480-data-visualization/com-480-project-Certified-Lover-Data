@@ -88,25 +88,38 @@ async function loadRandomTracksFromMonth() {
 }
 
 // --- Render Billboard Source Table ---
-function renderBillboardOriginal(tracks, container, draggable=true, usedIds=[]) {
-  let html = `<table class="billboard-table" style="width:100%;">`;
-  html += tracks.map((track,idx) => {
-    const id = getTrackId(track);
-    const used = usedIds.includes(id);
+function renderUserBillboard(userTracks) {
+  const leftTracks = userTracks.slice(0, 5);
+  const rightTracks = userTracks.slice(5, 10);
+
+  const renderColumn = (tracks, startIndex) => {
     return `
-      <tr class="billboard-row${used?" disabled":""}" draggable="${draggable && !used}" data-index="${idx}" data-id="${id}" style="${used?'opacity:0.43;pointer-events:none;':""}">
-        <td class="billboard-rank">${idx+1}</td>
-        <td><img class="billboard-cover" src="${track.cover||'https://via.placeholder.com/54'}" alt=""></td>
-        <td>
-          <div class="billboard-title">${track.song}</div>
-          <div class="billboard-artist">${track.performer}</div>
-          <div class="billboard-genre">${genreEmojis[track.genre]||""} ${track.genre}</div>
-        </td>
-      </tr>
+      <table class="billboard-user-table" style="width:100%;">
+        ${tracks.map((track, i) => {
+          const idx = startIndex + i;
+          return `<tr class="user-row user-slot${track ? " filled" : ""}" data-slot="${idx}" ${track ? 'draggable="true"' : ""}>
+            <td class="user-rank">${idx + 1}</td>
+            <td>${
+              track ? `<img class="user-cover" src="${track.cover || 'https://via.placeholder.com/54'}" alt="">` : ""
+            }</td>
+            <td style="min-width:160px;">${
+              track ? `<div class="user-title">${track.song}</div>
+                        <div class="user-artist">${track.performer}</div>
+                        <div class="billboard-genre">${genreEmojis[track.genre] || ""} ${track.genre}</div>`
+                    : `<span style="color:#bbb;font-style:italic;">Drag a song here</span>`
+            }</td>
+          </tr>`;
+        }).join("")}
+      </table>
     `;
-  }).join("");
-  html += `</table>`;
-  container.innerHTML = html;
+  };
+
+  document.getElementById("billboard-user").innerHTML = `
+    <div style="display: flex; gap: 20px; justify-content: center;">
+      <div style="flex: 1;">${renderColumn(leftTracks, 0)}</div>
+      <div style="flex: 1;">${renderColumn(rightTracks, 5)}</div>
+    </div>
+  `;
 }
 
 // --- User Billboard (as before) ---
