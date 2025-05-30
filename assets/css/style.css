@@ -455,10 +455,10 @@ body, html {
 }
 
 #slide6 .title {
-  font-size: 2.7rem;
-  font-weight: 700;
+  font-size: 3.04rem;
+  font-weight: bolder;
   margin-bottom: 10px;
-  color: #255fd7;
+  color: #000000;
   letter-spacing: 0.6px;
   line-height: 1.12;
   text-align: center;
