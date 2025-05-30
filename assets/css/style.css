@@ -445,6 +445,224 @@ body, html {
   color: #333;
 }
 
+/* ============ GENRE RACE STYLES =============== */
+#slide2-1 .center-title {
+  text-align: center;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  color: #222;
+  width: 100vw;
+}
+
+#slide2-1 .main-flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100vw;
+  max-width: 1800px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+#slide2-1 #top-song-box {
+  width: 320px;
+  min-height: 180px;
+  background: #fffbe7;
+  border-radius: 16px;
+  border: 2px solid #ffe066;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  padding: 18px 20px 18px 20px;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 16px;
+  color: #444;
+  z-index: 20;
+  transition: background 0.3s;
+  display: none;
+  margin-right: 36px;
+  margin-top: 60px;
+  align-self: flex-start;
+}
+#slide2-1 #top-song-box h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 22px;
+  color: #ffbe0b;
+  font-family: 'Poppins', Arial, sans-serif;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+#slide2-1 #top-song-box .song-row {
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+}
+#slide2-1 #top-song-box .label {
+  min-width: 120px;
+  font-weight: bold;
+  color: #3a86ff;
+  margin-right: 6px;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+#slide2-1 #top-song-box .value {
+  flex: 1;
+  color: #222;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+#slide2-1 #top-song-box .emoji {
+  margin-right: 7px;
+  font-size: 18px;
+}
+#slide2-1 #top-song-box .album-cover {
+  width: 100%;
+  border-radius: 12px;
+  margin-top: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  object-fit: cover;
+  background: #eee;
+  display: block;
+  max-width: 200px;
+  max-height: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#slide2-1 .chart-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-right: 40px;
+  margin-left: 0;
+}
+
+#slide2-1 #genre-race-vis {
+  /* D3 will append SVG here */
+  width: 981px;
+  max-width: 100vw;
+  margin: 0 auto;
+}
+#slide2-1 #genre-race-vis svg {
+  display: block;
+  background: #fff;
+  border: none;
+  border-radius: 18px;
+  margin: 0;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.04);
+}
+
+#slide2-1 #control-panel {
+  margin: 24px auto 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: static;
+  width: 960px;
+  transform: translate(-30px, -195px);
+}
+
+#slide2-1 #togglePlay {
+  background: #ffe066;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: background 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+#slide2-1 #togglePlay:hover {
+  background: #ffbe0b;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+#slide2-1 #togglePlayIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+#slide2-1 #legend-container {
+  width: 210px;
+  min-width: 140px;
+  max-width: 320px;
+  background: #f8f8ff;
+  border-radius: 14px;
+  padding: 18px 18px 14px 18px;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 1.1rem;
+  color: #444;
+  margin-left: 0;
+  margin-top: 60px;
+  align-self: flex-start;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#slide2-1 #legend-container strong {
+  font-size: 1.2rem;
+  color: #3a86ff;
+  font-family: 'Poppins', Arial, sans-serif;
+  margin-bottom: 7px;
+  display: block;
+}
+#slide2-1 #legend {
+  display: flex;
+  flex-direction: column;
+  gap: 6px 0;
+  width: 100%;
+  margin-top: 7px;
+}
+#slide2-1 .legend-item {
+  cursor: pointer;
+  font-size: 15px;
+  user-select: none;
+  padding: 3px 10px;
+  border-radius: 7px;
+  background: #f4f4f4;
+  margin-bottom: 0;
+  font-family: 'Poppins', Arial, sans-serif;
+  transition: background 0.2s, font-weight 0.2s;
+  display: block;
+  width: 100%;
+}
+#slide2-1 .legend-item:hover, #slide2-1 .legend-item.active {
+  background: #ffe066;
+  font-weight: 700;
+}
+
+#slide2-1 .axis path, #slide2-1 .axis line { stroke: #bbb; }
+#slide2-1 .decade-tick { cursor: pointer; transition: fill 0.3s ease; }
+#slide2-1 .decade-tick.selected-tick text { fill: #ff006e; font-weight: bold; }
+#slide2-1 .clickable-text { font-size: 13px; fill: #444; cursor: pointer; user-select: none; transition: fill 0.2s ease; pointer-events: all; font-family: 'Poppins', Arial, sans-serif; }
+#slide2-1 .clickable-text:hover { text-decoration: underline; fill: #ffbe0b; }
+#slide2-1 .selected { fill: #ff006e; font-weight: bold; }
+
+@media (max-width: 1300px) {
+  #slide2-1 .main-flex-row { flex-direction: column; }
+  #slide2-1 #top-song-box, #slide2-1 #legend-container { margin: 20px 0; }
+  #slide2-1 .chart-column { margin: 0; align-items: center; }
+  #slide2-1 #genre-race-vis { width: 98vw; }
+  #slide2-1 #control-panel { width: 100vw; }
+}
+
+@media (max-width: 850px) {
+  #slide2-1 #top-song-box, #slide2-1 #legend-container { max-width: 95vw; }
+  #slide2-1 #genre-race-vis { max-width: 98vw; }
+}
+
+
 #slide6 {
   background: #fff;
   border-radius: 36px;
