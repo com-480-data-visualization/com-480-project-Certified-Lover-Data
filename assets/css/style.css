@@ -444,3 +444,223 @@ body, html {
   margin: 0 auto 40px;
   color: #333;
 }
+
+#slide6 {
+  max-width: 1120px;
+  margin: 32px auto 36px auto;
+  background: #fff;
+  border-radius: 36px;
+  box-shadow: 0 12px 44px rgba(40,48,95,0.10);
+  padding: 34px 48px 28px 48px;
+  background-color: #f3fff4;
+  box-sizing: border-box;
+}
+
+#slide6 .title {
+  font-size: 2.7rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #255fd7;
+  letter-spacing: 0.6px;
+  line-height: 1.12;
+  text-align: center;
+}
+
+#slide6 .subtitle {
+  font-size: 1.18rem;
+  font-weight: 400;
+  margin-bottom: 36px;
+  color: #535875;
+  opacity: 0.97;
+  line-height: 1.5;
+  text-align: center;
+}
+
+#slide6 .form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px 38px;
+  margin-bottom: 20px;
+}
+
+#slide6 .slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0;
+}
+
+#slide6 .slider-label {
+  font-size: 1.04rem;
+  color: #385489;
+  font-weight: 600;
+  margin-bottom: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  letter-spacing: 0.01em;
+}
+#slide6 .slider-value {
+  font-size: 1rem;
+  color: #5289fa;
+  margin-left: 6px;
+  font-weight: 600;
+}
+#slide6 input[type="range"] {
+  width: 100%;
+  accent-color: #5289fa;
+  background: transparent;
+  height: 5px;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 4px;
+}
+#slide6 input[type="range"]:focus {
+  outline: none;
+  accent-color: #255fd7;
+}
+
+/* Year Range takes up the whole row */
+#slide6 .year-range-row {
+  grid-column: 1 / -1;
+  margin: 18px 0 0 0;
+  padding-bottom: 2px;
+}
+#slide6 .year-range-row .slider-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+#slide6 .year-range-row .slider-label {
+  flex: 1;
+}
+#slide6 .year-range-row .slider-value {
+  min-width: 42px;
+  display: inline-block;
+  text-align: center;
+}
+#slide6 .year-range-row input[type="range"] {
+  width: 42%;
+  margin: 0 6px;
+  min-width: 90px;
+}
+
+#slide6 .form-actions {
+  display: flex;
+  justify-content: center;
+  margin: 34px 0 0 0;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+#slide6 .btn {
+  padding: 14px 38px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #5289fa 0%, #67e7a6 100%);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  font-size: 1.15rem;
+  cursor: pointer;
+  box-shadow: 0 2px 16px #5289fa23;
+  transition: background 0.18s, transform 0.14s;
+  letter-spacing: 0.01em;
+}
+#slide6 .btn:hover {
+  background: linear-gradient(90deg, #3260f5 0%, #33c87c 100%);
+  transform: translateY(-2px) scale(1.037);
+}
+#slide6 .genre-card,
+#slide6 .similar-track-card {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+#slide6 .genre-card {
+  margin: 32px auto 0 auto;
+  background: #eef3fe;
+  color: #255fd7;
+  font-size: 1.23rem;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 13px 32px;
+  box-shadow: 0 2px 10px #8ca4f125;
+  text-align: center;
+}
+
+#slide6 .similar-track-card {
+  margin-top: 36px;
+  padding: 24px 26px;
+  background: #edfbf7;
+  border-radius: 17px;
+  min-height: 54px;
+  font-size: 1.15rem;
+  color: #236d59;
+  border: 1px solid #c8f6e4;
+  box-shadow: 0 1px 12px #8ce1c11a;
+  max-width: 510px;
+  text-align: center;
+}
+
+#slide6 .result-label {
+  color: #255fd7;
+  font-weight: 700;
+  font-size: 1.13rem;
+  margin-bottom: 6px;
+  display: block;
+}
+#slide6 .spotify-player-wrap {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#slide6 iframe.spotify-player {
+  border-radius: 13px;
+  min-width: 340px;
+  width: 370px;
+  height: 80px;
+  border: 0;
+}
+
+@media (max-width: 1200px) {
+  #slide6 {
+    padding: 24px 2vw 24px 2vw;
+    max-width: 99vw;
+  }
+}
+
+@media (max-width: 900px) {
+  #slide6 .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 18px;
+  }
+  #slide6 .year-range-row .slider-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  #slide6 {
+    padding: 10px 0 0 0;
+    border-radius: 0;
+  }
+  #slide6 .form-grid {
+    grid-template-columns: 1fr;
+    gap: 10px 0;
+  }
+  #slide6 .spotify-player-wrap {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  #slide6 iframe.spotify-player {
+    min-width: 220px;
+    width: 99vw;
+  }
+}
+
+

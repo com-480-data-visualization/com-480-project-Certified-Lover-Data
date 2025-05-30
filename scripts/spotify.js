@@ -65,3 +65,9 @@ function drawPlayer() {
 
 // expose it so your slider code can call it:
 window.drawPlayer = drawPlayer;
+
+// spotify.js
+function embedTrack(trackId, iframeSelector = "#spotify-iframe") {
+  d3.select(iframeSelector)
+    .attr("src", `https://open.spotify.com/embed/track/${trackId}`);
+}
