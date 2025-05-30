@@ -96,7 +96,6 @@ function renderBillboardOriginal(tracks, container, draggable=true, usedIds=[]) 
     return `
       <tr class="billboard-row${used?" disabled":""}" draggable="${draggable && !used}" data-index="${idx}" data-id="${id}" style="${used?'opacity:0.43;pointer-events:none;':""}">
         <td class="billboard-rank">${idx+1}</td>
-        <td><img class="billboard-cover" src="${track.cover||'https://via.placeholder.com/54'}" alt=""></td>
         <td>
           <div class="billboard-title">${track.song}</div>
           <div class="billboard-artist">${track.performer}</div>
