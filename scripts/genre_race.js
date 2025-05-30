@@ -256,18 +256,24 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --- Main Data Loading and Drawing ---
-  Promise.all(files.map(f => d3.csv(f, d => ({
-    Year: +d.Year,
-    Month: d.Month,
-    WeekIndex: +d.WeekIndex,
-    Genre: d.Genre,
-    genre_weekly_score: +d.genre_weekly_score,
-    weekly_position: +d.weekly_position,
-    Performer: d.Performer || d.performer,
-    Song: d.Song || d.title,
-    spotify_track_id: d.spotify_track_id,
-    spotify_track_preview_url: d.spotify_track_preview_url
-  }))).catch(error => {console.warn(`❌ Failed to load file: ${f}`, error); return [];})
+  Promise.all(
+    files.map(f =>
+      d3.csv(f, d => ({
+        Year: +d.Year,
+        Month: d.Month,
+        WeekIndex: +d.WeekIndex,
+        Genre: d.Genre,
+        genre_weekly_score: +d.genre_weekly_score,
+        weekly_position: +d.weekly_position,
+        Performer: d.Performer || d.performer,
+        Song: d.Song || d.title,
+        spotify_track_id: d.spotify_track_id,
+        spotify_track_preview_url: d.spotify_track_preview_url
+      })).catch(error => {
+        console.warn(`❌ Failed to load file: ${f}`, error);
+        return [];
+      })
+    )
   ).then(allDataArrays => {
     const rawData = allDataArrays.flat().filter(d => d.weekly_position >= 1 && d.weekly_position <= 10);
     minYear = d3.min(rawData, d => d.Year);
