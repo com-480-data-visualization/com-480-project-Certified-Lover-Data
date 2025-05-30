@@ -10,8 +10,19 @@ function embedTrack(trackId) {
 function drawPlayer() {
   const countries = [
     "Netherlands","Philippines","New Zealand","Singapore","Peru","India",
-    /* … etc … */
-    "Honduras","Estonia","Ukraine"
+    "Denmark","Belarus","Italy","Korea Republic of","Türkiye",
+    "Venezuela Bolivarian Republic of","Romania","Chile","Lithuania",
+    "Slovakia","Indonesia","Norway","Mexico","Morocco","Japan",
+    "Uruguay","Ireland","Finland","Egypt","United States",
+    "Dominican Republic","Viet Nam","United Kingdom","Germany",
+    "Pakistan","Bulgaria","Canada","United Arab Emirates","France",
+    "South Africa","Thailand","Portugal","Spain","Luxembourg","Paraguay",
+    "Nicaragua","Costa Rica","Austria","Latvia","Israel","Brazil",
+    "Greece","Sweden","Belgium","Czechia","Hong Kong","Australia",
+    "Bolivia Plurinational State of","Nigeria","Malaysia","Switzerland",
+    "Panama","Taiwan Province of China","Ecuador","El Salvador",
+    "Saudi Arabia","Iceland","Hungary","Argentina","Kazakhstan",
+    "Poland","Colombia","Guatemala","Honduras","Estonia","Ukraine"
   ];
 
   // 1) grab the <select id="country-select">
