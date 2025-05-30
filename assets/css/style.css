@@ -880,7 +880,7 @@ body, html {
 }
 
 #slide6-2 .genre-card {
-  margin: 32px auto 0 auto;
+  margin: 20px auto 0 auto;
   background: #eef3fe;
   color: #255fd7;
   font-size: 1.23rem;
@@ -892,8 +892,8 @@ body, html {
 }
 
 #slide6-2 .similar-track-card {
-  margin-top: 36px;
-  padding: 24px 26px;
+  margin-top: 20px;
+  padding: 10px 14px;
   background: #edfbf7;
   border-radius: 17px;
   min-height: 54px;
