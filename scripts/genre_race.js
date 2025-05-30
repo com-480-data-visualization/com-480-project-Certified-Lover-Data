@@ -276,6 +276,8 @@ document.addEventListener("DOMContentLoaded", function () {
       d.timeIndex = d.monthOffset + (d.WeekIndex - 1) / 4;
     });
     const genres = d3.group(rawData, d => d.Genre);
+    window.rawData = rawData;
+    window.genres = genres;
     const genreList = [...genres.keys()];
     // Use the same fixed color scale as your CSS for consistency
     const genreColor = d3.scaleOrdinal()
