@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
       `;
     }
   }
-  let isPlaying = false;
+  let isPlaying = true;
   setPlayPauseIcon(isPlaying);
   document.getElementById("togglePlay").onclick = () => {
     isPlaying = !isPlaying;
