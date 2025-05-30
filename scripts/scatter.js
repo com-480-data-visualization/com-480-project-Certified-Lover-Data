@@ -81,10 +81,18 @@
         .style('position','absolute').style('padding','8px').style('background','white')
         .style('border','1px solid #ccc').style('border-radius','5px').style('pointer-events','none')
         .style('display','none');
-
-      svg.selectAll('circle').data(data).enter().append('circle')
-        .attr('cx', d=>x(d.x)).attr('cy', d=>y(d.y)).attr('r',6)
-        .attr('fill', d=>genreColor(d.broad_genre.toLowerCase()))
+      svg.selectAll('circle')
+        .data(data)
+        .enter().append('circle')
+          .attr('cx', d => x(d.x))
+          .attr('cy', d => y(d.y))
+          .attr('r', 0)                            // start invisible
+          .attr('fill', d => genreColor(d.broad_genre.toLowerCase()))
+        .transition()                             // then pop in
+          .delay((d,i) => i * 50)                 // stagger a bit
+          .duration(600)
+          .ease(d3.easeBackOut)
+          .attr('r', 6);  
         .on('mouseover', (e,d) => {
           tooltip.html(
             `<strong><span style="color:${genreColor(d.broad_genre.toLowerCase())};font-weight:bold">🎧 ${d.broad_genre}</span></strong><br>`+
