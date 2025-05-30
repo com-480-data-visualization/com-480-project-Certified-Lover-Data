@@ -112,6 +112,12 @@ document.getElementById('similar-btn').addEventListener('click', async function(
         <span style="font-size:0.97rem; color:#236d59;">(${bestTrack.Year}), Peak Billboard position: #${bestTrack.weekly_position}</span>`);
     if (bestTrack.spotify_track_id) {
       // embedTrack function assumed to be in scripts/spotify.js
+      window.embedTrack = function(trackId, iframeSelector) {
+      const iframe = document.querySelector(iframeSelector);
+      if (!iframe || !trackId) return;
+      iframe.src = "https://open.spotify.com/embed/track/" + trackId + "?theme=0";
+      iframe.style.display = "block";
+      };
       embedTrack(bestTrack.spotify_track_id, "#spotify-iframe");
     } else {
       d3.select("#spotify-iframe").attr("src", "");
