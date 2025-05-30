@@ -8,7 +8,7 @@
 /* globals drawMap, drawCorrelationHeatmap, drawScatter */
 
 let currentSlide = 0;
-const totalSlides = 10;
+const totalSlides = 11;
 
 export function nextSlide () {
   if (currentSlide < totalSlides - 1) {
@@ -56,9 +56,7 @@ function updateSlide () {
   if ((currentSlide === 4 || currentSlide === 8) && !window.scatterDrawn) {
     drawScatter();
     window.scatterDrawn = true;
-  }
-  
-
+  }  
 }
 
 // =========================================================
