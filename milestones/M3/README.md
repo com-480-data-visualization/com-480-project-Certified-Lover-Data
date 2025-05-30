@@ -17,21 +17,21 @@ We leverage interactive maps, correlation analysis, time-based genre evolution, 
 
 ```plaintext
 .
-├── _layouts/                # Jekyll layout templates (used for GitHub Pages)
-├── assets/                  # Visual assets (images, icons, screencast)
-├── data/                    # Cleaned & structured datasets (Spotify, Billboard, etc.)
-├── data_preprocessing/      # Jupyter Notebooks and Python scripts for data wrangling
-├── milestones/              # Milestone documents including the process book PDF
-├── scripts/                 # scripts files for the website
-├── correlation.html         # Correlation matrix of musical features
-├── genre_race.html          # Animated genre race plot over time
-├── genrify.html             # Spotify-based genre explorer with audio previews
-├── map.html                 # Choropleth world map of genre dominance by country
-├── scatter.html             # Scatterplot comparing multiple genre features
-├── README.md                # Project README (you are here)
-├── _config.yml              # Jekyll configuration for GitHub Pages
-├── Gemfile / Gemfile.lock   # Jekyll dependencies
-└── .gitignore               # Files to ignore in version control
+├── _layouts/                
+├── assets/                  
+├── data/                    
+├── data_preprocessing/      
+├── milestones/              
+├── scripts/                 
+├── correlation.html         
+├── genre_race.html          
+├── genrify.html            
+├── map.html                 
+├── scatter.html             
+├── README.md                
+├── _config.yml              
+├── Gemfile / Gemfile.lock   
+└── .gitignore               
 
 ```
 ---
