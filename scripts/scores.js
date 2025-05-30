@@ -258,13 +258,14 @@ function enableDragAndDrop() {
 }
 
 function checkUserComplete() {
-  if (userTop10.filter(t=>t).length===10) {
-    const btn = document.getElementById("see-genre-rankings");
+  const btn = document.getElementById("see-genre-rankings");
+  
+  if (userTop10.filter(t => t).length === 10) {
     btn.style.display = "";
-    setTimeout(()=>btn.classList.add("active"),50);
+    btn.classList.add("active"); // Add the active class immediately without delay
   } else {
-    document.getElementById("see-genre-rankings").classList.remove("active");
-    document.getElementById("see-genre-rankings").style.display="none";
+    btn.classList.remove("active");
+    btn.style.display = "none";
   }
 }
 
@@ -272,6 +273,7 @@ document.getElementById("refresh-billboard-week").onclick = refreshRandomWeek;
 document.getElementById("see-genre-rankings").onclick = () => {
   const results = updateGenreRankings(userTop10);
   animateGenreBillboard(results, userTop10);
+  
   const resultsSection = document.getElementById("genre-billboard-results");
   if (resultsSection) {
     resultsSection.scrollIntoView({ behavior: "smooth" });
