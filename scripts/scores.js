@@ -272,6 +272,10 @@ document.getElementById("refresh-billboard-week").onclick = refreshRandomWeek;
 document.getElementById("see-genre-rankings").onclick = () => {
   const results = updateGenreRankings(userTop10);
   animateGenreBillboard(results, userTop10);
+  const resultsSection = document.getElementById("genre-billboard-results");
+  if (resultsSection) {
+    resultsSection.scrollIntoView({ behavior: "smooth" });
+  }
 };
 
 refreshRandomWeek();
