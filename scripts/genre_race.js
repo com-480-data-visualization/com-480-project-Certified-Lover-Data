@@ -56,10 +56,14 @@ document.addEventListener("DOMContentLoaded", function () {
     .classed("decade-tick", true)
     .style("cursor", "pointer")
     .on("click", (event, d) => {
-      selectedYear = d;
+      if (d === 1950) {
+        selectedYear = 1959;
+      } else {
+        selectedYear = d;
+      }
       selectedMonth = "Jan";
       updateOffsetFromSelection();
-      updateDecadeTickHighlight(d);
+      updateDecadeTickHighlight(Math.floor(selectedYear / 10) * 10);
       showYearsMonths(selectedYear, selectedMonth);
     });
 
