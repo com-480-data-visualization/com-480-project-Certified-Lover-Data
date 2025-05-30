@@ -10,14 +10,23 @@ function embedTrack(trackId) {
 function drawPlayer() {
   const countries = [
     "Netherlands","Philippines","New Zealand","Singapore","Peru","India",
-    /* … etc … */
-    "Honduras","Estonia","Ukraine"
+    "Denmark","Belarus","Italy","Korea Republic of","Türkiye",
+    "Venezuela Bolivarian Republic of","Romania","Chile","Lithuania",
+    "Slovakia","Indonesia","Norway","Mexico","Morocco","Japan",
+    "Uruguay","Ireland","Finland","Egypt","United States",
+    "Dominican Republic","Viet Nam","United Kingdom","Germany",
+    "Pakistan","Bulgaria","Canada","United Arab Emirates","France",
+    "South Africa","Thailand","Portugal","Spain","Luxembourg","Paraguay",
+    "Nicaragua","Costa Rica","Austria","Latvia","Israel","Brazil",
+    "Greece","Sweden","Belgium","Czechia","Hong Kong","Australia",
+    "Bolivia Plurinational State of","Nigeria","Malaysia","Switzerland",
+    "Panama","Taiwan Province of China","Ecuador","El Salvador",
+    "Saudi Arabia","Iceland","Hungary","Argentina","Kazakhstan",
+    "Poland","Colombia","Guatemala","Honduras","Estonia","Ukraine"
   ];
 
-  // 1) grab the <select id="country-select">
   const sel = d3.select("#country-select");
 
-  // 2) populate its <option>s
   sel.html("")
     .selectAll("option")
     .data(countries)
@@ -25,7 +34,6 @@ function drawPlayer() {
       .attr("value", d => d)
       .text(d => d);
 
-  // 3) on change → load CSV → embed top-1 track
   sel.on("change", function() {
     const country  = this.value;
     const safeName = encodeURIComponent(country);  // handles spaces, accents

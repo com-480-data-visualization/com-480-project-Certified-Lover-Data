@@ -89,16 +89,21 @@
               .attr('stroke', '#111').attr('stroke-width', 1.5);
 
             tooltip.html(`
-            <strong>${d.properties.name}</strong><br>
-            🎧 <span style="color:${genreColor(v.genre.toLowerCase())};font-weight:bold">${v.genre}</span><br>
-            💃 ${v.dance.toFixed(2)} /0.99<br>
-            ⚡️ ${v.energy.toFixed(2)} /1<br>
-            😊 ${v.valence.toFixed(2)} /0.99<br>
-            🎵 ${v.tempo.toFixed(0)} BPM<br>
-            🔥 ${v.popularity.toFixed(0)} /100<br>
-            <em style="font-size:0.8rem;color:#888">All values are means (2023-10-18→2025-05-11)</em>
-          `).style("display","block");
-        })
+              <strong>${d.properties.name}</strong><br>
+              🎧 Genre: <span style="color:${genreColor(info.genre.toLowerCase())};font-weight:bold">
+                ${info.genre}
+              </span><br>
+              💃 Danceability: ${info.dance} / 0.99<br>
+              ⚡️ Energy: ${info.energy} / 1.00<br>
+              😊 Valence: ${info.valence} / 0.99<br>
+              🎵 Tempo: ${info.tempo} BPM<br>
+              🔥 Popularity: ${info.popularity} / 100<br>
+              <em style="font-size:0.8rem;color:#888">
+                All values are means (2023-10-18→2025-05-11)
+              </em>
+            `)
+            .style("display","block");
+          })
           .on('mousemove', e => tooltip.style('left', `${e.pageX+10}px`).style('top', `${e.pageY-28}px`))
           .on('mouseout', function (event, d) {
             d3.select(this)
