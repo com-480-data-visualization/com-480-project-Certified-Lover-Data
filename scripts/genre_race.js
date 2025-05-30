@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const containerX = (width + margin.left + margin.right - totalGridW) / 2;
   const containerY = height + margin.top + 80;
 
-  const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const monthShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   function showYearsMonths(year, monthStr) {
@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const files = [];
   for (let year = 1959; year <= 2020; year++) {
     for (const month of months) {
-      files.push(`data/billboard_${month}_${year}.csv`);
+      files.push(`/data/billboard_${month.toLowerCase()}_${year}.csv`);
     }
   }
 
