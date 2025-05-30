@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const files = [];
   for (let year = 1959; year <= 2020; year++) {
     for (const month of months) {
-      files.push(`/data/billboard_${month.toLowerCase()}_${year}.csv`);
+      files.push(`${window.BASE_URL}/data/billboard_${month.toLowerCase()}_${year}.csv`);
     }
   }
 
