@@ -77,9 +77,12 @@
 </section>
 
 <script>
-  window.BASE_URL = "{{ site.baseurl }}" || "/com-480-project-Certified-Lover-Data";
+  window.BASE_URL = window.location.pathname.includes("com-480-project-Certified-Lover-Data")
+    ? "/com-480-project-Certified-Lover-Data"
+    : "";
 </script>
 <script src="scripts/genre_race.js"></script>
+
 
 
 </body>
